@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import NewJob from "./pages/NewJob";
 import JobDetail from "./pages/JobDetail";
+import Reference from "./pages/Reference";
 
 function Router() {
   return (
@@ -16,6 +17,7 @@ function Router() {
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/jobs/new" component={NewJob} />
       <Route path="/jobs/:id" component={JobDetail} />
+      <Route path="/reference" component={Reference} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

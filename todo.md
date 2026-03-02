@@ -47,3 +47,6 @@
 - [ ] Client portal for homeowners
 - [ ] Stripe payment processing for fee collection
 - [ ] Code reference library page (/reference)
+
+## Bug Fixes
+- [x] Fix Code Reference page 404 — build the /reference page and register the route
