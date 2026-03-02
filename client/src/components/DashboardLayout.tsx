@@ -167,9 +167,11 @@ function DashboardLayoutContent({
               </button>
               {!isCollapsed && (
                 <div className="flex items-center gap-2 min-w-0">
-                  <div className="w-6 h-6 rounded bg-sidebar-primary flex items-center justify-center shrink-0">
-                    <Building2 className="w-3.5 h-3.5 text-sidebar-primary-foreground" />
-                  </div>
+                  <img
+                    src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/favicon_24766f08.png"
+                    alt="Conscious Capital"
+                    className="w-6 h-6 rounded object-cover shrink-0"
+                  />
                   <span className="font-bold text-sidebar-foreground truncate text-sm">
                     SupplementAI
                   </span>

@@ -77,10 +77,13 @@ export default function Home() {
       <nav className="border-b border-border bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container flex items-center justify-between h-16">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-              <Building2 className="w-4 h-4 text-primary-foreground" />
-            </div>
+            <img
+              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/favicon_24766f08.png"
+              alt="Conscious Capital"
+              className="w-8 h-8 rounded-lg object-cover"
+            />
             <span className="font-bold text-lg text-foreground">SupplementAI</span>
+            <span className="hidden sm:inline text-xs text-muted-foreground font-normal">by Conscious Capital</span>
           </div>
           <div className="flex items-center gap-3">
             {!loading && (
@@ -113,14 +116,14 @@ export default function Home() {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-sm mb-6">
               <Zap className="w-3.5 h-3.5 text-accent" />
-              <span>AI-Powered Roofing Supplement Recovery</span>
+              <span>Consciously Supplement with Confidence</span>
             </div>
             <h1 className="text-4xl lg:text-6xl font-extrabold leading-tight mb-6">
-              Recover Every Dollar
-              <span className="block text-accent">Adjusters Leave Behind</span>
+              Consciously Supplement
+              <span className="block text-accent">Own Every Outcome.</span>
             </h1>
             <p className="text-lg lg:text-xl text-white/80 mb-8 max-w-2xl">
-              Upload an Xactimate estimate, get a complete supplement report with every missing line item, Xactimate codes, code references, and a professional adjuster email — in under 5 minutes.
+              Stop outsourcing your supplements to middlemen. Upload your Xactimate estimate, get every missing line item, code reference, and a professional adjuster email — in under 5 minutes. No specialists. No splits. Full control.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button

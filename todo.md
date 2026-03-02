@@ -50,3 +50,5 @@
 
 ## Bug Fixes
 - [x] Fix Code Reference page 404 — build the /reference page and register the route
+- [x] Add Conscious Capital logo as favicon and Open Graph link preview image
+- [x] Update app title and tagline to "Consciously Supplement with Confidence. Own Every Outcome."
