@@ -45,10 +45,19 @@
 - [ ] SMS/email notifications on status change
 - [ ] Bulk supplement report PDF export
 - [ ] Client portal for homeowners
-- [ ] Stripe payment processing for fee collection
+- [x] Stripe payment processing for fee collection
 - [ ] Code reference library page (/reference)
 
 ## Bug Fixes
 - [x] Fix Code Reference page 404 — build the /reference page and register the route
 - [x] Add Conscious Capital logo as favicon and Open Graph link preview image
 - [x] Update app title and tagline to "Consciously Supplement with Confidence. Own Every Outcome."
+
+## Stripe Integration
+- [x] Install Stripe SDK and scaffold feature
+- [x] Build Stripe checkout session endpoint (in-app Pay Now)
+- [x] Build Stripe invoice creation and email endpoint
+- [x] Build Stripe webhook for payment confirmation
+- [x] Frontend: Pay Now button on approved jobs
+- [x] Frontend: Payment status display and invoice trigger
+- [x] Write Stripe integration tests

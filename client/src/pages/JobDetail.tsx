@@ -875,6 +875,8 @@ function PaymentTab({ job, jobId }: { job: any; jobId: number }) {
   const utils = trpc.useUtils();
   const [recoveredAmount, setRecoveredAmount] = useState(String(job.recoveredAmount || ""));
   const [feePercentage, setFeePercentage] = useState(String(job.feePercentage || "12"));
+  const [contractorEmail, setContractorEmail] = useState(job.adjusterEmail || "");
+  const [contractorName, setContractorName] = useState(job.homeownerName || "");
 
   const { data: calc } = trpc.calculator.calculate.useQuery(
     {
@@ -884,24 +886,96 @@ function PaymentTab({ job, jobId }: { job: any; jobId: number }) {
     { enabled: !!recoveredAmount && parseFloat(recoveredAmount) > 0 }
   );
 
+  const { data: paymentStatus, refetch: refetchPayment } = trpc.stripe.getPaymentStatus.useQuery(
+    { jobId },
+    { refetchInterval: job.paymentStatus !== "paid" ? 10000 : false }
+  );
+
   const updateJob = trpc.jobs.update.useMutation({
     onSuccess: () => {
       utils.jobs.get.invalidate({ id: jobId });
       utils.jobs.stats.invalidate();
+      refetchPayment();
       toast.success("Payment info saved");
     },
   });
 
+  const createCheckout = trpc.stripe.createCheckoutSession.useMutation({
+    onSuccess: (data) => {
+      if (data.url) {
+        toast.info("Redirecting to Stripe checkout...");
+        window.open(data.url, "_blank");
+      }
+    },
+    onError: (err) => toast.error(err.message),
+  });
+
+  const sendInvoice = trpc.stripe.sendInvoice.useMutation({
+    onSuccess: (data) => {
+      utils.jobs.get.invalidate({ id: jobId });
+      refetchPayment();
+      toast.success("Invoice sent to contractor via email!");
+    },
+    onError: (err) => toast.error(err.message),
+  });
+
   const handleSave = () => {
-    updateJob.mutate({
-      id: jobId,
-      recoveredAmount,
-      feePercentage,
-    });
+    updateJob.mutate({ id: jobId, recoveredAmount, feePercentage });
   };
+
+  const handlePayNow = () => {
+    if (!job.feeAmount || Number(job.feeAmount) <= 0) {
+      toast.error("Save payment info first to set the fee amount.");
+      return;
+    }
+    createCheckout.mutate({ jobId, origin: window.location.origin });
+  };
+
+  const handleSendInvoice = () => {
+    if (!contractorEmail) {
+      toast.error("Enter the contractor's email address.");
+      return;
+    }
+    if (!job.feeAmount || Number(job.feeAmount) <= 0) {
+      toast.error("Save payment info first to set the fee amount.");
+      return;
+    }
+    sendInvoice.mutate({ jobId, contractorEmail, contractorName });
+  };
+
+  const isPaid = paymentStatus?.paymentStatus === "paid" || job.paymentStatus === "paid";
+  const isInvoiceSent = paymentStatus?.paymentStatus === "invoice_sent";
 
   return (
     <div className="space-y-4 max-w-lg">
+      {/* Payment Status Banner */}
+      {isPaid && (
+        <Card className="border-emerald-300 bg-emerald-50">
+          <CardContent className="p-4 flex items-center gap-3">
+            <CheckCircle className="w-5 h-5 text-emerald-600 shrink-0" />
+            <div>
+              <p className="font-semibold text-emerald-800 text-sm">Payment Received</p>
+              <p className="text-xs text-emerald-600">
+                {job.paidAt ? `Paid on ${new Date(job.paidAt).toLocaleDateString()}` : "Fee collected successfully"}
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {isInvoiceSent && !isPaid && (
+        <Card className="border-amber-300 bg-amber-50">
+          <CardContent className="p-4 flex items-center gap-3">
+            <Send className="w-5 h-5 text-amber-600 shrink-0" />
+            <div>
+              <p className="font-semibold text-amber-800 text-sm">Invoice Sent — Awaiting Payment</p>
+              <p className="text-xs text-amber-600">The contractor received a Stripe invoice via email.</p>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Fee Calculator */}
       <Card>
         <CardHeader className="pb-3">
           <CardTitle className="text-base">Fee Calculator</CardTitle>
@@ -918,6 +992,7 @@ function PaymentTab({ job, jobId }: { job: any; jobId: number }) {
                 placeholder="0.00"
                 value={recoveredAmount}
                 onChange={(e) => setRecoveredAmount(e.target.value)}
+                disabled={isPaid}
               />
             </div>
             <div className="space-y-1.5">
@@ -929,6 +1004,7 @@ function PaymentTab({ job, jobId }: { job: any; jobId: number }) {
                 step="0.5"
                 value={feePercentage}
                 onChange={(e) => setFeePercentage(e.target.value)}
+                disabled={isPaid}
               />
             </div>
           </div>
@@ -950,31 +1026,102 @@ function PaymentTab({ job, jobId }: { job: any; jobId: number }) {
             </div>
           )}
 
-          <Button onClick={handleSave} disabled={updateJob.isPending} className="gap-2">
-            {updateJob.isPending && <Loader2 className="w-4 h-4 animate-spin" />}
-            Save Payment Info
-          </Button>
+          {!isPaid && (
+            <Button onClick={handleSave} disabled={updateJob.isPending} variant="outline" className="gap-2">
+              {updateJob.isPending && <Loader2 className="w-4 h-4 animate-spin" />}
+              Save Payment Info
+            </Button>
+          )}
         </CardContent>
       </Card>
 
-      {/* Current Saved Values */}
-      {job.recoveredAmount && (
-        <Card className="border-emerald-200 bg-emerald-50/50">
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2 mb-3">
-              <CheckCircle className="w-4 h-4 text-emerald-600" />
-              <span className="font-semibold text-emerald-800 text-sm">Saved Payment Summary</span>
-            </div>
-            <div className="space-y-1.5 text-sm">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Recovered</span>
-                <span className="font-medium">{formatCurrency(job.recoveredAmount)}</span>
+      {/* Collect Payment */}
+      {!isPaid && job.feeAmount && Number(job.feeAmount) > 0 && (
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base flex items-center gap-2">
+              <DollarSign className="w-4 h-4 text-primary" />
+              Collect Your Fee — {formatCurrency(job.feeAmount)}
+            </CardTitle>
+            <CardDescription className="text-xs">
+              Choose how to collect your supplement recovery fee from the contractor.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {/* Option 1: Pay Now (contractor pays in-app) */}
+            <div className="border border-border rounded-lg p-4 space-y-3">
+              <div>
+                <p className="font-medium text-sm">Option 1 — Pay Now (In-App)</p>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  Open a Stripe checkout page. The contractor pays your fee directly with a card.
+                </p>
               </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Your Fee ({job.feePercentage}%)</span>
-                <span className="font-bold text-emerald-700">{formatCurrency(job.feeAmount)}</span>
-              </div>
+              <Button
+                onClick={handlePayNow}
+                disabled={createCheckout.isPending}
+                className="w-full gap-2"
+              >
+                {createCheckout.isPending ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <DollarSign className="w-4 h-4" />
+                )}
+                Pay Now via Stripe — {formatCurrency(job.feeAmount)}
+              </Button>
+              <p className="text-xs text-muted-foreground">Test card: 4242 4242 4242 4242 · Any future date · Any CVC</p>
             </div>
+
+            {/* Option 2: Send Invoice */}
+            <div className="border border-border rounded-lg p-4 space-y-3">
+              <div>
+                <p className="font-medium text-sm">Option 2 — Send Invoice via Email</p>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  Stripe emails the contractor a professional invoice. They pay from their inbox.
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1.5">
+                  <Label className="text-xs">Contractor Email *</Label>
+                  <Input
+                    type="email"
+                    placeholder="contractor@company.com"
+                    value={contractorEmail}
+                    onChange={(e) => setContractorEmail(e.target.value)}
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label className="text-xs">Contractor Name</Label>
+                  <Input
+                    placeholder="John Smith"
+                    value={contractorName}
+                    onChange={(e) => setContractorName(e.target.value)}
+                  />
+                </div>
+              </div>
+              <Button
+                onClick={handleSendInvoice}
+                disabled={sendInvoice.isPending || isInvoiceSent}
+                variant="outline"
+                className="w-full gap-2"
+              >
+                {sendInvoice.isPending ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <Send className="w-4 h-4" />
+                )}
+                {isInvoiceSent ? "Invoice Already Sent" : `Send Invoice — ${formatCurrency(job.feeAmount)}`}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Prompt to save first */}
+      {!isPaid && (!job.feeAmount || Number(job.feeAmount) <= 0) && (
+        <Card className="border-dashed">
+          <CardContent className="p-4 text-center text-sm text-muted-foreground">
+            <DollarSign className="w-8 h-8 mx-auto mb-2 opacity-30" />
+            Enter the recovered amount above and click <strong>Save Payment Info</strong> to unlock payment collection.
           </CardContent>
         </Card>
       )}

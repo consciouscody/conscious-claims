@@ -18,6 +18,7 @@ export const users = mysqlTable("users", {
   role: mysqlEnum("role", ["user", "admin"]).default("user").notNull(),
   companyName: text("companyName"),
   phone: varchar("phone", { length: 32 }),
+  stripeCustomerId: varchar("stripeCustomerId", { length: 128 }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
@@ -63,6 +64,11 @@ export const jobs = mysqlTable("jobs", {
     .default("draft")
     .notNull(),
   notes: text("notes"),
+  // Stripe payment tracking
+  stripePaymentIntentId: varchar("stripePaymentIntentId", { length: 128 }),
+  stripeInvoiceId: varchar("stripeInvoiceId", { length: 128 }),
+  paymentStatus: mysqlEnum("paymentStatus", ["unpaid", "invoice_sent", "paid"]).default("unpaid"),
+  paidAt: timestamp("paidAt"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });

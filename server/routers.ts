@@ -26,8 +26,10 @@ import {
 } from "./db";
 import { detectMissingItems, SUPPLEMENT_KNOWLEDGE_BASE } from "./supplementKnowledgeBase";
 import { invokeLLM } from "./_core/llm";
+import { stripeRouter } from "./stripeRouter";
 
 export const appRouter = router({
+  stripe: stripeRouter,
   system: systemRouter,
   auth: router({
     me: publicProcedure.query((opts) => opts.ctx.user),
