@@ -89,3 +89,6 @@
 ## SEO Fixes
 - [x] Meta description too long (171 chars) — trimmed to 138 characters
 - [x] No meta keywords tag — added 10 targeted roofing supplement keywords
+
+## Bug Fixes (Phase 5)
+- [x] Sign In button and all nav links broken on live published site — confirmed working on live site: Sign In → Manus login, Pricing → /pricing, View Demo → /demo, all buttons navigate correctly
