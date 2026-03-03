@@ -82,3 +82,6 @@
 ## Bug Fixes (Phase 3)
 - [x] Favicon not showing on live site — /favicon.ico returns 204, fix via CDN URL in link tag
 - [x] Stage photo crop in Team section — face not visible, only top of head showing
+
+## Bug Fixes (Phase 4)
+- [x] Sign In button and nav links on landing page not working — confirmed working, was showing Go to Dashboard because user was already logged in
