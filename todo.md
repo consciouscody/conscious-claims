@@ -85,3 +85,7 @@
 
 ## Bug Fixes (Phase 4)
 - [x] Sign In button and nav links on landing page not working — confirmed working, was showing Go to Dashboard because user was already logged in
+
+## SEO Fixes
+- [x] Meta description too long (171 chars) — trimmed to 138 characters
+- [x] No meta keywords tag — added 10 targeted roofing supplement keywords
