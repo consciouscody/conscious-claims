@@ -172,6 +172,60 @@ export const stripeRouter = router({
       return { invoiceId: finalizedInvoice.id, invoiceUrl: finalizedInvoice.hosted_invoice_url };
     }),
 
+  // Create a subscription checkout session for SupplementAI plans
+  createSubscriptionCheckout: protectedProcedure
+    .input(
+      z.object({
+        priceId: z.string(),
+        origin: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const customerId = await getOrCreateStripeCustomer(ctx.user.id, ctx.user.email, ctx.user.name);
+
+      // Map plan IDs to prices (using Stripe price_data for flexibility)
+      const PLAN_PRICES: Record<string, { name: string; amount: number; interval: "month" | "year" }> = {
+        starter_monthly: { name: "SupplementAI Starter", amount: 9700, interval: "month" },
+        pro_monthly: { name: "SupplementAI Pro", amount: 19700, interval: "month" },
+        agency_monthly: { name: "SupplementAI Agency", amount: 39700, interval: "month" },
+        starter_annual: { name: "SupplementAI Starter (Annual)", amount: 94800, interval: "year" },
+        pro_annual: { name: "SupplementAI Pro (Annual)", amount: 190800, interval: "year" },
+        agency_annual: { name: "SupplementAI Agency (Annual)", amount: 382800, interval: "year" },
+      };
+
+      const plan = PLAN_PRICES[input.priceId];
+      if (!plan) throw new TRPCError({ code: "BAD_REQUEST", message: "Invalid plan selected" });
+
+      const session = await stripe.checkout.sessions.create({
+        customer: customerId,
+        payment_method_types: ["card"],
+        line_items: [
+          {
+            price_data: {
+              currency: "usd",
+              product_data: { name: plan.name },
+              unit_amount: plan.amount,
+              recurring: { interval: plan.interval },
+            },
+            quantity: 1,
+          },
+        ],
+        mode: "subscription",
+        allow_promotion_codes: true,
+        client_reference_id: ctx.user.id.toString(),
+        metadata: {
+          user_id: ctx.user.id.toString(),
+          plan_id: input.priceId,
+          customer_email: ctx.user.email || "",
+          customer_name: ctx.user.name || "",
+        },
+        success_url: `${input.origin}/dashboard?subscription=success`,
+        cancel_url: `${input.origin}/pricing?subscription=cancelled`,
+      });
+
+      return { url: session.url };
+    }),
+
   // Get payment status for a job
   getPaymentStatus: protectedProcedure
     .input(z.object({ jobId: z.number() }))

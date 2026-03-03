@@ -27,6 +27,7 @@ import {
 import { detectMissingItems, SUPPLEMENT_KNOWLEDGE_BASE } from "./supplementKnowledgeBase";
 import { invokeLLM } from "./_core/llm";
 import { stripeRouter } from "./stripeRouter";
+import { notifyOwner } from "./_core/notification";
 
 export const appRouter = router({
   stripe: stripeRouter,
@@ -66,7 +67,7 @@ export const appRouter = router({
         })
       )
       .mutation(async ({ ctx, input }) => {
-        await createJob({
+        const job = await createJob({
           userId: ctx.user.id,
           propertyAddress: input.propertyAddress,
           homeownerName: input.homeownerName,
@@ -80,6 +81,11 @@ export const appRouter = router({
           feePercentage: input.feePercentage || "12.00",
           status: "draft",
         });
+        // Notify owner of new job
+        notifyOwner({
+          title: `New Job Created`,
+          content: `${ctx.user.name || ctx.user.email} created a new job: ${input.propertyAddress}${input.claimNumber ? ` (Claim: ${input.claimNumber})` : ""}${input.insuranceCarrier ? ` — ${input.insuranceCarrier}` : ""}`,
+        }).catch(() => {}); // fire-and-forget
         return { success: true };
       }),
 
@@ -132,6 +138,19 @@ export const appRouter = router({
       )
       .mutation(async ({ ctx, input }) => {
         await updateJobStatus(input.id, ctx.user.id, input.status, input.note);
+        // Notify owner on key status milestones
+        if (["approved", "denied", "paid", "submitted"].includes(input.status)) {
+          const statusLabels: Record<string, string> = {
+            submitted: "Supplement Submitted to Adjuster",
+            approved: "Supplement APPROVED",
+            denied: "Supplement DENIED",
+            paid: "Payment Received",
+          };
+          notifyOwner({
+            title: statusLabels[input.status] || `Job Status: ${input.status}`,
+            content: `Job #${input.id} status changed to "${input.status}" by ${ctx.user.name || ctx.user.email}${input.note ? `. Note: ${input.note}` : ""}.`,
+          }).catch(() => {});
+        }
         return { success: true };
       }),
 

@@ -86,6 +86,9 @@ export default function Home() {
             <span className="hidden sm:inline text-xs text-muted-foreground font-normal">by Conscious Capital</span>
           </div>
           <div className="flex items-center gap-3">
+            <Button variant="ghost" size="sm" onClick={() => navigate("/pricing")} className="hidden sm:flex">
+              Pricing
+            </Button>
             {!loading && (
               isAuthenticated ? (
                 <Button onClick={() => navigate("/dashboard")} size="sm">
@@ -138,7 +141,7 @@ export default function Home() {
                 size="lg"
                 variant="outline"
                 className="border-white/30 text-white bg-white/10 hover:bg-white/20 font-semibold text-base"
-                onClick={handleCTA}
+                onClick={() => navigate("/demo")}
               >
                 View Demo
               </Button>
@@ -246,6 +249,78 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Team / About Section */}
+      <section className="py-20 bg-background border-t border-border">
+        <div className="container">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl font-bold text-foreground mb-3">Built by Someone Who's Been in the Field</h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              SupplementAI was built by a roofing insurance sales professional who got tired of watching contractors leave money on the table. Every feature comes from real-world experience.
+            </p>
+          </div>
+          <div className="max-w-4xl mx-auto">
+            {/* Founder Feature */}
+            <div className="grid md:grid-cols-2 gap-10 items-center mb-16">
+              <div className="relative">
+                <img
+                  src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/generated-image-1(57)_cc50cb7f.png"
+                  alt="Cody Tyler McCain — Founder, Conscious Capital"
+                  className="w-full rounded-2xl object-cover shadow-xl aspect-[3/4] object-top"
+                />
+                <div className="absolute bottom-4 left-4 right-4 bg-primary/90 backdrop-blur-sm rounded-xl p-4 text-white">
+                  <div className="font-bold text-lg">Cody Tyler McCain</div>
+                  <div className="text-sm text-white/80">Founder & CEO, Conscious Capital</div>
+                  <div className="text-xs text-white/60 mt-1">Atlanta, Georgia</div>
+                </div>
+              </div>
+              <div>
+                <div className="inline-flex items-center gap-2 bg-primary/10 text-primary rounded-full px-3 py-1 text-xs font-semibold mb-4">
+                  <Zap className="w-3 h-3" />
+                  Founder's Story
+                </div>
+                <h3 className="text-2xl font-bold text-foreground mb-4">
+                  I built the tool I wish I had when I was in the field.
+                </h3>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  After years working in roofing insurance sales across the Southeast, I watched contractor after contractor leave $3,000–$15,000 per job on the table — not because they didn't deserve it, but because they didn't have the time or the tools to fight for every line item.
+                </p>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  Supplement specialists were taking 30–50% cuts. Adjusters were banking on contractors not knowing the codes. I decided to change that.
+                </p>
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  SupplementAI gives every roofing contractor the same knowledge, the same codes, and the same professional edge — without giving up a percentage of what they earned.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <CheckCircle className="w-4 h-4 text-green-500" />
+                    <span>Years in roofing insurance sales</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <CheckCircle className="w-4 h-4 text-green-500" />
+                    <span>Built for contractors, by a contractor</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Speaking / Authority Photo */}
+            <div className="relative rounded-2xl overflow-hidden shadow-xl">
+              <img
+                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/generated-image-1(60)_da73fc4b.png"
+                alt="Cody Tyler McCain speaking at a roofing industry event"
+                className="w-full object-cover max-h-80 object-top"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex items-end">
+                <div className="p-8 text-white">
+                  <p className="text-xl font-bold mb-1">"Stop splitting your supplements. Own every outcome."</p>
+                  <p className="text-white/70 text-sm">— Cody Tyler McCain, Founder of SupplementAI</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-16 bg-primary text-white">
         <div className="container text-center">
@@ -273,8 +348,12 @@ export default function Home() {
             </div>
             <span className="font-semibold text-foreground">SupplementAI</span>
           </div>
+          <div className="flex items-center gap-6">
+            <button onClick={() => navigate("/pricing")} className="text-sm text-muted-foreground hover:text-foreground transition-colors">Pricing</button>
+            <button onClick={() => window.location.href = getLoginUrl()} className="text-sm text-muted-foreground hover:text-foreground transition-colors">Sign In</button>
+          </div>
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} SupplementAI. Built for roofing professionals.
+            © {new Date().getFullYear()} SupplementAI by Conscious Capital.
           </p>
         </div>
       </footer>

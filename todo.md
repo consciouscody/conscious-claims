@@ -68,3 +68,13 @@
 ## New Features (Phase 2)
 - [x] PDF export button on Supplement tab — download supplement report as PDF
 - [x] Add "Export Report" button to the supplement tab header
+
+## New Features (Phase 3)
+- [x] /pricing page with monthly/annual tiers and Stripe subscription checkout
+- [x] Team/About section on landing page with Cody's photos and founder story
+- [x] /demo page with pre-filled sample job accessible without login
+- [x] View Demo button on home page wired to /demo
+- [x] Owner notifications on new job creation and status changes (approved/denied/paid/submitted)
+- [x] Pricing nav link in header and footer
+- [x] OG image CDN fix — CC seal shows when sharing link
+- [x] Correct domain (conscioussupplements.com) in og:url meta tag
