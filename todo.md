@@ -78,3 +78,7 @@
 - [x] Pricing nav link in header and footer
 - [x] OG image CDN fix — CC seal shows when sharing link
 - [x] Correct domain (conscioussupplements.com) in og:url meta tag
+
+## Bug Fixes (Phase 3)
+- [x] Favicon not showing on live site — /favicon.ico returns 204, fix via CDN URL in link tag
+- [x] Stage photo crop in Team section — face not visible, only top of head showing

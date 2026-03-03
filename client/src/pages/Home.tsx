@@ -308,7 +308,7 @@ export default function Home() {
               <img
                 src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/generated-image-1(60)_da73fc4b.png"
                 alt="Cody Tyler McCain speaking at a roofing industry event"
-                className="w-full object-cover max-h-80 object-top"
+                className="w-full object-cover max-h-96 object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex items-end">
                 <div className="p-8 text-white">
