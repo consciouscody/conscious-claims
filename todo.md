@@ -61,3 +61,10 @@
 - [x] Frontend: Pay Now button on approved jobs
 - [x] Frontend: Payment status display and invoice trigger
 - [x] Write Stripe integration tests
+
+## Branding Fixes
+- [x] Fix favicon and OG preview image — CC seal not showing when link is shared
+
+## New Features (Phase 2)
+- [x] PDF export button on Supplement tab — download supplement report as PDF
+- [x] Add "Export Report" button to the supplement tab header

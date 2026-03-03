@@ -304,6 +304,23 @@ export const appRouter = router({
         }, 0);
         return { total: total.toFixed(2), itemCount: included.length };
       }),
+
+    generatePdfReport: protectedProcedure
+      .input(z.object({ jobId: z.number() }))
+      .mutation(async ({ input }) => {
+        const items = await getSupplementLineItemsByJob(input.jobId);
+        const included = items.filter((i) => i.isIncluded === "yes");
+        const total = included.reduce((sum, item) => {
+          const price = parseFloat(String(item.totalPrice || "0"));
+          return sum + (isNaN(price) ? 0 : price);
+        }, 0);
+        // Return structured data — client will generate PDF using browser print/jsPDF
+        return {
+          items: included,
+          total: total.toFixed(2),
+          itemCount: included.length,
+        };
+      }),
   }),
 
   // ─── Adjuster Emails ─────────────────────────────────────────────────────────
