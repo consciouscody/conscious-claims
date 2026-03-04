@@ -226,6 +226,99 @@ export const stripeRouter = router({
       return { url: session.url };
     }),
 
+  // Create a $27 checkout session for Storm the Door e-book
+  createEbookCheckout: protectedProcedure
+    .input(
+      z.object({
+        origin: z.string(),
+        ebookId: z.enum(["storm_the_door"]),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const EBOOKS: Record<string, { name: string; description: string; amount: number; pdfUrl: string }> = {
+        storm_the_door: {
+          name: "Storm the Door: A Roofing Contractor's Psychological Sales Playbook",
+          description: "20-page field-tested sales playbook — mirroring, frame control, 10 objection rebuttals, and the post-inspection close. My Proven Methods by Conscious Capital.",
+          amount: 2700, // $27.00
+          pdfUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/StormTheDoor_SalesPlaybook_9c5c4059.pdf",
+        },
+      };
+
+      const ebook = EBOOKS[input.ebookId];
+      if (!ebook) throw new TRPCError({ code: "BAD_REQUEST", message: "Invalid ebook" });
+
+      const customerId = await getOrCreateStripeCustomer(ctx.user.id, ctx.user.email, ctx.user.name);
+
+      const session = await stripe.checkout.sessions.create({
+        customer: customerId,
+        payment_method_types: ["card"],
+        line_items: [
+          {
+            price_data: {
+              currency: "usd",
+              product_data: {
+                name: ebook.name,
+                description: ebook.description,
+              },
+              unit_amount: ebook.amount,
+            },
+            quantity: 1,
+          },
+        ],
+        mode: "payment",
+        allow_promotion_codes: true,
+        client_reference_id: ctx.user.id.toString(),
+        metadata: {
+          user_id: ctx.user.id.toString(),
+          ebook_id: input.ebookId,
+          pdf_url: ebook.pdfUrl,
+          customer_email: ctx.user.email || "",
+          customer_name: ctx.user.name || "",
+        },
+        success_url: `${input.origin}/storm-the-door/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${input.origin}/storm-the-door`,
+      });
+
+      return { url: session.url };
+    }),
+
+  // Get ebook purchase status (check if user has bought storm_the_door)
+  getEbookAccess: protectedProcedure
+    .input(z.object({ ebookId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      // Check Stripe for completed payments with this ebook_id in metadata
+      try {
+        const sessions = await stripe.checkout.sessions.list({
+          limit: 100,
+        });
+        const purchased = sessions.data.some(
+          (s) =>
+            s.payment_status === "paid" &&
+            s.metadata?.ebook_id === input.ebookId &&
+            s.metadata?.user_id === ctx.user.id.toString()
+        );
+        return { purchased };
+      } catch {
+        return { purchased: false };
+      }
+    }),
+
+  // Get PDF download URL after successful ebook purchase
+  getEbookDownload: protectedProcedure
+    .input(z.object({ sessionId: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const session = await stripe.checkout.sessions.retrieve(input.sessionId);
+      if (session.payment_status !== "paid") {
+        throw new TRPCError({ code: "FORBIDDEN", message: "Payment not completed" });
+      }
+      if (session.metadata?.user_id !== ctx.user.id.toString()) {
+        throw new TRPCError({ code: "FORBIDDEN", message: "Access denied" });
+      }
+      const pdfUrl = session.metadata?.pdf_url;
+      if (!pdfUrl) throw new TRPCError({ code: "NOT_FOUND", message: "PDF not found" });
+      return { pdfUrl, ebookId: session.metadata?.ebook_id };
+    }),
+
   // Get payment status for a job
   getPaymentStatus: protectedProcedure
     .input(z.object({ jobId: z.number() }))

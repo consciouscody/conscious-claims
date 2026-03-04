@@ -106,3 +106,16 @@
 
 ## Bug Fixes (Phase 6)
 - [x] PDF upload broken — getDocument error "no 'url' parameter provided" — fixed: PDFParse requires data in constructor options, getText returns {pages:[]} not string, both corrected
+
+## Phase 7 — Follow-Up Features
+- [ ] LLM fallback in PDF parser for bulletproof line item detection on any Xactimate format
+- [ ] Admin leads dashboard — view all e-book downloads with name, email, company, phone, date
+- [ ] Admin route protection (owner-only access to leads dashboard)
+
+## Storm the Door — Paid Sales Playbook ($27)
+- [x] Write full e-book content using Cody's real door pitches and frame control tactics
+- [x] Generate professional cover (dark, aggressive, Conscious Capital branded)
+- [x] Build polished PDF with cover, all chapters, and SupplementAI CTA
+- [x] Build /storm-the-door purchase page with Stripe $27 checkout
+- [x] Build /storm-the-door/success page with PDF download after payment
+- [x] Add createEbookCheckout, getEbookAccess, getEbookDownload to stripeRouter
