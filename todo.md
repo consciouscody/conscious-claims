@@ -119,3 +119,8 @@
 - [x] Build /storm-the-door purchase page with Stripe $27 checkout
 - [x] Build /storm-the-door/success page with PDF download after payment
 - [x] Add createEbookCheckout, getEbookAccess, getEbookDownload to stripeRouter
+
+## Storm the Door — Guest Checkout
+- [x] Remove login requirement from /storm-the-door — allow guest Stripe checkout without account
+- [x] Add guest checkout procedure to stripeRouter (no auth required)
+- [ ] Post to LinkedIn, Facebook, Instagram after publish

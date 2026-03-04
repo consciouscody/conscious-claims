@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 import { z } from "zod";
-import { protectedProcedure, router } from "./_core/trpc";
+import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import { getDb } from "./db";
 import { jobs, users } from "../drizzle/schema";
 import { eq } from "drizzle-orm";
@@ -226,8 +226,8 @@ export const stripeRouter = router({
       return { url: session.url };
     }),
 
-  // Create a $27 checkout session for Storm the Door e-book
-  createEbookCheckout: protectedProcedure
+  // Create a $27 checkout session for Storm the Door e-book (no login required)
+  createEbookCheckout: publicProcedure
     .input(
       z.object({
         origin: z.string(),
@@ -247,10 +247,15 @@ export const stripeRouter = router({
       const ebook = EBOOKS[input.ebookId];
       if (!ebook) throw new TRPCError({ code: "BAD_REQUEST", message: "Invalid ebook" });
 
-      const customerId = await getOrCreateStripeCustomer(ctx.user.id, ctx.user.email, ctx.user.name);
+      // Support both logged-in users and guests — Stripe collects email at checkout
+      let customerOptions: { customer?: string } = {};
+      if (ctx.user) {
+        const customerId = await getOrCreateStripeCustomer(ctx.user.id, ctx.user.email, ctx.user.name);
+        customerOptions = { customer: customerId };
+      }
 
       const session = await stripe.checkout.sessions.create({
-        customer: customerId,
+        ...customerOptions,
         payment_method_types: ["card"],
         line_items: [
           {
@@ -267,13 +272,13 @@ export const stripeRouter = router({
         ],
         mode: "payment",
         allow_promotion_codes: true,
-        client_reference_id: ctx.user.id.toString(),
+        client_reference_id: ctx.user ? ctx.user.id.toString() : "guest",
         metadata: {
-          user_id: ctx.user.id.toString(),
+          user_id: ctx.user ? ctx.user.id.toString() : "guest",
           ebook_id: input.ebookId,
           pdf_url: ebook.pdfUrl,
-          customer_email: ctx.user.email || "",
-          customer_name: ctx.user.name || "",
+          customer_email: ctx.user?.email || "",
+          customer_name: ctx.user?.name || "",
         },
         success_url: `${input.origin}/storm-the-door/success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${input.origin}/storm-the-door`,
@@ -303,16 +308,13 @@ export const stripeRouter = router({
       }
     }),
 
-  // Get PDF download URL after successful ebook purchase
-  getEbookDownload: protectedProcedure
+  // Get PDF download URL after successful ebook purchase (no login required — validated by Stripe session)
+  getEbookDownload: publicProcedure
     .input(z.object({ sessionId: z.string() }))
-    .mutation(async ({ ctx, input }) => {
+    .mutation(async ({ input }) => {
       const session = await stripe.checkout.sessions.retrieve(input.sessionId);
       if (session.payment_status !== "paid") {
         throw new TRPCError({ code: "FORBIDDEN", message: "Payment not completed" });
-      }
-      if (session.metadata?.user_id !== ctx.user.id.toString()) {
-        throw new TRPCError({ code: "FORBIDDEN", message: "Access denied" });
       }
       const pdfUrl = session.metadata?.pdf_url;
       if (!pdfUrl) throw new TRPCError({ code: "NOT_FOUND", message: "PDF not found" });

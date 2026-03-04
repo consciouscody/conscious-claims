@@ -2,8 +2,6 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { toast } from "sonner";
 import { trpc } from "@/lib/trpc";
-import { useAuth } from "@/_core/hooks/useAuth";
-import { getLoginUrl } from "@/const";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -11,7 +9,6 @@ const COVER_URL =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/storm-the-door-cover-CskytMqCxhErx4i5UwBFEC.webp";
 
 export default function StormTheDoor() {
-  const { user } = useAuth();
   const [loading, setLoading] = useState(false);
 
   const checkout = trpc.stripe.createEbookCheckout.useMutation({
@@ -20,6 +17,7 @@ export default function StormTheDoor() {
         toast.info("Redirecting to secure checkout...");
         window.open(data.url, "_blank");
       }
+      setLoading(false);
     },
     onError: (err) => {
       toast.error(err.message || "Checkout failed. Please try again.");
@@ -28,10 +26,6 @@ export default function StormTheDoor() {
   });
 
   const handleBuy = () => {
-    if (!user) {
-      window.location.href = getLoginUrl();
-      return;
-    }
     setLoading(true);
     checkout.mutate({ origin: window.location.origin, ebookId: "storm_the_door" });
   };
