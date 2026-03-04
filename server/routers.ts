@@ -25,6 +25,8 @@ import {
   getDashboardStats,
 } from "./db";
 import { detectMissingItems, SUPPLEMENT_KNOWLEDGE_BASE } from "./supplementKnowledgeBase";
+import { ebookLeads } from "../drizzle/schema";
+import { getDb } from "./db";
 import { invokeLLM } from "./_core/llm";
 import { stripeRouter } from "./stripeRouter";
 import { notifyOwner } from "./_core/notification";
@@ -517,6 +519,49 @@ SUBJECT: [subject line]
           missingItemsDetected: missing.length,
         };
       }),
+  }),
+
+  // ─── E-book Lead Capture ─────────────────────────────────────────────────────
+  leads: router({
+    submitEbookLead: publicProcedure
+      .input(
+        z.object({
+          name: z.string().min(1).max(256),
+          email: z.string().email().max(320),
+          company: z.string().max(256).optional(),
+          phone: z.string().max(32).optional(),
+          source: z.string().max(128).optional(),
+        })
+      )
+      .mutation(async ({ input }) => {
+        const db = await getDb();
+        if (!db) throw new Error("Database unavailable");
+        await db.insert(ebookLeads).values({
+          name: input.name,
+          email: input.email,
+          company: input.company ?? null,
+          phone: input.phone ?? null,
+          source: input.source ?? "free-guide",
+        });
+        // Notify owner of new lead
+        await notifyOwner({
+          title: "New E-book Lead",
+          content: `${input.name} (${input.email})${input.company ? ` from ${input.company}` : ""} downloaded the Supplement Playbook.`,
+        });
+        return {
+          success: true,
+          downloadUrl:
+            "https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/SupplementPlaybook_FreeGuide_b5c45693.pdf",
+        };
+      }),
+
+    listLeads: protectedProcedure.query(async ({ ctx }) => {
+      if (ctx.user.role !== "admin") return [];
+      const db = await getDb();
+      if (!db) return [];
+      const leads = await db.select().from(ebookLeads).orderBy(ebookLeads.createdAt);
+      return leads;
+    }),
   }),
 
   // ─── Payment Calculator ──────────────────────────────────────────────────────

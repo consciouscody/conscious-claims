@@ -11,6 +11,7 @@ import JobDetail from "./pages/JobDetail";
 import Reference from "./pages/Reference";
 import Pricing from "./pages/Pricing";
 import Demo from "./pages/Demo";
+import FreeGuide from "./pages/FreeGuide";
 
 function Router() {
   return (
@@ -22,6 +23,7 @@ function Router() {
       <Route path="/reference" component={Reference} />
       <Route path="/pricing" component={Pricing} />
       <Route path="/demo" component={Demo} />
+      <Route path="/free-guide" component={FreeGuide} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

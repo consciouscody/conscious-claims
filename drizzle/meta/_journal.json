@@ -22,6 +22,13 @@
       "when": 1772508857791,
       "tag": "0002_low_sumo",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1772589709054,
+      "tag": "0003_minor_bloodstrike",
+      "breakpoints": true
     }
   ]
 }

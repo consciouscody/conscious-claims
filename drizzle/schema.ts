@@ -145,3 +145,18 @@ export const jobStatusHistory = mysqlTable("job_status_history", {
 });
 
 export type JobStatusHistory = typeof jobStatusHistory.$inferSelect;
+
+// E-book lead capture — free guide signups
+export const ebookLeads = mysqlTable("ebook_leads", {
+  id: int("id").autoincrement().primaryKey(),
+  name: varchar("name", { length: 256 }).notNull(),
+  email: varchar("email", { length: 320 }).notNull(),
+  company: varchar("company", { length: 256 }),
+  phone: varchar("phone", { length: 32 }),
+  source: varchar("source", { length: 128 }).default("free-guide"), // which page/campaign
+  downloadedAt: timestamp("downloadedAt").defaultNow().notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type EbookLead = typeof ebookLeads.$inferSelect;
+export type InsertEbookLead = typeof ebookLeads.$inferInsert;

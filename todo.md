@@ -92,3 +92,14 @@
 
 ## Bug Fixes (Phase 5)
 - [x] Sign In button and all nav links broken on live published site — confirmed working on live site: Sign In → Manus login, Pricing → /pricing, View Demo → /demo, all buttons navigate correctly
+
+## E-Book Lead Magnet Funnel
+- [x] Write full e-book content: "The Roofing Contractor's Supplement Playbook"
+- [x] Generate professional e-book cover image (CC brand, dark navy + orange)
+- [x] Export e-book as polished PDF with cover, chapters, and CTAs
+- [x] Build /free-guide lead capture landing page with email form
+- [x] Wire email capture to store leads in database
+- [x] Instant PDF download link delivered after email submission
+- [x] Write 3-email automated follow-up sequence
+- [x] Write Facebook group post copy (4 versions for different groups)
+- [x] Add /free-guide link to main nav and landing page hero CTA

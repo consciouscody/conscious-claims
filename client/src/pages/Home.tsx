@@ -89,6 +89,9 @@ export default function Home() {
             <Button variant="ghost" size="sm" onClick={() => navigate("/pricing")} className="hidden sm:flex">
               Pricing
             </Button>
+            <Button variant="ghost" size="sm" onClick={() => navigate("/free-guide")} className="hidden sm:flex text-orange-600 font-semibold">
+              Free Guide
+            </Button>
             {!loading && (
               isAuthenticated ? (
                 <Button onClick={() => navigate("/dashboard")} size="sm">
@@ -144,6 +147,14 @@ export default function Home() {
                 onClick={() => navigate("/demo")}
               >
                 View Demo
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-orange-400/60 text-orange-300 bg-orange-500/10 hover:bg-orange-500/20 font-semibold text-base"
+                onClick={() => navigate("/free-guide")}
+              >
+                Free Supplement Guide
               </Button>
             </div>
             <p className="mt-4 text-sm text-white/60">No credit card required. Free to start.</p>
