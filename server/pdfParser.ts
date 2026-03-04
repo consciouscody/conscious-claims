@@ -19,12 +19,24 @@ export interface ParsedEstimate {
   rawText: string;
 }
 
+// Extract all text from a PDFParse result (getText returns { pages: [{text, num}] })
+async function extractText(buffer: Buffer): Promise<string> {
+  const parser = new PDFParse({ data: new Uint8Array(buffer), verbosity: 0 }) as any;
+  await parser.load();
+  const result = await parser.getText();
+
+  // getText returns either a string or { pages: [{text, num}] }
+  if (typeof result === "string") return result;
+  if (result && Array.isArray(result.pages)) {
+    return result.pages.map((p: any) => (typeof p === "string" ? p : p?.text ?? "")).join("\n");
+  }
+  // Fallback: stringify
+  return JSON.stringify(result);
+}
+
 // Parse an Xactimate PDF buffer and extract line items
 export async function parseXactimatePDF(buffer: Buffer): Promise<ParsedEstimate> {
-  const parser = new PDFParse({}) as any;
-  await parser.load(buffer);
-  const textResult = await parser.getText();
-  const text: string = typeof textResult === 'string' ? textResult : (textResult as any)?.text ?? JSON.stringify(textResult);
+  const text = await extractText(buffer);
 
   const result: ParsedEstimate = {
     lineItems: [],
@@ -52,15 +64,15 @@ export async function parseXactimatePDF(buffer: Buffer): Promise<ParsedEstimate>
   if (totalMatch) result.totalAmount = totalMatch[1].replace(/,/g, "");
 
   // Extract line items - Xactimate format: CODE  Description  Qty  Unit  Unit Price  Total
-  // We look for patterns that match Xactimate line item rows
   const lines = text.split("\n");
-  
+
   for (const line of lines) {
     const trimmed = line.trim();
     if (!trimmed || trimmed.length < 5) continue;
 
     // Pattern: starts with RFG, GUT, ELE, PTG, etc. (Xactimate category codes)
-    const xactimatePattern = /^([A-Z]{2,6}\s+[A-Z0-9_]+)\s+(.+?)\s+([\d.]+)\s+(LF|SF|SQ|EA|HR|LS|PCT|SY|CF|CY|LB|GAL|TON)\s+\$?([\d,.]+)\s+\$?([\d,.]+)/i;
+    const xactimatePattern =
+      /^([A-Z]{2,6}\s+[A-Z0-9_&]+)\s+(.+?)\s+([\d.]+)\s+(LF|SF|SQ|EA|HR|LS|PCT|SY|CF|CY|LB|GAL|TON)\s+\$?([\d,.]+)\s+\$?([\d,.]+)/i;
     const match = trimmed.match(xactimatePattern);
 
     if (match) {
@@ -75,15 +87,14 @@ export async function parseXactimatePDF(buffer: Buffer): Promise<ParsedEstimate>
       continue;
     }
 
-    // Simpler pattern: look for known Xactimate codes
-    const knownCodes = [
+    // Simpler pattern: look for known Xactimate code prefixes
+    const knownPrefixes = [
       "RFG", "GUT", "ELE", "PTG", "PLM", "HVC", "INS", "WTR", "FLR", "CLN",
-      "PERMIT", "DUMPSTER", "DEBRIS",
+      "PERMIT", "DUMPSTER", "DEBRIS", "STR", "MAS", "CNT", "DRS", "WIN",
     ];
-    
-    for (const prefix of knownCodes) {
+
+    for (const prefix of knownPrefixes) {
       if (trimmed.toUpperCase().startsWith(prefix)) {
-        // Try to extract what we can
         const parts = trimmed.split(/\s{2,}/);
         if (parts.length >= 2) {
           result.lineItems.push({

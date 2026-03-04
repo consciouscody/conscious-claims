@@ -103,3 +103,6 @@
 - [x] Write 3-email automated follow-up sequence
 - [x] Write Facebook group post copy (4 versions for different groups)
 - [x] Add /free-guide link to main nav and landing page hero CTA
+
+## Bug Fixes (Phase 6)
+- [x] PDF upload broken — getDocument error "no 'url' parameter provided" — fixed: PDFParse requires data in constructor options, getText returns {pages:[]} not string, both corrected
