@@ -124,3 +124,17 @@
 - [x] Remove login requirement from /storm-the-door — allow guest Stripe checkout without account
 - [x] Add guest checkout procedure to stripeRouter (no auth required)
 - [ ] Post to LinkedIn, Facebook, Instagram after publish
+
+## CRM Integration (Phase 8)
+- [x] Add crmIntegrations table to schema (userId, crmType, apiKey, webhookSecret, status, lastSyncAt)
+- [x] Add crmSyncedJobs table to track which CRM jobs have been imported (handled via notes field)
+- [x] Build CRM router: connect, disconnect, test connection, sync jobs
+- [x] Build /api/crm/webhook endpoint to receive job data from any CRM via Zapier
+- [x] Build native JobNimbus API sync (pull jobs by API key)
+- [x] Build native AccuLynx API sync (pull jobs by API key)
+- [x] Build Integrations settings page in dashboard (/integrations)
+- [x] Show connected CRMs, connection status, last sync time
+- [x] Show unique webhook URL per user for Zapier setup
+- [x] Add Zapier setup guide for each CRM (AccuLynx, JobNimbus, Roofr, Contractors Cloud)
+- [x] Auto-create SupplementAI job when CRM job is received via webhook
+- [x] Add CRM Integrations link in sidebar nav

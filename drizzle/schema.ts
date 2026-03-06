@@ -146,6 +146,25 @@ export const jobStatusHistory = mysqlTable("job_status_history", {
 
 export type JobStatusHistory = typeof jobStatusHistory.$inferSelect;
 
+// CRM Integrations — one row per connected CRM per user
+export const crmIntegrations = mysqlTable("crm_integrations", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  crmType: mysqlEnum("crmType", ["jobnimbus", "acculynx", "roofr", "contractors_cloud", "hubspot", "zapier"]).notNull(),
+  apiKey: text("apiKey"), // encrypted API key for native integrations
+  webhookSecret: varchar("webhookSecret", { length: 64 }), // unique secret for webhook URL
+  displayName: varchar("displayName", { length: 128 }), // user-facing label e.g. "My JobNimbus"
+  status: mysqlEnum("status", ["active", "error", "disconnected"]).default("active").notNull(),
+  lastSyncAt: timestamp("lastSyncAt"),
+  lastSyncStatus: text("lastSyncStatus"), // last sync result message
+  jobsSynced: int("jobsSynced").default(0),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type CrmIntegration = typeof crmIntegrations.$inferSelect;
+export type InsertCrmIntegration = typeof crmIntegrations.$inferInsert;
+
 // E-book lead capture — free guide signups
 export const ebookLeads = mysqlTable("ebook_leads", {
   id: int("id").autoincrement().primaryKey(),

@@ -8,10 +8,12 @@ import {
   supplementLineItems,
   adjusterEmails,
   jobStatusHistory,
+  crmIntegrations,
   InsertJob,
   InsertJobPhoto,
   InsertSupplementLineItem,
   InsertAdjusterEmail,
+  InsertCrmIntegration,
 } from "../drizzle/schema";
 import { ENV } from "./_core/env";
 
@@ -215,6 +217,39 @@ export async function getStatusHistoryByJob(jobId: number) {
   const db = await getDb();
   if (!db) return [];
   return db.select().from(jobStatusHistory).where(eq(jobStatusHistory.jobId, jobId)).orderBy(desc(jobStatusHistory.createdAt));
+}
+
+// ─── CRM Integrations ────────────────────────────────────────────────────────
+
+export async function getCrmIntegrationsByUser(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(crmIntegrations).where(eq(crmIntegrations.userId, userId)).orderBy(desc(crmIntegrations.createdAt));
+}
+
+export async function getCrmIntegrationByWebhookSecret(secret: string) {
+  const db = await getDb();
+  if (!db) return null;
+  const rows = await db.select().from(crmIntegrations).where(eq(crmIntegrations.webhookSecret, secret)).limit(1);
+  return rows[0] || null;
+}
+
+export async function createCrmIntegration(data: InsertCrmIntegration) {
+  const db = await getDb();
+  if (!db) return;
+  await db.insert(crmIntegrations).values(data);
+}
+
+export async function updateCrmIntegration(id: number, userId: number, data: Partial<InsertCrmIntegration>) {
+  const db = await getDb();
+  if (!db) return;
+  await db.update(crmIntegrations).set(data).where(and(eq(crmIntegrations.id, id), eq(crmIntegrations.userId, userId)));
+}
+
+export async function deleteCrmIntegration(id: number, userId: number) {
+  const db = await getDb();
+  if (!db) return;
+  await db.delete(crmIntegrations).where(and(eq(crmIntegrations.id, id), eq(crmIntegrations.userId, userId)));
 }
 
 // ─── Dashboard Stats ──────────────────────────────────────────────────────────

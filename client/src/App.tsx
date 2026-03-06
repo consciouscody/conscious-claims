@@ -14,6 +14,7 @@ import Demo from "./pages/Demo";
 import FreeGuide from "./pages/FreeGuide";
 import StormTheDoor from "./pages/StormTheDoor";
 import StormTheDoorSuccess from "./pages/StormTheDoorSuccess";
+import Integrations from "./pages/Integrations";
 
 function Router() {
   return (
@@ -28,6 +29,7 @@ function Router() {
       <Route path="/free-guide" component={FreeGuide} />
       <Route path="/storm-the-door" component={StormTheDoor} />
       <Route path="/storm-the-door/success" component={StormTheDoorSuccess} />
+      <Route path="/integrations" component={Integrations} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

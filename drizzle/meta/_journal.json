@@ -29,6 +29,13 @@
       "when": 1772589709054,
       "tag": "0003_minor_bloodstrike",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1772806206372,
+      "tag": "0004_short_molten_man",
+      "breakpoints": true
     }
   ]
 }
