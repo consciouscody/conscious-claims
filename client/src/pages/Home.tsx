@@ -123,7 +123,7 @@ export default function Home() {
               <div>
                 <div className="text-xs font-bold uppercase tracking-widest text-orange-100 mb-0.5">FREE Download — No Credit Card</div>
                 <div className="text-lg sm:text-xl font-black text-white leading-tight">
-                  "Roofing Psychology at the Door" — The Supplement Playbook
+                  "Roofing Psychology at the Door" — Free E-Book Download
                 </div>
                 <div className="text-sm text-orange-100 mt-0.5">
                   Frame control, mirror effect, 10 scripted objections &amp; closing psychology. Free.

@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { Link } from "wouter";
 
 const EBOOK_COVER =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/ebook-cover-mqQURiGWivww5mmhaJKVWR.webp";
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/roofing_psychology_cover_ad084dce.png";
 
 const LINE_ITEMS = [
   { code: "CH. 1", label: "Frame Control & State Control", value: "Own every conversation" },
