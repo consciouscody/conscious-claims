@@ -112,6 +112,35 @@ export default function Home() {
         </div>
       </nav>
 
+      {/* E-Book Banner */}
+      <section className="bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 text-white">
+        <div className="container py-5">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="bg-white/20 rounded-xl p-3 flex-shrink-0">
+                <FileText className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <div className="text-xs font-bold uppercase tracking-widest text-orange-100 mb-0.5">FREE Download — No Credit Card</div>
+                <div className="text-lg sm:text-xl font-black text-white leading-tight">
+                  "Roofing Psychology at the Door" — The Supplement Playbook
+                </div>
+                <div className="text-sm text-orange-100 mt-0.5">
+                  18 missed line items, Xactimate codes, IRC references &amp; adjuster scripts. Free.
+                </div>
+              </div>
+            </div>
+            <Button
+              size="lg"
+              className="bg-white text-orange-600 hover:bg-orange-50 font-black text-base px-8 py-5 rounded-xl shadow-lg flex-shrink-0 whitespace-nowrap"
+              onClick={() => navigate("/free-guide")}
+            >
+              Download Free Now →
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-[oklch(0.22_0.08_250)] text-white">
         <div className="absolute inset-0 opacity-10">
