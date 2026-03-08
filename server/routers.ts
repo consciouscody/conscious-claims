@@ -553,7 +553,7 @@ SUBJECT: [subject line]
         return {
           success: true,
           downloadUrl:
-            "https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/roofing_psychology_at_the_door_babb6c58.pdf",
+            "https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/roofing_psychology_at_the_door_v2_f53948d6.pdf",
         };
       }),
 
