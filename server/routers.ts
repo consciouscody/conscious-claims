@@ -548,12 +548,12 @@ SUBJECT: [subject line]
         // Notify owner of new lead
         await notifyOwner({
           title: "New E-book Lead",
-          content: `${input.name} (${input.email})${input.company ? ` from ${input.company}` : ""} downloaded the Supplement Playbook.`,
+          content: `${input.name} (${input.email})${input.company ? ` from ${input.company}` : ""} downloaded Roofing Psychology at the Door.`,
         });
         return {
           success: true,
           downloadUrl:
-            "https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/SupplementPlaybook_FreeGuide_b5c45693.pdf",
+            "https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/roofing_psychology_at_the_door_babb6c58.pdf",
         };
       }),
 

@@ -126,7 +126,7 @@ export default function Home() {
                   "Roofing Psychology at the Door" — The Supplement Playbook
                 </div>
                 <div className="text-sm text-orange-100 mt-0.5">
-                  18 missed line items, Xactimate codes, IRC references &amp; adjuster scripts. Free.
+                  Frame control, mirror effect, 10 scripted objections &amp; closing psychology. Free.
                 </div>
               </div>
             </div>

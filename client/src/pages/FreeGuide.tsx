@@ -10,12 +10,12 @@ const EBOOK_COVER =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/ebook-cover-mqQURiGWivww5mmhaJKVWR.webp";
 
 const LINE_ITEMS = [
-  { code: "RFG STRT", label: "Starter Strip Shingles", value: "$550–$750" },
-  { code: "RFG DRIP", label: "Drip Edge — Eaves & Rakes", value: "$700–$1,100" },
-  { code: "O&P", label: "Overhead & Profit (10 and 10)", value: "$2,000–$5,000" },
-  { code: "RFG ICEWATER", label: "Ice and Water Shield", value: "$350–$500" },
-  { code: "GUT D&R", label: "Gutter Detach & Reset", value: "$650–$1,000" },
-  { code: "RFG DKNAIL", label: "Roof Deck Re-nail", value: "$875–$1,375" },
+  { code: "CH. 1", label: "Frame Control & State Control", value: "Own every conversation" },
+  { code: "CH. 2", label: "The Master Frame", value: "You are not selling roofing" },
+  { code: "CH. 3", label: "The Mirror Effect", value: "Build trust in 60 seconds" },
+  { code: "CH. 4", label: "The Door Approach", value: "The first 30 seconds" },
+  { code: "CH. 5", label: "The Post-Inspection Close", value: "Coming down off the roof" },
+  { code: "CH. 6", label: "10 Objections — Fully Scripted", value: "Word-for-word responses" },
 ];
 
 export default function FreeGuide() {
@@ -30,7 +30,7 @@ export default function FreeGuide() {
       // Auto-trigger download
       const a = document.createElement("a");
       a.href = data.downloadUrl;
-      a.download = "SupplementPlaybook_FreeGuide.pdf";
+      a.download = "Roofing_Psychology_at_the_Door.pdf";
       a.target = "_blank";
       document.body.appendChild(a);
       a.click();
@@ -75,21 +75,21 @@ export default function FreeGuide() {
               FREE DOWNLOAD — No Credit Card Required
             </div>
             <h1 className="text-4xl lg:text-5xl font-black leading-tight mb-6">
-              The Roofing Contractor's{" "}
-              <span className="text-orange-500">Supplement Playbook</span>
+              Roofing Psychology{" "}
+              <span className="text-orange-500">at the Door</span>
             </h1>
             <p className="text-xl text-white/70 leading-relaxed mb-8">
-              18 line items adjusters hope you never find — with every Xactimate code, IRC building
-              code reference, and the exact language to use when you submit the supplement request.
+              The proven door-knocking playbook for roofing contractors — frame control, mirror effect,
+              post-inspection close, and 10 fully-scripted objection responses. Free.
             </p>
 
             {/* Value bullets */}
             <div className="space-y-3 mb-10">
               {[
-                "Every Xactimate code you need — ready to copy and paste",
-                "The IRC building code that justifies each line item",
-                "Word-for-word supplement language that adjusters can't argue with",
-                "Average $8,850–$14,795 in recoverable value per job",
+                "Frame control & state control — own every conversation",
+                "The Mirror Effect — build trust in 60 seconds",
+                "10 objections fully scripted — word for word",
+                "10 psychological principles every closer must know",
               ].map((item) => (
                 <div key={item} className="flex items-start gap-3">
                   <div className="w-5 h-5 rounded-full bg-orange-500 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -105,9 +105,9 @@ export default function FreeGuide() {
             {/* Stats row */}
             <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/10">
               {[
-                { value: "18", label: "Line items covered" },
-                { value: "$14K+", label: "Avg supplement value" },
-                { value: "32", label: "Pages of field-tested content" },
+                { value: "10", label: "Objections scripted" },
+                { value: "10", label: "Psych principles" },
+                { value: "8", label: "Chapters of field-tested content" },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
                   <div className="text-2xl font-black text-orange-500">{stat.value}</div>
@@ -124,7 +124,7 @@ export default function FreeGuide() {
                 <div className="flex gap-6 items-start mb-8">
                   <img
                     src={EBOOK_COVER}
-                    alt="Supplement Playbook Cover"
+                    alt="Roofing Psychology at the Door Cover"
                     className="w-28 rounded-lg shadow-2xl flex-shrink-0"
                   />
                   <div>
@@ -223,7 +223,7 @@ export default function FreeGuide() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h2 className="text-2xl font-black text-white mb-3">Your playbook is downloading!</h2>
+                <h2 className="text-2xl font-black text-white mb-3">Your psychology playbook is downloading!</h2>
                 <p className="text-white/60 mb-6 leading-relaxed">
                   If the download didn't start automatically, click the button below. Check your inbox — we'll
                   also send you a link.
@@ -254,9 +254,9 @@ export default function FreeGuide() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-black text-white mb-3">
-              A Sneak Peek at What's Inside
+              What's Inside the Playbook
             </h2>
-            <p className="text-white/50">6 of the 18 line items — every one with the code, the justification, and the dollar value</p>
+            <p className="text-white/50">8 chapters of proven door-knocking psychology — tested at real doors, against real objections</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {LINE_ITEMS.map((item) => (
@@ -268,12 +268,12 @@ export default function FreeGuide() {
                   {item.code}
                 </div>
                 <div className="font-semibold text-white text-sm mb-2">{item.label}</div>
-                <div className="text-green-400 font-bold text-sm">{item.value}</div>
+                <div className="text-orange-400 text-xs">{item.value}</div>
               </div>
             ))}
           </div>
           <p className="text-center text-white/30 text-sm mt-6">
-            + 12 more line items in the full playbook
+            + Bonus chapter: 10 AI prompts to sharpen your game before every session
           </p>
         </div>
       </section>
@@ -299,8 +299,8 @@ export default function FreeGuide() {
       <section className="border-t border-white/10 py-16 bg-gradient-to-b from-transparent to-orange-950/20">
         <div className="max-w-2xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-black text-white mb-4">
-            You Have the Codes.<br />
-            <span className="text-orange-500">Now Let AI Find Every One.</span>
+            You Have the Psychology.<br />
+            <span className="text-orange-500">Now Let AI Handle the Supplements.</span>
           </h2>
           <p className="text-white/60 mb-8 leading-relaxed">
             SupplementAI uploads your Xactimate PDF, identifies every missing line item, generates the supplement
