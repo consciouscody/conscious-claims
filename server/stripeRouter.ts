@@ -232,6 +232,7 @@ export const stripeRouter = router({
       z.object({
         origin: z.string(),
         ebookId: z.enum(["storm_the_door"]),
+        referralCode: z.string().max(32).optional(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -279,6 +280,7 @@ export const stripeRouter = router({
           pdf_url: ebook.pdfUrl,
           customer_email: ctx.user?.email || "",
           customer_name: ctx.user?.name || "",
+          referral_code: input.referralCode || "",
         },
         success_url: `${input.origin}/storm-the-door/success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${input.origin}/storm-the-door`,

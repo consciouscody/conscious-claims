@@ -30,12 +30,14 @@ import { getDb } from "./db";
 import { invokeLLM } from "./_core/llm";
 import { stripeRouter } from "./stripeRouter";
 import { crmRouter } from "./routers/crm";
+import { affiliateRouter } from "./routers/affiliate";
 import { notifyOwner } from "./_core/notification";
 
 export const appRouter = router({
   stripe: stripeRouter,
   system: systemRouter,
   crm: crmRouter,
+  affiliate: affiliateRouter,
   auth: router({
     me: publicProcedure.query((opts) => opts.ctx.user),
     logout: publicProcedure.mutation(({ ctx }) => {

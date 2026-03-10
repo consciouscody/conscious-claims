@@ -1,4 +1,5 @@
 import { useAuth } from "@/_core/hooks/useAuth";
+import { useReferralTracking } from "@/hooks/useReferralTracking";
 import { Button } from "@/components/ui/button";
 import { getLoginUrl } from "@/const";
 import { useLocation } from "wouter";
@@ -62,6 +63,7 @@ const COMMONLY_MISSED = [
 export default function Home() {
   const { isAuthenticated, loading } = useAuth();
   const [, navigate] = useLocation();
+  useReferralTracking(); // Capture ?ref= from URL and track clicks
 
   const handleCTA = () => {
     if (isAuthenticated) {
@@ -91,6 +93,9 @@ export default function Home() {
             </Button>
             <Button variant="ghost" size="sm" onClick={() => navigate("/free-guide")} className="hidden sm:flex text-orange-600 font-semibold">
               Free Guide
+            </Button>
+            <Button variant="ghost" size="sm" onClick={() => navigate("/affiliates")} className="hidden sm:flex">
+              Affiliates
             </Button>
             {!loading && (
               isAuthenticated ? (

@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { getStoredReferralCode } from "@/hooks/useReferralTracking";
 
 const COVER_URL =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/storm-the-door-cover-CskytMqCxhErx4i5UwBFEC.webp";
@@ -27,7 +28,12 @@ export default function StormTheDoor() {
 
   const handleBuy = () => {
     setLoading(true);
-    checkout.mutate({ origin: window.location.origin, ebookId: "storm_the_door" });
+    const referralCode = getStoredReferralCode();
+    checkout.mutate({
+      origin: window.location.origin,
+      ebookId: "storm_the_door",
+      referralCode: referralCode || undefined,
+    });
   };
 
   return (

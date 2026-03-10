@@ -179,3 +179,66 @@ export const ebookLeads = mysqlTable("ebook_leads", {
 
 export type EbookLead = typeof ebookLeads.$inferSelect;
 export type InsertEbookLead = typeof ebookLeads.$inferInsert;
+
+// ─── Affiliate Program ────────────────────────────────────────────────────────
+
+// Affiliates — people who sign up to promote Conscious Capital products
+export const affiliates = mysqlTable("affiliates", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId"), // linked user account (nullable — can sign up before creating account)
+  name: varchar("name", { length: 256 }).notNull(),
+  email: varchar("email", { length: 320 }).notNull().unique(),
+  phone: varchar("phone", { length: 32 }),
+  company: varchar("company", { length: 256 }),
+  referralCode: varchar("referralCode", { length: 32 }).notNull().unique(), // e.g. "CODY40"
+  commissionRate: decimal("commissionRate", { precision: 5, scale: 2 }).default("40.00"), // percentage
+  status: mysqlEnum("status", ["pending", "active", "suspended"]).default("pending").notNull(),
+  paypalEmail: varchar("paypalEmail", { length: 320 }), // payout destination
+  totalClicks: int("totalClicks").default(0).notNull(),
+  totalConversions: int("totalConversions").default(0).notNull(),
+  totalEarned: decimal("totalEarned", { precision: 12, scale: 2 }).default("0.00").notNull(),
+  totalPaid: decimal("totalPaid", { precision: 12, scale: 2 }).default("0.00").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Affiliate = typeof affiliates.$inferSelect;
+export type InsertAffiliate = typeof affiliates.$inferInsert;
+
+// Affiliate clicks — every time someone clicks a referral link
+export const affiliateClicks = mysqlTable("affiliate_clicks", {
+  id: int("id").autoincrement().primaryKey(),
+  affiliateId: int("affiliateId").notNull(),
+  referralCode: varchar("referralCode", { length: 32 }).notNull(),
+  ipAddress: varchar("ipAddress", { length: 64 }),
+  userAgent: text("userAgent"),
+  landingPage: varchar("landingPage", { length: 512 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type AffiliateClick = typeof affiliateClicks.$inferSelect;
+
+// Affiliate conversions — every sale attributed to an affiliate
+export const affiliateConversions = mysqlTable("affiliate_conversions", {
+  id: int("id").autoincrement().primaryKey(),
+  affiliateId: int("affiliateId").notNull(),
+  referralCode: varchar("referralCode", { length: 32 }).notNull(),
+  // What was sold
+  productType: mysqlEnum("productType", ["storm_the_door_book", "supplement_pro_monthly", "supplement_pro_annual"]).notNull(),
+  productName: varchar("productName", { length: 256 }).notNull(),
+  saleAmount: decimal("saleAmount", { precision: 12, scale: 2 }).notNull(),
+  commissionRate: decimal("commissionRate", { precision: 5, scale: 2 }).notNull(),
+  commissionAmount: decimal("commissionAmount", { precision: 12, scale: 2 }).notNull(),
+  // Stripe reference
+  stripePaymentIntentId: varchar("stripePaymentIntentId", { length: 128 }),
+  stripeSessionId: varchar("stripeSessionId", { length: 128 }),
+  // Buyer info (anonymized)
+  buyerEmail: varchar("buyerEmail", { length: 320 }),
+  // Payout status
+  payoutStatus: mysqlEnum("payoutStatus", ["pending", "approved", "paid", "refunded"]).default("pending").notNull(),
+  paidAt: timestamp("paidAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type AffiliateConversion = typeof affiliateConversions.$inferSelect;
+export type InsertAffiliateConversion = typeof affiliateConversions.$inferInsert;

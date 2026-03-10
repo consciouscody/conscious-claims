@@ -138,3 +138,17 @@
 - [x] Add Zapier setup guide for each CRM (AccuLynx, JobNimbus, Roofr, Contractors Cloud)
 - [x] Auto-create SupplementAI job when CRM job is received via webhook
 - [x] Add CRM Integrations link in sidebar nav
+
+## Affiliate Program (Phase 9)
+- [x] Add affiliates, affiliate_clicks, affiliate_conversions tables to schema
+- [x] Push schema migration to database
+- [x] Build affiliate router: signup, get my stats, track click, record conversion
+- [x] Build /affiliates signup page (public — anyone can apply)
+- [x] Build /affiliate-dashboard (private — logged-in affiliates see stats)
+- [x] Wire referral code tracking via ?ref= query param (store in localStorage, 30-day expiry)
+- [x] Wire referral code into Storm the Door Stripe checkout metadata
+- [ ] Wire affiliate conversion tracking into SupplementAI subscription checkout (future)
+- [x] Build owner admin view of all affiliates (adminGetAll, adminApprove, adminGetConversions)
+- [x] Write affiliate program terms and commission structure copy
+- [x] Add Affiliates nav link to homepage
+- [x] Write 30 affiliate tests — all passing
