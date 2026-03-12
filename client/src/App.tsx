@@ -17,6 +17,8 @@ import StormTheDoorSuccess from "./pages/StormTheDoorSuccess";
 import Integrations from "./pages/Integrations";
 import Affiliates from "./pages/Affiliates";
 import AffiliateDashboard from "./pages/AffiliateDashboard";
+import LinkedInPosts from "./pages/LinkedInPosts";
+import Waitlist from "./pages/Waitlist";
 
 function Router() {
   return (
@@ -34,6 +36,8 @@ function Router() {
       <Route path="/integrations" component={Integrations} />
       <Route path="/affiliates" component={Affiliates} />
       <Route path="/affiliate-dashboard" component={AffiliateDashboard} />
+      <Route path="/linkedin-posts" component={LinkedInPosts} />
+      <Route path="/waitlist" component={Waitlist} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

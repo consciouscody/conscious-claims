@@ -43,6 +43,13 @@
       "when": 1773117342645,
       "tag": "0005_peaceful_vertigo",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1773296444215,
+      "tag": "0006_parallel_warstar",
+      "breakpoints": true
     }
   ]
 }

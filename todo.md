@@ -152,3 +152,14 @@
 - [x] Write affiliate program terms and commission structure copy
 - [x] Add Affiliates nav link to homepage
 - [x] Write 30 affiliate tests — all passing
+
+## LinkedIn Post Generator + Waitlist (Phase 10)
+- [x] Add linkedin_posts table to schema (userId, topic, tone, generatedPosts, savedPost, createdAt)
+- [x] Add waitlist_signups table to schema (email, name, source, createdAt)
+- [x] Push schema migration
+- [x] Build linkedin router: generatePosts, savePost, getMyPosts
+- [x] Build waitlist router: signup (public), getCount (public), getAll (admin)
+- [x] Build /linkedin-posts page in dashboard with topic input + 3 generated post options
+- [x] Build /waitlist standalone landing page (public, no login needed)
+- [x] Add LinkedIn Posts link to dashboard sidebar
+- [x] Owner notification when someone joins waitlist

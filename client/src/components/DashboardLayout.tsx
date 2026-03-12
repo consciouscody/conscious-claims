@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/sidebar";
 import { getLoginUrl } from "@/const";
 import { useIsMobile } from "@/hooks/useMobile";
-import { LayoutDashboard, LogOut, PanelLeft, Plus, Building2, BookOpen, Link2 } from "lucide-react";
+import { LayoutDashboard, LogOut, PanelLeft, Plus, Building2, BookOpen, Link2, Linkedin } from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { DashboardLayoutSkeleton } from "./DashboardLayoutSkeleton";
@@ -32,6 +32,7 @@ const menuItems = [
   { icon: Plus, label: "New Job", path: "/jobs/new" },
   { icon: BookOpen, label: "Code Reference", path: "/reference" },
   { icon: Link2, label: "CRM Integrations", path: "/integrations" },
+  { icon: Linkedin, label: "LinkedIn Posts", path: "/linkedin-posts" },
 ];
 
 const SIDEBAR_WIDTH_KEY = "sidebar-width";

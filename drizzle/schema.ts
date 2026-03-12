@@ -7,6 +7,7 @@ import {
   varchar,
   decimal,
   json,
+  tinyint,
 } from "drizzle-orm/mysql-core";
 
 export const users = mysqlTable("users", {
@@ -242,3 +243,29 @@ export const affiliateConversions = mysqlTable("affiliate_conversions", {
 
 export type AffiliateConversion = typeof affiliateConversions.$inferSelect;
 export type InsertAffiliateConversion = typeof affiliateConversions.$inferInsert;
+
+// LinkedIn Posts — AI-generated McConaughey-style posts
+export const linkedinPosts = mysqlTable("linkedin_posts", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  topic: varchar("topic", { length: 512 }).notNull(),
+  tone: varchar("tone", { length: 64 }).default("mcconaughey").notNull(),
+  generatedPosts: text("generatedPosts").notNull(), // JSON array of 3 posts
+  savedPost: text("savedPost"), // the one they chose to use
+  used: tinyint("used").default(0).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+export type LinkedinPost = typeof linkedinPosts.$inferSelect;
+export type InsertLinkedinPost = typeof linkedinPosts.$inferInsert;
+
+// Waitlist signups — for upcoming Conscious Capital features
+export const waitlistSignups = mysqlTable("waitlist_signups", {
+  id: int("id").autoincrement().primaryKey(),
+  email: varchar("email", { length: 320 }).notNull(),
+  name: varchar("name", { length: 256 }),
+  company: varchar("company", { length: 256 }),
+  source: varchar("source", { length: 128 }).default("waitlist_page").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+export type WaitlistSignup = typeof waitlistSignups.$inferSelect;
+export type InsertWaitlistSignup = typeof waitlistSignups.$inferInsert;

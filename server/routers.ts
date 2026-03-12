@@ -31,6 +31,8 @@ import { invokeLLM } from "./_core/llm";
 import { stripeRouter } from "./stripeRouter";
 import { crmRouter } from "./routers/crm";
 import { affiliateRouter } from "./routers/affiliate";
+import { auditRouter } from "./routers/audit";
+import { linkedinRouter, waitlistRouter } from "./routers/linkedin";
 import { notifyOwner } from "./_core/notification";
 
 export const appRouter = router({
@@ -38,6 +40,9 @@ export const appRouter = router({
   system: systemRouter,
   crm: crmRouter,
   affiliate: affiliateRouter,
+  audit: auditRouter,
+  linkedin: linkedinRouter,
+  waitlist: waitlistRouter,
   auth: router({
     me: publicProcedure.query((opts) => opts.ctx.user),
     logout: publicProcedure.mutation(({ ctx }) => {
