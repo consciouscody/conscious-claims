@@ -169,3 +169,8 @@
 - [x] Admin notes field per user in admin panel
 - [x] UX polish: empty states, loading skeletons, professional copy throughout
 - [x] Mobile responsiveness check and fixes
+
+## Phase 12 — Call Script, Welcome Email, PDF Branding
+- [x] AI cold call script generator in admin panel
+- [x] Auto-welcome email when admin sets user fee
+- [x] Conscious Capital branding on exported supplement PDF

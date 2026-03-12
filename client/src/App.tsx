@@ -20,6 +20,7 @@ import AffiliateDashboard from "./pages/AffiliateDashboard";
 import LinkedInPosts from "./pages/LinkedInPosts";
 import Waitlist from "./pages/Waitlist";
 import AdminPanel from "./pages/AdminPanel";
+import CallScript from "./pages/CallScript";
 
 function Router() {
   return (
@@ -40,6 +41,7 @@ function Router() {
       <Route path="/linkedin-posts" component={LinkedInPosts} />
       <Route path="/waitlist" component={Waitlist} />
       <Route path="/admin" component={AdminPanel} />
+      <Route path="/call-script" component={CallScript} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

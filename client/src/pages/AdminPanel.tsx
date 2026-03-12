@@ -10,7 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { toast } from "sonner";
 import {
   Loader2, Users, DollarSign, Briefcase, Percent, Shield,
-  StickyNote, Check, X, ChevronDown, ChevronUp
+  StickyNote, Check, X, ChevronDown, ChevronUp, Mail
 } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { useLocation } from "wouter";
@@ -60,6 +60,13 @@ function AdminContent() {
       toast.success(`Fee updated to ${newFee}% for ${feeDialogUser?.name || feeDialogUser?.email}`);
       setFeeDialogUser(null);
       setNewFee("");
+    },
+    onError: (e) => toast.error(e.message),
+  });
+
+  const sendWelcomeEmail = trpc.admin.sendWelcomeEmail.useMutation({
+    onSuccess: (data) => {
+      toast.success(`Welcome email preview ready for ${data.emailPreview.to}`);
     },
     onError: (e) => toast.error(e.message),
   });
@@ -245,12 +252,31 @@ function AdminContent() {
                             Private Admin Notes
                           </p>
                           {!isEditingNotes && (
-                            <button
-                              onClick={() => startEditNotes(u)}
-                              className="text-xs text-primary hover:underline"
-                            >
-                              {u.adminNotes ? "Edit" : "Add note"}
-                            </button>
+                            <div className="flex items-center gap-3">
+                              <button
+                                onClick={() => startEditNotes(u)}
+                                className="text-xs text-primary hover:underline"
+                              >
+                                {u.adminNotes ? "Edit" : "Add note"}
+                              </button>
+                              {u.email && (
+                                <button
+                                  onClick={() => {
+                                    const fee = u.currentFeePercentage ?? 10;
+                                    sendWelcomeEmail.mutate({ userId: u.id, feePercentage: fee });
+                                  }}
+                                  disabled={sendWelcomeEmail.isPending}
+                                  className="flex items-center gap-1 text-xs text-blue-600 hover:underline disabled:opacity-50"
+                                >
+                                  {sendWelcomeEmail.isPending ? (
+                                    <Loader2 className="w-3 h-3 animate-spin" />
+                                  ) : (
+                                    <Mail className="w-3 h-3" />
+                                  )}
+                                  Send welcome email
+                                </button>
+                              )}
+                            </div>
                           )}
                         </div>
 

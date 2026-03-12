@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/sidebar";
 import { getLoginUrl } from "@/const";
 import { useIsMobile } from "@/hooks/useMobile";
-import { LayoutDashboard, LogOut, PanelLeft, Plus, Building2, BookOpen, Link2, Linkedin, Shield } from "lucide-react";
+import { LayoutDashboard, LogOut, PanelLeft, Plus, Building2, BookOpen, Link2, Linkedin, Shield, Phone } from "lucide-react";
 import OnboardingWizard from "./OnboardingWizard";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
@@ -38,6 +38,7 @@ const menuItems = [
 
 const adminMenuItems = [
   { icon: Shield, label: "Admin Panel", path: "/admin" },
+  { icon: Phone, label: "Call Scripts", path: "/call-script" },
 ];
 
 const SIDEBAR_WIDTH_KEY = "sidebar-width";
