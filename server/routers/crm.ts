@@ -1,4 +1,5 @@
 import { router, protectedProcedure } from "../_core/trpc";
+import { storagePut } from "../storage";
 import { z } from "zod";
 import { nanoid } from "nanoid";
 import {
@@ -149,7 +150,7 @@ export const crmRouter = router({
 
         if (integration.crmType === "acculynx") {
           const res = await fetch("https://api.acculynx.com/api/v2/jobs?pageSize=50", {
-            headers: { Authorization: `Bearer ${integration.apiKey}` },
+            headers: { Authorization: `Bearer ${integration.apiKey}`, Accept: "application/json" },
           });
           if (!res.ok) throw new Error(`AccuLynx API error: ${res.status}`);
           const data = await res.json();
@@ -157,16 +158,83 @@ export const crmRouter = router({
 
           for (const axJob of axJobs) {
             try {
-              await createJob({
+              // Fetch detailed job info including insurance/adjuster
+              let adjusterName: string | null = null;
+              let adjusterEmail: string | null = null;
+              let adjusterPhone: string | null = null;
+              let insuranceCarrier: string | null = axJob.insuranceCompany?.name || axJob.insuranceCompany || null;
+              let dateOfLoss: Date | undefined = undefined;
+
+              try {
+                const insRes = await fetch(`https://api.acculynx.com/api/v2/jobs/${axJob.id}/insurance`, {
+                  headers: { Authorization: `Bearer ${integration.apiKey}`, Accept: "application/json" },
+                });
+                if (insRes.ok) {
+                  const insData = await insRes.json();
+                  adjusterName = insData.adjusterName || insData.adjuster?.name || null;
+                  adjusterEmail = insData.adjusterEmail || insData.adjuster?.email || null;
+                  adjusterPhone = insData.adjusterPhone || insData.adjuster?.phone || null;
+                  insuranceCarrier = insuranceCarrier || insData.insuranceCompany?.name || insData.insuranceCompanyName || null;
+                  if (insData.dateOfLoss) dateOfLoss = new Date(insData.dateOfLoss);
+                }
+              } catch { /* non-fatal */ }
+
+              const address = axJob.address?.fullAddress ||
+                [axJob.address?.street, axJob.address?.city, axJob.address?.state, axJob.address?.zip]
+                  .filter(Boolean).join(", ") ||
+                "Unknown Address";
+
+              const newJobResult = await createJob({
                 userId: ctx.user.id,
-                propertyAddress: axJob.address?.fullAddress || axJob.address?.street || "Unknown Address",
-                homeownerName: axJob.customer?.name || null,
+                propertyAddress: address,
+                homeownerName: axJob.primaryContact?.name || axJob.customer?.name || null,
                 claimNumber: axJob.claimNumber || null,
-                insuranceCarrier: axJob.insuranceCompany || null,
-                notes: `Imported from AccuLynx (ID: ${axJob.id})`,
+                insuranceCarrier,
+                adjusterName,
+                adjusterEmail,
+                adjusterPhone,
+                dateOfLoss,
+                notes: `Imported from AccuLynx (Job ID: ${axJob.id})`,
                 status: "draft",
                 feePercentage: "12.00",
               });
+              const newJobId = (newJobResult as any).insertId as number;
+
+              // Import photos from AccuLynx job
+              try {
+                const photoRes = await fetch(`https://api.acculynx.com/api/v2/jobs/${axJob.id}/documents?pageSize=50`, {
+                  headers: { Authorization: `Bearer ${integration.apiKey}`, Accept: "application/json" },
+                });
+                if (photoRes.ok) {
+                  const photoData = await photoRes.json();
+                  const photos = (photoData.items || []).filter((d: any) =>
+                    d.contentType?.startsWith("image/") || /\.(jpg|jpeg|png|webp|gif)$/i.test(d.name || "")
+                  );
+                  for (const photo of photos.slice(0, 20)) {
+                    try {
+                      if (photo.url) {
+                        const imgRes = await fetch(photo.url);
+                        if (imgRes.ok) {
+                          const buffer = Buffer.from(await imgRes.arrayBuffer());
+                          const ext = (photo.name || "photo.jpg").split(".").pop() || "jpg";
+                          const fileKey = `acculynx-photos/${ctx.user.id}/${newJobId}-${photo.id}.${ext}`;
+                          const { url: s3Url } = await storagePut(fileKey, buffer, photo.contentType || "image/jpeg");
+                          const { createJobPhoto } = await import("../db");
+                          await createJobPhoto({
+                            jobId: newJobId,
+                            userId: ctx.user.id,
+                            url: s3Url,
+                            fileKey,
+                            filename: photo.name || `acculynx-photo-${photo.id}.${ext}`,
+                            label: photo.tags?.join(", ") || "AccuLynx Import",
+                          });
+                        }
+                      }
+                    } catch { /* non-fatal photo import */ }
+                  }
+                }
+              } catch { /* non-fatal */ }
+
               imported++;
             } catch {
               errors.push(`Failed to import job ${axJob.id}`);
