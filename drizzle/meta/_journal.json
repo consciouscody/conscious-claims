@@ -50,6 +50,13 @@
       "when": 1773296444215,
       "tag": "0006_parallel_warstar",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1773332229442,
+      "tag": "0007_volatile_penance",
+      "breakpoints": true
     }
   ]
 }

@@ -163,3 +163,9 @@
 - [x] Build /waitlist standalone landing page (public, no login needed)
 - [x] Add LinkedIn Posts link to dashboard sidebar
 - [x] Owner notification when someone joins waitlist
+
+## Call-Ready Polish Sprint (Phase 11)
+- [x] 4-step onboarding wizard for new contractor first login
+- [x] Admin notes field per user in admin panel
+- [x] UX polish: empty states, loading skeletons, professional copy throughout
+- [x] Mobile responsiveness check and fixes

@@ -27,6 +27,8 @@ export const adminRouter = router({
         role: users.role,
         companyName: users.companyName,
         phone: users.phone,
+        adminNotes: users.adminNotes,
+        onboardingCompleted: users.onboardingCompleted,
         createdAt: users.createdAt,
         lastSignedIn: users.lastSignedIn,
       })
@@ -133,6 +135,24 @@ export const adminRouter = router({
       if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
 
       await db.update(users).set({ role: input.role }).where(eq(users.id, input.userId));
+      return { success: true };
+    }),
+
+  // Set private admin notes on a user
+  setAdminNotes: adminProcedure
+    .input(
+      z.object({
+        userId: z.number(),
+        notes: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const db = await getDb();
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+      await db
+        .update(users)
+        .set({ adminNotes: input.notes || null })
+        .where(eq(users.id, input.userId));
       return { success: true };
     }),
 

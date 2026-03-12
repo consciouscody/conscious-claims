@@ -25,7 +25,9 @@ import {
   getDashboardStats,
 } from "./db";
 import { detectMissingItems, SUPPLEMENT_KNOWLEDGE_BASE } from "./supplementKnowledgeBase";
-import { ebookLeads } from "../drizzle/schema";
+import { ebookLeads, users } from "../drizzle/schema";
+import { eq } from "drizzle-orm";
+import { TRPCError } from "@trpc/server";
 import { getDb } from "./db";
 import { invokeLLM } from "./_core/llm";
 import { stripeRouter } from "./stripeRouter";
@@ -52,6 +54,46 @@ export const appRouter = router({
       ctx.res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 });
       return { success: true } as const;
     }),
+    completeOnboarding: protectedProcedure
+      .input(
+        z.object({
+          companyName: z.string().min(1),
+          phone: z.string().optional(),
+          crmType: z.string().optional(),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        const db = await getDb();
+        if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+        await db
+          .update(users)
+          .set({
+            companyName: input.companyName,
+            phone: input.phone || null,
+            onboardingCompleted: 1,
+          })
+          .where(eq(users.id, ctx.user.id));
+        return { success: true };
+      }),
+    updateProfile: protectedProcedure
+      .input(
+        z.object({
+          companyName: z.string().optional(),
+          phone: z.string().optional(),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        const db = await getDb();
+        if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+        await db
+          .update(users)
+          .set({
+            companyName: input.companyName || null,
+            phone: input.phone || null,
+          })
+          .where(eq(users.id, ctx.user.id));
+        return { success: true };
+      }),
   }),
 
   // ─── Jobs ───────────────────────────────────────────────────────────────────

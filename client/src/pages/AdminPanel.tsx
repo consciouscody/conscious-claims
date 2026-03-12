@@ -5,9 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { Loader2, Users, DollarSign, Briefcase, Percent, ChevronRight, Shield } from "lucide-react";
+import {
+  Loader2, Users, DollarSign, Briefcase, Percent, Shield,
+  StickyNote, Check, X, ChevronDown, ChevronUp
+} from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { useLocation } from "wouter";
 
@@ -46,6 +50,9 @@ function AdminContent() {
   const [feeDialogUser, setFeeDialogUser] = useState<{ id: number; name: string | null; email: string | null; currentFee: number | null } | null>(null);
   const [newFee, setNewFee] = useState("");
   const [search, setSearch] = useState("");
+  const [expandedUser, setExpandedUser] = useState<number | null>(null);
+  const [editingNotesId, setEditingNotesId] = useState<number | null>(null);
+  const [notesValue, setNotesValue] = useState("");
 
   const setUserFee = trpc.admin.setUserFee.useMutation({
     onSuccess: () => {
@@ -57,10 +64,11 @@ function AdminContent() {
     onError: (e) => toast.error(e.message),
   });
 
-  const setUserRole = trpc.admin.setUserRole.useMutation({
+  const setAdminNotes = trpc.admin.setAdminNotes.useMutation({
     onSuccess: () => {
       utils.admin.listUsers.invalidate();
-      toast.success("Role updated");
+      setEditingNotesId(null);
+      toast.success("Notes saved");
     },
     onError: (e) => toast.error(e.message),
   });
@@ -75,10 +83,14 @@ function AdminContent() {
     );
   });
 
-  function openFeeDialog(u: typeof userList extends (infer T)[] | undefined ? T : never) {
-    if (!u) return;
+  function openFeeDialog(u: NonNullable<typeof userList>[number]) {
     setFeeDialogUser({ id: u.id, name: u.name, email: u.email, currentFee: u.currentFeePercentage });
     setNewFee(String(u.currentFeePercentage ?? 10));
+  }
+
+  function startEditNotes(u: NonNullable<typeof userList>[number]) {
+    setEditingNotesId(u.id);
+    setNotesValue(u.adminNotes || "");
   }
 
   return (
@@ -161,47 +173,137 @@ function AdminContent() {
             <p className="text-center text-muted-foreground text-sm py-12">No users found.</p>
           )}
           <div className="divide-y divide-border">
-            {filtered?.map((u) => (
-              <div key={u.id} className="flex items-center gap-4 px-6 py-4 hover:bg-muted/30 transition-colors">
-                {/* Avatar */}
-                <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold text-sm flex-shrink-0">
-                  {(u.name || u.email || "?")[0].toUpperCase()}
-                </div>
+            {filtered?.map((u) => {
+              const isExpanded = expandedUser === u.id;
+              const isEditingNotes = editingNotesId === u.id;
+              return (
+                <div key={u.id} className="transition-colors">
+                  {/* Main Row */}
+                  <div className="flex items-center gap-4 px-6 py-4 hover:bg-muted/30">
+                    {/* Avatar */}
+                    <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold text-sm flex-shrink-0">
+                      {(u.name || u.email || "?")[0].toUpperCase()}
+                    </div>
 
-                {/* Info */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="font-medium text-foreground text-sm truncate">
-                      {u.name || u.email || `User #${u.id}`}
-                    </span>
-                    {u.role === "admin" && (
-                      <Badge variant="outline" className="text-xs text-purple-600 border-purple-300 bg-purple-50">
-                        Admin
-                      </Badge>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-3 mt-0.5 text-xs text-muted-foreground flex-wrap">
-                    {u.email && <span>{u.email}</span>}
-                    {u.companyName && <span>· {u.companyName}</span>}
-                    <span>· {u.jobCount} job{u.jobCount !== 1 ? "s" : ""}</span>
-                    {u.totalRecovered > 0 && <span>· {formatCurrency(u.totalRecovered)} recovered</span>}
-                  </div>
-                </div>
+                    {/* Info */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-medium text-foreground text-sm truncate">
+                          {u.name || u.email || `User #${u.id}`}
+                        </span>
+                        {u.role === "admin" && (
+                          <Badge variant="outline" className="text-xs text-purple-600 border-purple-300 bg-purple-50">
+                            Admin
+                          </Badge>
+                        )}
+                        {!u.onboardingCompleted && (
+                          <Badge variant="outline" className="text-xs text-amber-600 border-amber-300 bg-amber-50">
+                            Setup Pending
+                          </Badge>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-3 mt-0.5 text-xs text-muted-foreground flex-wrap">
+                        {u.email && <span>{u.email}</span>}
+                        {u.companyName && <span>· {u.companyName}</span>}
+                        <span>· {u.jobCount} job{u.jobCount !== 1 ? "s" : ""}</span>
+                        {u.totalRecovered > 0 && <span>· {formatCurrency(u.totalRecovered)} recovered</span>}
+                        {u.adminNotes && (
+                          <span className="flex items-center gap-1 text-amber-600">
+                            <StickyNote className="w-3 h-3" />
+                            Has notes
+                          </span>
+                        )}
+                      </div>
+                    </div>
 
-                {/* Fee Badge */}
-                <div className="flex items-center gap-2 flex-shrink-0">
-                  <button
-                    onClick={() => openFeeDialog(u)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-muted hover:bg-muted/80 transition-colors text-sm font-medium text-foreground"
-                    title="Click to change fee rate"
-                  >
-                    <Percent className="w-3.5 h-3.5 text-primary" />
-                    {u.currentFeePercentage != null ? `${u.currentFeePercentage}%` : "Set fee"}
-                  </button>
-                  <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                    {/* Actions */}
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                      <button
+                        onClick={() => openFeeDialog(u)}
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-muted hover:bg-muted/80 transition-colors text-sm font-medium text-foreground"
+                        title="Click to change fee rate"
+                      >
+                        <Percent className="w-3.5 h-3.5 text-primary" />
+                        {u.currentFeePercentage != null ? `${u.currentFeePercentage}%` : "Set fee"}
+                      </button>
+                      <button
+                        onClick={() => setExpandedUser(isExpanded ? null : u.id)}
+                        className="p-1.5 rounded-lg hover:bg-muted/80 transition-colors text-muted-foreground"
+                        title="Expand details"
+                      >
+                        {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Expanded: Notes */}
+                  {isExpanded && (
+                    <div className="px-6 pb-4 bg-muted/20 border-t border-border/50">
+                      <div className="pt-3 space-y-2">
+                        <div className="flex items-center justify-between">
+                          <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                            Private Admin Notes
+                          </p>
+                          {!isEditingNotes && (
+                            <button
+                              onClick={() => startEditNotes(u)}
+                              className="text-xs text-primary hover:underline"
+                            >
+                              {u.adminNotes ? "Edit" : "Add note"}
+                            </button>
+                          )}
+                        </div>
+
+                        {isEditingNotes ? (
+                          <div className="space-y-2">
+                            <Textarea
+                              value={notesValue}
+                              onChange={(e) => setNotesValue(e.target.value)}
+                              placeholder="e.g. Agreed 10%, early adopter, referred by John. Called 3/12."
+                              rows={3}
+                              className="text-sm resize-none"
+                              autoFocus
+                            />
+                            <div className="flex gap-2">
+                              <Button
+                                size="sm"
+                                onClick={() => setAdminNotes.mutate({ userId: u.id, notes: notesValue })}
+                                disabled={setAdminNotes.isPending}
+                                className="gap-1.5 h-7 text-xs"
+                              >
+                                {setAdminNotes.isPending ? (
+                                  <Loader2 className="w-3 h-3 animate-spin" />
+                                ) : (
+                                  <Check className="w-3 h-3" />
+                                )}
+                                Save
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => setEditingNotesId(null)}
+                                className="gap-1.5 h-7 text-xs"
+                              >
+                                <X className="w-3 h-3" />
+                                Cancel
+                              </Button>
+                            </div>
+                          </div>
+                        ) : (
+                          <p className="text-sm text-foreground/80 italic">
+                            {u.adminNotes || (
+                              <span className="text-muted-foreground not-italic">
+                                No notes yet. Click "Add note" to add deal details, fee agreements, or follow-up reminders.
+                              </span>
+                            )}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  )}
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </CardContent>
       </Card>

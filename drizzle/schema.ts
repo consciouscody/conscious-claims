@@ -20,6 +20,8 @@ export const users = mysqlTable("users", {
   companyName: text("companyName"),
   phone: varchar("phone", { length: 32 }),
   stripeCustomerId: varchar("stripeCustomerId", { length: 128 }),
+  onboardingCompleted: tinyint("onboardingCompleted").default(0).notNull(),
+  adminNotes: text("adminNotes"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
