@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/sidebar";
 import { getLoginUrl } from "@/const";
 import { useIsMobile } from "@/hooks/useMobile";
-import { LayoutDashboard, LogOut, PanelLeft, Plus, Building2, BookOpen, Link2, Linkedin } from "lucide-react";
+import { LayoutDashboard, LogOut, PanelLeft, Plus, Building2, BookOpen, Link2, Linkedin, Shield } from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { DashboardLayoutSkeleton } from "./DashboardLayoutSkeleton";
@@ -33,6 +33,10 @@ const menuItems = [
   { icon: BookOpen, label: "Code Reference", path: "/reference" },
   { icon: Link2, label: "CRM Integrations", path: "/integrations" },
   { icon: Linkedin, label: "LinkedIn Posts", path: "/linkedin-posts" },
+];
+
+const adminMenuItems = [
+  { icon: Shield, label: "Admin Panel", path: "/admin" },
 ];
 
 const SIDEBAR_WIDTH_KEY = "sidebar-width";
@@ -116,7 +120,7 @@ function DashboardLayoutContent({
   const isCollapsed = state === "collapsed";
   const [isResizing, setIsResizing] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const activeMenuItem = menuItems.find((item) => item.path === location);
+  const activeMenuItem = [...menuItems, ...(user?.role === "admin" ? adminMenuItems : [])].find((item) => item.path === location);
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -184,7 +188,7 @@ function DashboardLayoutContent({
 
           <SidebarContent className="gap-0">
             <SidebarMenu className="px-2 py-1">
-              {menuItems.map((item) => {
+              {[...menuItems, ...(user?.role === "admin" ? adminMenuItems : [])].map((item) => {
                 const isActive = location === item.path || (item.path !== "/dashboard" && location.startsWith(item.path));
                 return (
                   <SidebarMenuItem key={item.path}>

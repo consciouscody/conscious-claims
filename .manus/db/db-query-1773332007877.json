@@ -1,0 +1,24 @@
+{
+  "query": "SELECT id, name, email, role, openId FROM users LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway04.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 47Bn4ErRjyBi4BS.886ea48315f5 --database 3ZX44EBEWux9xrkumJtpAc --execute SELECT id, name, email, role, openId FROM users LIMIT 10;",
+  "rows": [
+    {
+      "id": "1",
+      "name": "cody mccain",
+      "email": "ctmccain1@gmail.com",
+      "role": "admin",
+      "openId": "8HQ2TLqSn4uhjkxZ92MMKR"
+    },
+    {
+      "id": "1860001",
+      "name": "Cannon Elliott",
+      "email": "cannonandnicole@gmail.com",
+      "role": "user",
+      "openId": "FzcGMPMSSkypD9ksjTh3eU"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\temail\trole\topenId\n1\tcody mccain\tctmccain1@gmail.com\tadmin\t8HQ2TLqSn4uhjkxZ92MMKR\n1860001\tCannon Elliott\tcannonandnicole@gmail.com\tuser\tFzcGMPMSSkypD9ksjTh3eU\n",
+  "stderr": "",
+  "execution_time_ms": 68
+}

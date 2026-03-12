@@ -33,6 +33,7 @@ import { crmRouter } from "./routers/crm";
 import { affiliateRouter } from "./routers/affiliate";
 import { auditRouter } from "./routers/audit";
 import { linkedinRouter, waitlistRouter } from "./routers/linkedin";
+import { adminRouter } from "./routers/admin";
 import { notifyOwner } from "./_core/notification";
 
 export const appRouter = router({
@@ -43,6 +44,7 @@ export const appRouter = router({
   audit: auditRouter,
   linkedin: linkedinRouter,
   waitlist: waitlistRouter,
+  admin: adminRouter,
   auth: router({
     me: publicProcedure.query((opts) => opts.ctx.user),
     logout: publicProcedure.mutation(({ ctx }) => {

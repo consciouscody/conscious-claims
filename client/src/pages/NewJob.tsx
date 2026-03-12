@@ -31,7 +31,6 @@ function NewJobContent() {
     adjusterEmail: "",
     adjusterPhone: "",
     dateOfLoss: "",
-    feePercentage: "12",
     notes: "",
   });
 
@@ -179,29 +178,12 @@ function NewJobContent() {
           </CardContent>
         </Card>
 
-        {/* Fee & Notes */}
+        {/* Notes */}
         <Card>
           <CardHeader className="pb-4">
-            <CardTitle className="text-base">Fee & Notes</CardTitle>
+            <CardTitle className="text-base">Notes</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-1.5">
-              <Label htmlFor="fee">Your Fee Percentage (%)</Label>
-              <Input
-                id="fee"
-                type="number"
-                min="1"
-                max="30"
-                step="0.5"
-                placeholder="12"
-                value={form.feePercentage}
-                onChange={set("feePercentage")}
-                className="max-w-[120px]"
-              />
-              <p className="text-xs text-muted-foreground">
-                Your percentage of the recovered supplement amount (typically 10–15%)
-              </p>
-            </div>
+          <CardContent>
             <div className="space-y-1.5">
               <Label htmlFor="notes">Notes</Label>
               <Textarea
