@@ -94,6 +94,9 @@ export default function Home() {
             <Button variant="ghost" size="sm" onClick={() => navigate("/free-guide")} className="hidden sm:flex text-orange-600 font-semibold">
               Free Guide
             </Button>
+            <Button variant="ghost" size="sm" onClick={() => navigate("/visibility-audit")} className="hidden sm:flex text-blue-600 font-semibold">
+              Free AI Audit
+            </Button>
             <Button variant="ghost" size="sm" onClick={() => navigate("/affiliates")} className="hidden sm:flex">
               Affiliates
             </Button>

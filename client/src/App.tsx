@@ -22,6 +22,7 @@ import Waitlist from "./pages/Waitlist";
 import AdminPanel from "./pages/AdminPanel";
 import CallScript from "./pages/CallScript";
 import VisibilityAudit from "./pages/VisibilityAudit";
+import Billing from "./pages/Billing";
 
 function Router() {
   return (
@@ -44,6 +45,7 @@ function Router() {
       <Route path="/admin" component={AdminPanel} />
       <Route path="/call-script" component={CallScript} />
       <Route path="/visibility-audit" component={VisibilityAudit} />
+      <Route path="/billing" component={Billing} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

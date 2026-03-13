@@ -50,6 +50,7 @@ export default function OnboardingWizard({ onComplete }: OnboardingWizardProps) 
   const [form, setForm] = useState({
     companyName: "",
     phone: "",
+    referredBy: "",
     crmType: "",
   });
 
@@ -130,20 +131,35 @@ export default function OnboardingWizard({ onComplete }: OnboardingWizardProps) 
             )}
 
             {step === 2 && (
-              <div className="space-y-1.5">
-                <Label htmlFor="phone">Phone Number</Label>
-                <Input
-                  id="phone"
-                  type="tel"
-                  placeholder="(555) 000-0000"
-                  value={form.phone}
-                  onChange={set("phone")}
-                  autoFocus
-                  className="text-base"
-                />
-                <p className="text-xs text-muted-foreground">
-                  Optional — used for account recovery and support.
-                </p>
+              <div className="space-y-4">
+                <div className="space-y-1.5">
+                  <Label htmlFor="phone">Phone Number</Label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    placeholder="(555) 000-0000"
+                    value={form.phone}
+                    onChange={set("phone")}
+                    autoFocus
+                    className="text-base"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Optional — used for account recovery and support.
+                  </p>
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="referredBy">How did you hear about us?</Label>
+                  <Input
+                    id="referredBy"
+                    placeholder="e.g. John Smith, Facebook group, LinkedIn..."
+                    value={form.referredBy}
+                    onChange={set("referredBy")}
+                    className="text-base"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Optional — helps us know who to thank.
+                  </p>
+                </div>
               </div>
             )}
 
@@ -202,6 +218,12 @@ export default function OnboardingWizard({ onComplete }: OnboardingWizardProps) 
                       CRM: {form.crmType || "Will set up later"}
                     </span>
                   </div>
+                  {form.referredBy && (
+                    <div className="flex items-center gap-3">
+                      <CheckCircle2 className="w-4 h-4 text-green-500 shrink-0" />
+                      <span className="text-sm text-foreground">Referred by: {form.referredBy}</span>
+                    </div>
+                  )}
                 </div>
                 <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-xl p-4">
                   <Zap className="w-4 h-4 text-primary shrink-0 mt-0.5" />

@@ -174,3 +174,10 @@
 - [x] AI cold call script generator in admin panel
 - [x] Auto-welcome email when admin sets user fee
 - [x] Conscious Capital branding on exported supplement PDF
+
+## Phase 14 - Nav, Referral, Stripe
+- [ ] Add Free Audit link to homepage nav
+- [ ] Add Free Audit opener to call script generator
+- [ ] Add Referred By field to onboarding wizard
+- [ ] Wire referredBy to admin referral source tracking
+- [ ] Activate Stripe checkout and billing page

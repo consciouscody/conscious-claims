@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/sidebar";
 import { getLoginUrl } from "@/const";
 import { useIsMobile } from "@/hooks/useMobile";
-import { LayoutDashboard, LogOut, PanelLeft, Plus, Building2, BookOpen, Link2, Linkedin, Shield, Phone } from "lucide-react";
+import { LayoutDashboard, LogOut, PanelLeft, Plus, Building2, BookOpen, Link2, Linkedin, Shield, Phone, CreditCard } from "lucide-react";
 import OnboardingWizard from "./OnboardingWizard";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
@@ -34,6 +34,7 @@ const menuItems = [
   { icon: BookOpen, label: "Code Reference", path: "/reference" },
   { icon: Link2, label: "CRM Integrations", path: "/integrations" },
   { icon: Linkedin, label: "LinkedIn Posts", path: "/linkedin-posts" },
+  { icon: CreditCard, label: "Billing", path: "/billing" },
 ];
 
 const adminMenuItems = [

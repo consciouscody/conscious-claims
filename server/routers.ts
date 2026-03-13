@@ -62,6 +62,7 @@ export const appRouter = router({
           companyName: z.string().min(1),
           phone: z.string().optional(),
           crmType: z.string().optional(),
+          referredBy: z.string().optional(),
         })
       )
       .mutation(async ({ ctx, input }) => {
@@ -72,6 +73,7 @@ export const appRouter = router({
           .set({
             companyName: input.companyName,
             phone: input.phone || null,
+            referralSource: input.referredBy || null,
             onboardingCompleted: 1,
           })
           .where(eq(users.id, ctx.user.id));
