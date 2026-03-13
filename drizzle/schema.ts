@@ -22,6 +22,8 @@ export const users = mysqlTable("users", {
   stripeCustomerId: varchar("stripeCustomerId", { length: 128 }),
   onboardingCompleted: tinyint("onboardingCompleted").default(0).notNull(),
   adminNotes: text("adminNotes"),
+  referredBy: varchar("referredBy", { length: 256 }), // name/email of who referred this contractor
+  referralSource: varchar("referralSource", { length: 128 }), // e.g. "cold_call", "linkedin", "friend_referral"
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
@@ -271,3 +273,18 @@ export const waitlistSignups = mysqlTable("waitlist_signups", {
 });
 export type WaitlistSignup = typeof waitlistSignups.$inferSelect;
 export type InsertWaitlistSignup = typeof waitlistSignups.$inferInsert;
+
+// AI Visibility Audits — free audit tool for prospects
+export const visibilityAudits = mysqlTable("visibility_audits", {
+  id: int("id").autoincrement().primaryKey(),
+  businessName: varchar("businessName", { length: 256 }).notNull(),
+  city: varchar("city", { length: 128 }).notNull(),
+  website: varchar("website", { length: 512 }),
+  email: varchar("email", { length: 320 }),
+  auditResult: json("auditResult"),
+  score: int("score"),
+  leadConverted: tinyint("leadConverted").default(0).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+export type VisibilityAudit = typeof visibilityAudits.$inferSelect;
+export type InsertVisibilityAudit = typeof visibilityAudits.$inferInsert;

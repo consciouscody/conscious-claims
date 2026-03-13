@@ -10,10 +10,105 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { toast } from "sonner";
 import {
   Loader2, Users, DollarSign, Briefcase, Percent, Shield,
-  StickyNote, Check, X, ChevronDown, ChevronUp, Mail
+  StickyNote, Check, X, ChevronDown, ChevronUp, Mail,
+  UserPlus, Eye, ExternalLink
 } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { useLocation } from "wouter";
+
+function AuditLeadsSection() {
+  const utils = trpc.useUtils();
+  const { data: audits, isLoading } = trpc.visibility.listAudits.useQuery();
+  const markConverted = trpc.visibility.markConverted.useMutation({
+    onSuccess: () => {
+      utils.visibility.listAudits.invalidate();
+      toast.success("Marked as converted");
+    },
+  });
+
+  return (
+    <Card>
+      <CardHeader className="pb-3">
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-base flex items-center gap-2">
+            <Eye className="w-4 h-4 text-primary" />
+            AI Visibility Audit Leads
+          </CardTitle>
+          <a
+            href="/visibility-audit"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 text-xs text-primary hover:underline"
+          >
+            <ExternalLink className="w-3 h-3" />
+            View public audit page
+          </a>
+        </div>
+      </CardHeader>
+      <CardContent className="p-0">
+        {isLoading && (
+          <div className="flex items-center justify-center py-8 gap-2 text-muted-foreground">
+            <Loader2 className="w-4 h-4 animate-spin" />
+            <span className="text-sm">Loading leads...</span>
+          </div>
+        )}
+        {!isLoading && (!audits || audits.length === 0) && (
+          <p className="text-center text-muted-foreground text-sm py-8">
+            No audit leads yet. Share the free audit page link to start capturing prospects.
+          </p>
+        )}
+        <div className="divide-y divide-border">
+          {audits?.map((audit) => (
+            <div key={audit.id} className="flex items-center gap-4 px-6 py-3 hover:bg-muted/30">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="font-medium text-sm text-foreground">{audit.businessName}</span>
+                  <span className="text-xs text-muted-foreground">· {audit.city}</span>
+                  {audit.score != null && (
+                    <Badge
+                      variant="outline"
+                      className={`text-xs ${
+                        audit.score >= 70
+                          ? "text-green-600 border-green-300 bg-green-50"
+                          : audit.score >= 40
+                          ? "text-amber-600 border-amber-300 bg-amber-50"
+                          : "text-red-600 border-red-300 bg-red-50"
+                      }`}
+                    >
+                      Score: {audit.score}
+                    </Badge>
+                  )}
+                  {audit.leadConverted === 1 && (
+                    <Badge variant="outline" className="text-xs text-blue-600 border-blue-300 bg-blue-50">
+                      Converted
+                    </Badge>
+                  )}
+                </div>
+                <div className="flex items-center gap-3 mt-0.5 text-xs text-muted-foreground">
+                  {audit.email && <span>{audit.email}</span>}
+                  {audit.website && <span>· {audit.website}</span>}
+                  <span>· {new Date(audit.createdAt).toLocaleDateString()}</span>
+                </div>
+              </div>
+              {audit.leadConverted === 0 && (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="flex items-center gap-1.5 text-xs h-7"
+                  onClick={() => markConverted.mutate({ id: audit.id })}
+                  disabled={markConverted.isPending}
+                >
+                  <UserPlus className="w-3 h-3" />
+                  Mark Converted
+                </Button>
+              )}
+            </div>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
 
 function formatCurrency(n: number) {
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
@@ -333,6 +428,9 @@ function AdminContent() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Audit Leads Section */}
+      <AuditLeadsSection />
 
       {/* Fee Edit Dialog */}
       <Dialog open={!!feeDialogUser} onOpenChange={(open) => { if (!open) { setFeeDialogUser(null); setNewFee(""); } }}>

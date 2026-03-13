@@ -57,6 +57,13 @@
       "when": 1773332229442,
       "tag": "0007_volatile_penance",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1773364262802,
+      "tag": "0008_demonic_chamber",
+      "breakpoints": true
     }
   ]
 }

@@ -36,6 +36,7 @@ import { affiliateRouter } from "./routers/affiliate";
 import { auditRouter } from "./routers/audit";
 import { linkedinRouter, waitlistRouter } from "./routers/linkedin";
 import { adminRouter } from "./routers/admin";
+import { visibilityRouter } from "./routers/visibility";
 import { notifyOwner } from "./_core/notification";
 
 export const appRouter = router({
@@ -47,6 +48,7 @@ export const appRouter = router({
   linkedin: linkedinRouter,
   waitlist: waitlistRouter,
   admin: adminRouter,
+  visibility: visibilityRouter,
   auth: router({
     me: publicProcedure.query((opts) => opts.ctx.user),
     logout: publicProcedure.mutation(({ ctx }) => {
