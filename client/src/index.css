@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
 @custom-variant dark (&:is(.dark *));
 
@@ -44,77 +44,93 @@
 }
 
 :root {
-  --radius: 0.5rem;
-  --background: oklch(0.98 0.002 250);
-  --foreground: oklch(0.13 0.02 250);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.13 0.02 250);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.13 0.02 250);
-  /* Deep navy primary */
-  --primary: oklch(0.30 0.12 250);
-  --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.94 0.005 250);
-  --secondary-foreground: oklch(0.30 0.12 250);
-  --muted: oklch(0.95 0.005 250);
-  --muted-foreground: oklch(0.50 0.02 250);
-  /* Amber accent */
-  --accent: oklch(0.78 0.14 65);
-  --accent-foreground: oklch(0.13 0.02 250);
-  --destructive: oklch(0.55 0.22 25);
+  --radius: 0.625rem;
+
+  /* === CONSCIOUS CLAIMS — DARK GOLD THEME === */
+  /* Deep charcoal background */
+  --background: oklch(0.12 0.015 250);
+  --foreground: oklch(0.95 0.008 65);
+
+  /* Card: slightly lighter charcoal */
+  --card: oklch(0.17 0.018 250);
+  --card-foreground: oklch(0.95 0.008 65);
+
+  --popover: oklch(0.17 0.018 250);
+  --popover-foreground: oklch(0.95 0.008 65);
+
+  /* Primary: electric gold/amber */
+  --primary: oklch(0.78 0.18 75);
+  --primary-foreground: oklch(0.10 0.02 250);
+
+  /* Secondary: dark navy */
+  --secondary: oklch(0.22 0.04 250);
+  --secondary-foreground: oklch(0.90 0.01 65);
+
+  --muted: oklch(0.20 0.02 250);
+  --muted-foreground: oklch(0.60 0.02 250);
+
+  /* Accent: bright orange-gold */
+  --accent: oklch(0.72 0.20 55);
+  --accent-foreground: oklch(0.10 0.02 250);
+
+  --destructive: oklch(0.60 0.22 25);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.90 0.005 250);
-  --input: oklch(0.90 0.005 250);
-  --ring: oklch(0.30 0.12 250);
-  --chart-1: oklch(0.55 0.18 250);
-  --chart-2: oklch(0.65 0.15 160);
-  --chart-3: oklch(0.78 0.14 65);
-  --chart-4: oklch(0.55 0.18 300);
-  --chart-5: oklch(0.55 0.18 20);
-  /* Dark navy sidebar */
-  --sidebar: oklch(0.18 0.05 250);
-  --sidebar-foreground: oklch(0.92 0.01 250);
-  --sidebar-primary: oklch(0.78 0.14 65);
-  --sidebar-primary-foreground: oklch(0.13 0.02 250);
-  --sidebar-accent: oklch(0.25 0.06 250);
-  --sidebar-accent-foreground: oklch(0.92 0.01 250);
-  --sidebar-border: oklch(0.28 0.05 250);
-  --sidebar-ring: oklch(0.78 0.14 65);
+
+  --border: oklch(0.28 0.03 250);
+  --input: oklch(0.22 0.03 250);
+  --ring: oklch(0.78 0.18 75);
+
+  --chart-1: oklch(0.78 0.18 75);
+  --chart-2: oklch(0.65 0.18 160);
+  --chart-3: oklch(0.72 0.20 55);
+  --chart-4: oklch(0.60 0.18 300);
+  --chart-5: oklch(0.60 0.18 20);
+
+  /* Sidebar: very dark navy */
+  --sidebar: oklch(0.10 0.02 250);
+  --sidebar-foreground: oklch(0.90 0.01 65);
+  --sidebar-primary: oklch(0.78 0.18 75);
+  --sidebar-primary-foreground: oklch(0.10 0.02 250);
+  --sidebar-accent: oklch(0.18 0.03 250);
+  --sidebar-accent-foreground: oklch(0.90 0.01 65);
+  --sidebar-border: oklch(0.22 0.03 250);
+  --sidebar-ring: oklch(0.78 0.18 75);
 }
 
+/* Dark mode = same as root (already dark-first) */
 .dark {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-500);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.85 0.005 65);
-  --card: oklch(0.21 0.006 285.885);
-  --card-foreground: oklch(0.85 0.005 65);
-  --popover: oklch(0.21 0.006 285.885);
-  --popover-foreground: oklch(0.85 0.005 65);
-  --secondary: oklch(0.24 0.006 286.033);
-  --secondary-foreground: oklch(0.7 0.005 65);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.274 0.006 286.033);
-  --accent-foreground:  oklch(0.92 0.005 65);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.488 0.243 264.376);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
-  --sidebar: oklch(0.21 0.006 285.885);
-  --sidebar-foreground: oklch(0.85 0.005 65);
-  --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-accent-foreground:  oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.488 0.243 264.376);
+  --background: oklch(0.10 0.015 250);
+  --foreground: oklch(0.95 0.008 65);
+  --card: oklch(0.15 0.018 250);
+  --card-foreground: oklch(0.95 0.008 65);
+  --popover: oklch(0.15 0.018 250);
+  --popover-foreground: oklch(0.95 0.008 65);
+  --primary: oklch(0.78 0.18 75);
+  --primary-foreground: oklch(0.10 0.02 250);
+  --secondary: oklch(0.20 0.04 250);
+  --secondary-foreground: oklch(0.90 0.01 65);
+  --muted: oklch(0.18 0.02 250);
+  --muted-foreground: oklch(0.58 0.02 250);
+  --accent: oklch(0.72 0.20 55);
+  --accent-foreground: oklch(0.10 0.02 250);
+  --destructive: oklch(0.60 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.25 0.03 250);
+  --input: oklch(0.20 0.03 250);
+  --ring: oklch(0.78 0.18 75);
+  --chart-1: oklch(0.78 0.18 75);
+  --chart-2: oklch(0.65 0.18 160);
+  --chart-3: oklch(0.72 0.20 55);
+  --chart-4: oklch(0.60 0.18 300);
+  --chart-5: oklch(0.60 0.18 20);
+  --sidebar: oklch(0.10 0.02 250);
+  --sidebar-foreground: oklch(0.90 0.01 65);
+  --sidebar-primary: oklch(0.78 0.18 75);
+  --sidebar-primary-foreground: oklch(0.10 0.02 250);
+  --sidebar-accent: oklch(0.16 0.03 250);
+  --sidebar-accent-foreground: oklch(0.90 0.01 65);
+  --sidebar-border: oklch(0.20 0.03 250);
+  --sidebar-ring: oklch(0.78 0.18 75);
 }
 
 @layer base {
@@ -123,7 +139,12 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+  }
+  h1, h2, h3 {
+    font-family: 'Barlow Condensed', 'Space Grotesk', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.01em;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -139,24 +160,11 @@
 }
 
 @layer components {
-  /**
-   * Custom container utility that centers content and adds responsive padding.
-   *
-   * This overrides Tailwind's default container behavior to:
-   * - Auto-center content (mx-auto)
-   * - Add responsive horizontal padding
-   * - Set max-width for large screens
-   *
-   * Usage: <div className="container">...</div>
-   *
-   * For custom widths, use max-w-* utilities directly:
-   * <div className="max-w-6xl mx-auto px-4">...</div>
-   */
   .container {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1rem; /* 16px - mobile padding */
+    padding-left: 1rem;
     padding-right: 1rem;
   }
 
@@ -167,16 +175,44 @@
 
   @media (min-width: 640px) {
     .container {
-      padding-left: 1.5rem; /* 24px - tablet padding */
+      padding-left: 1.5rem;
       padding-right: 1.5rem;
     }
   }
 
   @media (min-width: 1024px) {
     .container {
-      padding-left: 2rem; /* 32px - desktop padding */
+      padding-left: 2rem;
       padding-right: 2rem;
-      max-width: 1280px; /* Standard content width */
+      max-width: 1280px;
     }
+  }
+
+  /* Gold gradient text utility */
+  .text-gold-gradient {
+    background: linear-gradient(135deg, #f5c842 0%, #e8a020 50%, #f5c842 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glowing gold button */
+  .btn-gold {
+    background: linear-gradient(135deg, #f5c842 0%, #e8a020 100%);
+    color: #0a0e1a;
+    font-weight: 700;
+    font-family: 'Space Grotesk', sans-serif;
+    box-shadow: 0 0 20px rgba(245, 200, 66, 0.35), 0 4px 15px rgba(0,0,0,0.3);
+    transition: box-shadow 0.2s, transform 0.1s;
+  }
+  .btn-gold:hover {
+    box-shadow: 0 0 30px rgba(245, 200, 66, 0.55), 0 6px 20px rgba(0,0,0,0.4);
+    transform: translateY(-1px);
+  }
+
+  /* Stat card glow */
+  .stat-card-gold {
+    border: 1px solid rgba(245, 200, 66, 0.25);
+    background: linear-gradient(135deg, rgba(245, 200, 66, 0.08) 0%, rgba(20, 25, 50, 0.9) 100%);
   }
 }
