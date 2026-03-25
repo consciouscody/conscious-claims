@@ -114,6 +114,7 @@ export const appRouter = router({
       .input(
         z.object({
           propertyAddress: z.string().min(1),
+          tradeType: z.enum(["roofing", "water_restoration"]).default("roofing"),
           homeownerName: z.string().optional(),
           claimNumber: z.string().optional(),
           insuranceCarrier: z.string().optional(),
@@ -128,6 +129,7 @@ export const appRouter = router({
       .mutation(async ({ ctx, input }) => {
         const job = await createJob({
           userId: ctx.user.id,
+          tradeType: input.tradeType || "roofing",
           propertyAddress: input.propertyAddress,
           homeownerName: input.homeownerName,
           claimNumber: input.claimNumber,
@@ -247,26 +249,23 @@ export const appRouter = router({
       }),
 
     analyzeWithAI: protectedProcedure
-      .input(z.object({ photoId: z.number(), photoUrl: z.string(), jobId: z.number() }))
+      .input(z.object({ photoId: z.number(), photoUrl: z.string(), jobId: z.number(), tradeType: z.enum(["roofing", "water_restoration"]).default("roofing") }))
       .mutation(async ({ input }) => {
+        const isWater = input.tradeType === "water_restoration";
+        const systemPrompt = isWater
+          ? "You are an expert water damage restoration insurance supplement specialist. Analyze the provided photo and identify evidence supporting supplement line items. Look for: category 1/2/3 water damage, affected structural materials (drywall, subfloor, framing), mold risk indicators, moisture migration patterns, IICRC S500 scope items, equipment placement needs (air movers, dehumidifiers), demolition requirements, antimicrobial treatment areas, and any other supplement-worthy conditions. Reference Xactimate line item codes where applicable."
+          : "You are an expert roofing insurance supplement specialist. Analyze the provided roof photo and identify any evidence that supports supplement line items. Look for: multiple shingle layers, damaged or missing drip edge, missing valley metal, damaged step flashing, deteriorated pipe boots, missing starter shingles, hail damage, wind damage, and any other supplement-worthy conditions. Be specific and reference Xactimate line item codes where applicable.";
+        const userText = isWater
+          ? "Please analyze this water damage photo and identify evidence supporting insurance supplement line items. List specific findings with corresponding Xactimate codes."
+          : "Please analyze this roof photo and identify any evidence that supports insurance supplement line items. List specific findings with corresponding Xactimate codes.";
         const response = await invokeLLM({
           messages: [
-            {
-              role: "system",
-              content:
-                "You are an expert roofing insurance supplement specialist. Analyze the provided roof photo and identify any evidence that supports supplement line items. Look for: multiple shingle layers, damaged or missing drip edge, missing valley metal, damaged step flashing, deteriorated pipe boots, missing starter shingles, hail damage, wind damage, and any other supplement-worthy conditions. Be specific and reference Xactimate line item codes where applicable.",
-            },
+            { role: "system", content: systemPrompt },
             {
               role: "user",
               content: [
-                {
-                  type: "image_url",
-                  image_url: { url: input.photoUrl, detail: "high" },
-                },
-                {
-                  type: "text",
-                  text: "Please analyze this roof photo and identify any evidence that supports insurance supplement line items. List specific findings with corresponding Xactimate codes.",
-                },
+                { type: "image_url", image_url: { url: input.photoUrl, detail: "high" } },
+                { type: "text", text: userText },
               ],
             },
           ],
@@ -449,7 +448,9 @@ export const appRouter = router({
             ? "Reinspection Request"
             : "Follow-Up";
 
-        const prompt = `You are an expert roofing insurance supplement specialist with 10+ years of experience. Write a professional, firm, and respectful ${emailTypeLabel} email to an insurance adjuster.
+        const isWater = (input as any).tradeType === "water_restoration";
+        const specialistLabel = isWater ? "water damage restoration" : "roofing";
+        const prompt = `You are an expert ${specialistLabel} insurance supplement specialist with 10+ years of experience. Write a professional, firm, and respectful ${emailTypeLabel} email to an insurance adjuster.
 
 Claim Details:
 - Claim #: ${input.claimNumber || "TBD"}
@@ -480,7 +481,7 @@ SUBJECT: [subject line]
 
         const response = await invokeLLM({
           messages: [
-            { role: "system", content: "You are an expert roofing insurance supplement specialist." },
+            { role: "system", content: `You are an expert ${(input as any).tradeType === "water_restoration" ? "water damage restoration" : "roofing"} insurance supplement specialist.` },
             { role: "user", content: prompt },
           ],
         });

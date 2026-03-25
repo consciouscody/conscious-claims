@@ -16,26 +16,32 @@ import {
   Building2,
   Star,
   ChevronRight,
+  Droplets,
 } from "lucide-react";
 
 const FEATURES = [
   { icon: FileText, title: "Xactimate PDF Analysis", desc: "Upload any Xactimate estimate and our engine automatically identifies every missing line item — starter shingles, drip edge, valley metal, pipe boots, and more." },
-  { icon: Camera, title: "AI Photo Analysis", desc: "Upload roof photos and our AI identifies visual evidence of supplement items — multiple shingle layers, damaged flashing, missing valley metal — and maps them to Xactimate codes." },
-  { icon: Mail, title: "Smart Adjuster Emails", desc: "Generate professional, code-referenced supplement request emails in seconds. Each email cites IRC codes, manufacturer requirements, and field conditions." },
+  { icon: Camera, title: "AI Photo Analysis", desc: "Upload roof and water damage photos. AI identifies visual evidence and maps every finding to Xactimate codes automatically." },
+  { icon: Droplets, title: "Water Restoration Supplements", desc: "Full IICRC S500 scope analysis for water damage claims. AI finds missed drying equipment, demolition scope, antimicrobial treatments, and structural repairs adjusters leave off." },
+  { icon: Mail, title: "Smart Adjuster Emails", desc: "Generate professional, code-referenced supplement request emails in seconds. Each email cites IRC codes, IICRC standards, manufacturer requirements, and field conditions." },
   { icon: TrendingUp, title: "Supplement Tracking", desc: "Track every claim from draft to paid. Know exactly which supplements are submitted, approved, denied, and how much has been recovered." },
   { icon: DollarSign, title: "Fee Calculator", desc: "Automatically calculate your percentage-based fee on every recovered supplement. See your earnings per job and across your entire portfolio." },
-  { icon: Shield, title: "Code & Manufacturer Database", desc: "Built-in reference library of IRC building codes, Xactimate line item codes, and manufacturer installation requirements — the justification you need to win every supplement." },
+  { icon: Shield, title: "Code & Standards Database", desc: "Built-in reference library of IRC building codes, Xactimate line item codes, IICRC S500 water restoration standards, and manufacturer installation requirements." },
 ];
 
 const COMMONLY_MISSED = [
-  { code: "RFG STRT", name: "Starter Shingles" },
-  { code: "RFG DRIP", name: "Drip Edge (Eaves & Rakes)" },
-  { code: "RFG VMTL", name: "Valley Metal" },
-  { code: "RFG STPFLSH", name: "Step Flashing" },
-  { code: "RFG FLPIPE", name: "Pipe Boot Flashings" },
-  { code: "RFG ICEWATER", name: "Ice & Water Shield" },
-  { code: "GUT D&R", name: "Gutter Detach & Reset" },
-  { code: "PERMIT", name: "Building Permit" },
+  { code: "RFG STRT", name: "Starter Shingles", trade: "roofing" },
+  { code: "RFG DRIP", name: "Drip Edge (Eaves & Rakes)", trade: "roofing" },
+  { code: "RFG VMTL", name: "Valley Metal", trade: "roofing" },
+  { code: "RFG STPFLSH", name: "Step Flashing", trade: "roofing" },
+  { code: "RFG FLPIPE", name: "Pipe Boot Flashings", trade: "roofing" },
+  { code: "RFG ICEWATER", name: "Ice & Water Shield", trade: "roofing" },
+  { code: "GUT D&R", name: "Gutter Detach & Reset", trade: "roofing" },
+  { code: "PERMIT", name: "Building Permit", trade: "roofing" },
+  { code: "WTR AMTRT", name: "Antimicrobial Treatment", trade: "water" },
+  { code: "WTR DEHU", name: "Dehumidifier Placement", trade: "water" },
+  { code: "WTR DEMO", name: "Drywall Demo & Haul Off", trade: "water" },
+  { code: "WTR SUBFLR", name: "Subfloor Removal", trade: "water" },
 ];
 
 const STATS = [

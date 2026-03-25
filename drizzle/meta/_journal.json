@@ -64,6 +64,13 @@
       "when": 1773364262802,
       "tag": "0008_demonic_chamber",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1774415528735,
+      "tag": "0009_high_omega_red",
+      "breakpoints": true
     }
   ]
 }

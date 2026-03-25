@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { trpc } from "@/lib/trpc";
-import { ArrowLeft, Building2, Loader2 } from "lucide-react";
+import { ArrowLeft, Building2, Loader2, Droplets, Home } from "lucide-react";
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { toast } from "sonner";
@@ -22,6 +22,7 @@ function NewJobContent() {
   const [, navigate] = useLocation();
   const utils = trpc.useUtils();
 
+  const [tradeType, setTradeType] = useState<"roofing" | "water_restoration">("roofing");
   const [form, setForm] = useState({
     propertyAddress: "",
     homeownerName: "",
@@ -52,7 +53,7 @@ function NewJobContent() {
       toast.error("Property address is required");
       return;
     }
-    createJob.mutate(form);
+    createJob.mutate({ ...form, tradeType });
   };
 
   const set = (field: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -70,11 +71,50 @@ function NewJobContent() {
       <div>
         <h1 className="text-2xl font-bold text-foreground">New Supplement Job</h1>
         <p className="text-muted-foreground text-sm mt-1">
-          Enter the claim and property details to get started.
+          Select your trade type and enter the claim details to get started.
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
+
+        {/* Trade Type Selector */}
+        <Card>
+          <CardHeader className="pb-4">
+            <CardTitle className="text-base">Trade Type</CardTitle>
+            <CardDescription className="text-xs">Select the type of damage claim — the AI will use the right supplement specialist for each trade.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                onClick={() => setTradeType("roofing")}
+                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all ${
+                  tradeType === "roofing"
+                    ? "border-yellow-500 bg-yellow-500/10 text-yellow-400"
+                    : "border-border bg-card text-muted-foreground hover:border-yellow-500/50"
+                }`}
+              >
+                <Home className="w-6 h-6" />
+                <span className="font-semibold text-sm">Roofing</span>
+                <span className="text-xs text-center opacity-70">Hail, wind, storm damage — Xactimate roof supplements</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setTradeType("water_restoration")}
+                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all ${
+                  tradeType === "water_restoration"
+                    ? "border-blue-400 bg-blue-400/10 text-blue-400"
+                    : "border-border bg-card text-muted-foreground hover:border-blue-400/50"
+                }`}
+              >
+                <Droplets className="w-6 h-6" />
+                <span className="font-semibold text-sm">Water Restoration</span>
+                <span className="text-xs text-center opacity-70">Water damage, mold, IICRC S500 scope supplements</span>
+              </button>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Property Info */}
         <Card>
           <CardHeader className="pb-4">
@@ -198,9 +238,13 @@ function NewJobContent() {
         </Card>
 
         <div className="flex gap-3">
-          <Button type="submit" disabled={createJob.isPending} className="gap-2">
+          <Button
+            type="submit"
+            disabled={createJob.isPending}
+            className={`gap-2 ${tradeType === "water_restoration" ? "bg-blue-600 hover:bg-blue-700 text-white" : ""}`}
+          >
             {createJob.isPending && <Loader2 className="w-4 h-4 animate-spin" />}
-            Create Job
+            {tradeType === "water_restoration" ? "Create Water Restoration Job" : "Create Roofing Job"}
           </Button>
           <Button type="button" variant="outline" onClick={() => navigate("/dashboard")}>
             Cancel

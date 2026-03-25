@@ -36,6 +36,8 @@ export type InsertUser = typeof users.$inferInsert;
 export const jobs = mysqlTable("jobs", {
   id: int("id").autoincrement().primaryKey(),
   userId: int("userId").notNull(),
+  // Trade type - determines which AI supplement specialist is used
+  tradeType: mysqlEnum("tradeType", ["roofing", "water_restoration"]).default("roofing").notNull(),
   // Property & claim info
   propertyAddress: text("propertyAddress").notNull(),
   homeownerName: varchar("homeownerName", { length: 256 }),

@@ -1,0 +1,1 @@
+ALTER TABLE `jobs` ADD `tradeType` enum('roofing','water_restoration') DEFAULT 'roofing' NOT NULL;
