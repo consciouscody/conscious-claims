@@ -65,7 +65,7 @@ export default function Home() {
         <div className="container flex items-center justify-between h-16">
           <div className="flex items-center gap-3">
             <img
-              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/cc_logo_transparent-h58yWXSTDD6dMBEUaFFLNB.png"
+              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/cc_logo_transparent_0cf366e7.png"
               alt="Conscious Claims"
               className="w-9 h-9 object-contain"
             />
@@ -311,7 +311,7 @@ export default function Home() {
       <footer className="py-8" style={{background:'#070a12', borderTop:'1px solid rgba(255,255,255,0.06)'}}>
         <div className="container flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/cc_logo_transparent-h58yWXSTDD6dMBEUaFFLNB.png" alt="Conscious Claims" className="w-8 h-8 object-contain" />
+            <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/cc_logo_transparent_0cf366e7.png" alt="Conscious Claims" className="w-8 h-8 object-contain" />
             <span className="font-bold text-white" style={{fontFamily:"'Barlow Condensed', sans-serif", letterSpacing:'0.05em'}}>CONSCIOUS CLAIMS</span>
           </div>
           <div className="flex items-center gap-6">
