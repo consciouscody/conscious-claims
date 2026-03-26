@@ -1,5 +1,6 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { useReferralTracking } from "@/hooks/useReferralTracking";
+import EngagementPopup from "@/components/EngagementPopup";
 import { Button } from "@/components/ui/button";
 import { getLoginUrl } from "@/const";
 import { useLocation } from "wouter";
@@ -65,6 +66,8 @@ export default function Home() {
   };
 
   return (
+    <>
+    <EngagementPopup />
     <div className="min-h-screen bg-background">
       {/* Nav */}
       <nav className="border-b border-border/50 bg-background/95 backdrop-blur-sm sticky top-0 z-50">
@@ -330,5 +333,6 @@ export default function Home() {
         </div>
       </footer>
     </div>
+    </>
   );
 }

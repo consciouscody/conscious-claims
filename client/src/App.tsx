@@ -23,6 +23,7 @@ import AdminPanel from "./pages/AdminPanel";
 import CallScript from "./pages/CallScript";
 import VisibilityAudit from "./pages/VisibilityAudit";
 import Billing from "./pages/Billing";
+import WaterRestoration from "./pages/WaterRestoration";
 
 function Router() {
   return (
@@ -46,6 +47,7 @@ function Router() {
       <Route path="/call-script" component={CallScript} />
       <Route path="/visibility-audit" component={VisibilityAudit} />
       <Route path="/billing" component={Billing} />
+      <Route path="/water-restoration" component={WaterRestoration} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
