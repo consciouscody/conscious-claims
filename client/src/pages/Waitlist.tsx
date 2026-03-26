@@ -61,7 +61,7 @@ export default function Waitlist() {
       <nav className="border-b border-gray-800 px-6 py-4 flex items-center justify-between">
         <Link href="/">
           <div className="flex items-center gap-2 cursor-pointer">
-            <div className="w-8 h-8 rounded-lg bg-orange-500 flex items-center justify-center font-bold text-white text-sm">
+            <div className="w-8 h-8 rounded-lg bg-[#c9a84c] flex items-center justify-center font-bold text-[#0a0f1e] text-sm">
               CC
             </div>
             <span className="font-bold text-white">SupplementAI</span>
@@ -126,7 +126,7 @@ export default function Waitlist() {
             <Button
               type="submit"
               disabled={signupMutation.isPending || !email.trim()}
-              className="w-full h-12 text-base font-bold bg-orange-500 hover:bg-orange-400 text-white"
+              className="w-full h-12 text-base font-bold bg-[#c9a84c] hover:bg-[#b8963e] text-[#0a0f1e] font-bold"
             >
               {signupMutation.isPending ? "Joining..." : "Join the Waitlist — It's Free"}
             </Button>
@@ -140,7 +140,7 @@ export default function Waitlist() {
               We'll hit you first when we open your region. In the meantime — download the free playbook.
             </p>
             <Link href="/free-guide">
-              <Button className="bg-orange-500 hover:bg-orange-400 text-white">
+              <Button className="bg-[#c9a84c] hover:bg-[#b8963e] text-[#0a0f1e] font-bold">
                 Get the Free Supplement Playbook
               </Button>
             </Link>

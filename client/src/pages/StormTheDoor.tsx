@@ -105,7 +105,7 @@ export default function StormTheDoor() {
             <Button
               onClick={handleBuy}
               disabled={loading || checkout.isPending}
-              className="w-full bg-[#FF6B00] hover:bg-[#e55f00] text-white font-bold text-lg py-6 rounded-xl"
+              className="w-full bg-[#c9a84c] hover:bg-[#b8963e] text-[#0a0f1e] font-bold font-bold text-lg py-6 rounded-xl"
             >
               {loading || checkout.isPending ? "Loading..." : "Get Instant Access — $27"}
             </Button>

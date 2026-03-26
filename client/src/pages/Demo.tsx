@@ -253,7 +253,7 @@ export default function Demo() {
         </div>
       </div>
       {/* Nav */}
-      <nav className="border-b border-border bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+      <nav className="border-b border-border bg-[#0a0f1e]/95 backdrop-blur-sm sticky top-0 z-50 border-b border-[#c9a84c]/20">
         <div className="container flex items-center justify-between h-16">
           <button
             onClick={() => navigate("/")}

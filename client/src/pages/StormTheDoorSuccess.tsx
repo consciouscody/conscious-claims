@@ -58,7 +58,7 @@ export default function StormTheDoorSuccess() {
               rel="noopener noreferrer"
               download="StormTheDoor_SalesPlaybook.pdf"
             >
-              <Button className="w-full bg-[#FF6B00] hover:bg-[#e55f00] text-white font-bold py-4 text-lg">
+              <Button className="w-full bg-[#c9a84c] hover:bg-[#b8963e] text-[#0a0f1e] font-bold font-bold py-4 text-lg">
                 ⬇ Download Storm the Door PDF
               </Button>
             </a>

@@ -173,7 +173,7 @@ export default function Pricing() {
   return (
     <div className="min-h-screen bg-background">
       {/* Nav */}
-      <nav className="border-b border-border bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+      <nav className="border-b border-border bg-[#0a0f1e]/95 backdrop-blur-sm sticky top-0 z-50 border-b border-[#c9a84c]/20">
         <div className="container flex items-center justify-between h-16">
           <button onClick={() => navigate("/")} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <img
@@ -206,7 +206,7 @@ export default function Pricing() {
       </nav>
 
       {/* Header */}
-      <section className="bg-gradient-to-br from-primary via-primary/90 to-[oklch(0.22_0.08_250)] text-white py-20">
+      <section className="bg-gradient-to-br from-[#0a0f1e] via-[#0d1526] to-[#111827] text-white py-20 border-b border-[#c9a84c]/20">
         <div className="container text-center">
           <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-sm mb-6">
             <Zap className="w-3.5 h-3.5 text-accent" />
@@ -254,8 +254,8 @@ export default function Pricing() {
                 key={plan.id}
                 className={`relative rounded-2xl border-2 p-8 flex flex-col ${
                   plan.highlight
-                    ? "border-primary bg-primary text-primary-foreground shadow-2xl scale-105"
-                    : "border-border bg-white"
+                    ? "border-[#c9a84c] bg-[#0d1526] text-white shadow-2xl scale-105 ring-2 ring-[#c9a84c]/30"
+                    : "border-[#1e2a3a] bg-[#111827]"
                 }`}
               >
                 {plan.badge && (
@@ -267,22 +267,22 @@ export default function Pricing() {
                   </div>
                 )}
                 {"savings" in plan && plan.savings && (
-                  <div className={`text-xs font-semibold mb-3 ${plan.highlight ? "text-accent" : "text-green-600"}`}>
+                  <div className={`text-xs font-semibold mb-3 ${plan.highlight ? "text-[#c9a84c]" : "text-[#c9a84c]"}`}>
                     {plan.savings}
                   </div>
                 )}
                 <div className="mb-6">
-                  <h3 className={`text-xl font-bold mb-1 ${plan.highlight ? "text-white" : "text-foreground"}`}>
+                  <h3 className={`text-xl font-bold mb-1 ${plan.highlight ? "text-[#c9a84c]" : "text-[#c9a84c]"}`}>
                     {plan.name}
                   </h3>
-                  <p className={`text-sm mb-4 ${plan.highlight ? "text-white/70" : "text-muted-foreground"}`}>
+                  <p className={`text-sm mb-4 ${plan.highlight ? "text-white/70" : "text-gray-400"}`}>
                     {plan.description}
                   </p>
                   <div className="flex items-baseline gap-1">
-                    <span className={`text-4xl font-extrabold ${plan.highlight ? "text-white" : "text-foreground"}`}>
+                    <span className={`text-4xl font-extrabold ${plan.highlight ? "text-white" : "text-white"}`}>
                       ${plan.price}
                     </span>
-                    <span className={`text-sm ${plan.highlight ? "text-white/60" : "text-muted-foreground"}`}>
+                    <span className={`text-sm ${plan.highlight ? "text-white/60" : "text-gray-400"}`}>
                       /{plan.period}
                     </span>
                   </div>
@@ -297,11 +297,9 @@ export default function Pricing() {
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex items-start gap-2">
                       <CheckCircle
-                        className={`w-4 h-4 mt-0.5 shrink-0 ${
-                          plan.highlight ? "text-accent" : "text-green-500"
-                        }`}
+                        className={`w-4 h-4 mt-0.5 shrink-0 text-[#c9a84c]`}
                       />
-                      <span className={`text-sm ${plan.highlight ? "text-white/90" : "text-foreground"}`}>
+                      <span className={`text-sm ${plan.highlight ? "text-white/90" : "text-gray-300"}`}>
                         {feature}
                       </span>
                     </li>
@@ -312,8 +310,8 @@ export default function Pricing() {
                   size="lg"
                   className={`w-full font-semibold ${
                     plan.highlight
-                      ? "bg-accent text-accent-foreground hover:bg-accent/90"
-                      : "bg-primary text-primary-foreground hover:bg-primary/90"
+                      ? "bg-[#c9a84c] text-[#0a0f1e] hover:bg-[#b8963e] font-bold"
+                      : "bg-[#c9a84c] text-[#0a0f1e] hover:bg-[#b8963e] font-bold"
                   }`}
                   onClick={() => handlePlanCTA(plan)}
                   disabled={createCheckout.isPending}
