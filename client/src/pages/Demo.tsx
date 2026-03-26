@@ -232,6 +232,26 @@ export default function Demo() {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Video Hero Section */}
+      <div className="bg-gradient-to-b from-[#0a0f1e] to-background py-10">
+        <div className="container max-w-4xl">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Watch the Demo — <span className="text-[#c9a84c]">$4,832 Found in 30 Seconds</span></h2>
+            <p className="text-gray-400 text-sm">Real estimate. Real photos. Watch the AI find every missed line item and write the adjuster email automatically.</p>
+          </div>
+          <div className="relative w-full rounded-2xl overflow-hidden border border-[#c9a84c]/30 shadow-2xl" style={{paddingBottom: '56.25%'}}>
+            <iframe
+              id="demo-video"
+              className="absolute top-0 left-0 w-full h-full"
+              src="https://www.youtube.com/embed/YOUR_VIDEO_ID?rel=0&modestbranding=1"
+              title="Conscious Claims Demo — $4,832 Found in 30 Seconds"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      </div>
       {/* Nav */}
       <nav className="border-b border-border bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container flex items-center justify-between h-16">
