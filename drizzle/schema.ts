@@ -290,3 +290,17 @@ export const visibilityAudits = mysqlTable("visibility_audits", {
 });
 export type VisibilityAudit = typeof visibilityAudits.$inferSelect;
 export type InsertVisibilityAudit = typeof visibilityAudits.$inferInsert;
+
+// Claim messages — admin-to-customer direct messages about a specific job
+export const claimMessages = mysqlTable("claim_messages", {
+  id: int("id").autoincrement().primaryKey(),
+  jobId: int("jobId").notNull(),
+  userId: int("userId").notNull(), // the customer who owns the job
+  senderRole: mysqlEnum("senderRole", ["admin", "customer"]).default("admin").notNull(),
+  message: text("message").notNull(),
+  isRead: tinyint("isRead").default(0).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type ClaimMessage = typeof claimMessages.$inferSelect;
+export type InsertClaimMessage = typeof claimMessages.$inferInsert;

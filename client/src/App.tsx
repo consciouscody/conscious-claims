@@ -24,6 +24,8 @@ import CallScript from "./pages/CallScript";
 import VisibilityAudit from "./pages/VisibilityAudit";
 import Billing from "./pages/Billing";
 import WaterRestoration from "./pages/WaterRestoration";
+import AdminClaimsDashboard from "./pages/AdminClaimsDashboard";
+import ClaimStatus from "./pages/ClaimStatus";
 
 function Router() {
   return (
@@ -48,6 +50,8 @@ function Router() {
       <Route path="/visibility-audit" component={VisibilityAudit} />
       <Route path="/billing" component={Billing} />
       <Route path="/water-restoration" component={WaterRestoration} />
+      <Route path="/admin/claims" component={AdminClaimsDashboard} />
+      <Route path="/claim-status" component={ClaimStatus} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

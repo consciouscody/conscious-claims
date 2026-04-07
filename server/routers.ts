@@ -25,8 +25,8 @@ import {
   getDashboardStats,
 } from "./db";
 import { detectMissingItems, SUPPLEMENT_KNOWLEDGE_BASE } from "./supplementKnowledgeBase";
-import { ebookLeads, users } from "../drizzle/schema";
-import { eq } from "drizzle-orm";
+import { ebookLeads, users, jobs, jobStatusHistory } from "../drizzle/schema";
+import { eq, and, count } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
 import { getDb } from "./db";
 import { invokeLLM } from "./_core/llm";
@@ -619,6 +619,95 @@ SUBJECT: [subject line]
       if (!db) return [];
       const leads = await db.select().from(ebookLeads).orderBy(ebookLeads.createdAt);
       return leads;
+    }),
+  }),
+
+  // ─── Customer Claim Status & Messaging ────────────────────────────────────
+  claims: router({
+    // Get messages for a specific job (customer view)
+    getMessages: protectedProcedure
+      .input(z.object({ jobId: z.number() }))
+      .query(async ({ ctx, input }) => {
+        const db = await getDb();
+        if (!db) return [];
+        // Verify the job belongs to this user
+        const [job] = await db.select().from(jobs).where(eq(jobs.id, input.jobId)).limit(1);
+        if (!job || job.userId !== ctx.user.id) return [];
+        // Mark all admin messages as read
+        const { claimMessages } = await import("../drizzle/schema");
+        await db.update(claimMessages)
+          .set({ isRead: 1 })
+          .where(and(eq(claimMessages.jobId, input.jobId), eq(claimMessages.senderRole, "admin")));
+        return db.select().from(claimMessages)
+          .where(eq(claimMessages.jobId, input.jobId))
+          .orderBy(claimMessages.createdAt);
+      }),
+
+    // Customer sends a reply message
+    sendMessage: protectedProcedure
+      .input(z.object({ jobId: z.number(), message: z.string().min(1) }))
+      .mutation(async ({ ctx, input }) => {
+        const db = await getDb();
+        if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+        const [job] = await db.select().from(jobs).where(eq(jobs.id, input.jobId)).limit(1);
+        if (!job || job.userId !== ctx.user.id) throw new TRPCError({ code: "FORBIDDEN" });
+        const { claimMessages } = await import("../drizzle/schema");
+        await db.insert(claimMessages).values({
+          jobId: input.jobId,
+          userId: ctx.user.id,
+          senderRole: "customer",
+          message: input.message,
+          isRead: 0,
+        });
+        notifyOwner({
+          title: `Customer Reply on Job #${input.jobId}`,
+          content: `${ctx.user.name || ctx.user.email}: "${input.message}"`,
+        }).catch(() => {});
+        return { success: true };
+      }),
+
+    // Customer decides to accept settlement or keep fighting
+    makeDecision: protectedProcedure
+      .input(z.object({
+        jobId: z.number(),
+        decision: z.enum(["accept", "keep_fighting"]),
+        note: z.string().optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        const db = await getDb();
+        if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+        const [job] = await db.select().from(jobs).where(eq(jobs.id, input.jobId)).limit(1);
+        if (!job || job.userId !== ctx.user.id) throw new TRPCError({ code: "FORBIDDEN" });
+
+        const newStatus = input.decision === "accept" ? "approved" : "submitted";
+        await db.update(jobs).set({ status: newStatus }).where(eq(jobs.id, input.jobId));
+
+        await db.insert(jobStatusHistory).values({
+          jobId: input.jobId,
+          fromStatus: job.status,
+          toStatus: newStatus,
+          note: input.decision === "accept"
+            ? `Customer accepted settlement${input.note ? `: ${input.note}` : ""}`
+            : `Customer chose to keep fighting${input.note ? `: ${input.note}` : ""}`,
+        });
+
+        notifyOwner({
+          title: input.decision === "accept" ? `Customer Accepted Settlement — Job #${input.jobId}` : `Customer Wants to Keep Fighting — Job #${input.jobId}`,
+          content: `${ctx.user.name || ctx.user.email} on ${job.propertyAddress}${input.note ? `. Note: ${input.note}` : ""}`,
+        }).catch(() => {});
+
+        return { success: true, decision: input.decision };
+      }),
+
+    // Get unread message count for all of user's jobs
+    unreadCount: protectedProcedure.query(async ({ ctx }) => {
+      const db = await getDb();
+      if (!db) return 0;
+      const { claimMessages } = await import("../drizzle/schema");
+      const result = await db.select({ cnt: count() })
+        .from(claimMessages)
+        .where(and(eq(claimMessages.userId, ctx.user.id), eq(claimMessages.senderRole, "admin"), eq(claimMessages.isRead, 0)));
+      return Number(result[0]?.cnt || 0);
     }),
   }),
 

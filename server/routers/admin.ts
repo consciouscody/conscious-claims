@@ -4,8 +4,8 @@ import { notifyOwner } from "../_core/notification";
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { getDb } from "../db";
-import { users, jobs } from "../../drizzle/schema";
-import { eq, desc, count, sum, sql } from "drizzle-orm";
+import { users, jobs, claimMessages, jobStatusHistory } from "../../drizzle/schema";
+import { eq, desc, count, sum, sql, and } from "drizzle-orm";
 
 // Middleware: only admin users can call these procedures
 const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
@@ -238,6 +238,106 @@ Keep the opening under 3 sentences. No corporate speak. No "I was wondering if..
           body: `Hey ${name},\n\nWelcome to SupplementAI. Your account is active and your rate is locked in at ${input.feePercentage}%.\n\nHere's how to get your first supplement done in under 5 minutes:\n\n1. Log in at ${loginUrl}\n2. Click "New Job" and enter the property address\n3. Upload the Xactimate PDF the insurance company sent\n4. Upload your roof photos\n5. Hit "Generate Supplement" — the AI finds every missing line item\n6. Review and send the adjuster email directly from the app\n\nThat's it. The average contractor recovers $4,200–$12,000 per job they were leaving on the table.\n\nAny questions, reply to this email or text me directly.\n\n— Cody\nFounder, Conscious Supplements\n(conscioussupplements.com)`,
         },
       };
+    }),
+
+  // Get ALL jobs across all users — the live claims feed
+  allJobs: adminProcedure.query(async () => {
+    const db = await getDb();
+    if (!db) return [];
+
+    const allJobs = await db
+      .select({
+        id: jobs.id,
+        userId: jobs.userId,
+        tradeType: jobs.tradeType,
+        propertyAddress: jobs.propertyAddress,
+        homeownerName: jobs.homeownerName,
+        claimNumber: jobs.claimNumber,
+        insuranceCarrier: jobs.insuranceCarrier,
+        adjusterName: jobs.adjusterName,
+        adjusterEmail: jobs.adjusterEmail,
+        status: jobs.status,
+        supplementAmount: jobs.supplementAmount,
+        recoveredAmount: jobs.recoveredAmount,
+        feePercentage: jobs.feePercentage,
+        feeAmount: jobs.feeAmount,
+        paymentStatus: jobs.paymentStatus,
+        notes: jobs.notes,
+        createdAt: jobs.createdAt,
+        updatedAt: jobs.updatedAt,
+        // User info
+        userName: users.name,
+        userEmail: users.email,
+        userCompany: users.companyName,
+        userPhone: users.phone,
+      })
+      .from(jobs)
+      .leftJoin(users, eq(jobs.userId, users.id))
+      .orderBy(desc(jobs.updatedAt));
+
+    return allJobs;
+  }),
+
+  // Get all claim messages for a specific job
+  getClaimMessages: adminProcedure
+    .input(z.object({ jobId: z.number() }))
+    .query(async ({ input }) => {
+      const db = await getDb();
+      if (!db) return [];
+      return db
+        .select()
+        .from(claimMessages)
+        .where(eq(claimMessages.jobId, input.jobId))
+        .orderBy(claimMessages.createdAt);
+    }),
+
+  // Send a message to a customer about their job
+  sendClaimMessage: adminProcedure
+    .input(z.object({ jobId: z.number(), message: z.string().min(1) }))
+    .mutation(async ({ input }) => {
+      const db = await getDb();
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+
+      // Get job to find the userId
+      const [job] = await db.select().from(jobs).where(eq(jobs.id, input.jobId)).limit(1);
+      if (!job) throw new TRPCError({ code: "NOT_FOUND", message: "Job not found" });
+
+      await db.insert(claimMessages).values({
+        jobId: input.jobId,
+        userId: job.userId,
+        senderRole: "admin",
+        message: input.message,
+        isRead: 0,
+      });
+
+      return { success: true };
+    }),
+
+  // Update a job's status from the admin panel
+  updateJobStatus: adminProcedure
+    .input(z.object({
+      jobId: z.number(),
+      status: z.enum(["draft", "estimate_uploaded", "supplement_generated", "email_drafted", "submitted", "approved", "denied", "paid"]),
+      note: z.string().optional(),
+    }))
+    .mutation(async ({ input }) => {
+      const db = await getDb();
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+
+      const [job] = await db.select().from(jobs).where(eq(jobs.id, input.jobId)).limit(1);
+      if (!job) throw new TRPCError({ code: "NOT_FOUND" });
+
+      await db.update(jobs).set({ status: input.status }).where(eq(jobs.id, input.jobId));
+
+      // Log status change
+      await db.insert(jobStatusHistory).values({
+        jobId: input.jobId,
+        fromStatus: job.status,
+        toStatus: input.status,
+        note: input.note || `Status updated by admin`,
+      });
+
+      return { success: true };
     }),
 
   // Get platform-wide stats

@@ -181,3 +181,12 @@
 - [ ] Add Referred By field to onboarding wizard
 - [ ] Wire referredBy to admin referral source tracking
 - [ ] Activate Stripe checkout and billing page
+
+## Real-Time Admin Claims Dashboard + Customer Status (Phase 15)
+- [x] Add claimMessages table to schema for admin-to-customer messaging
+- [x] Add allJobs admin query with user info, status, timestamps, supplement amounts
+- [x] Add sendClaimMessage admin mutation
+- [x] Add getMyClaimMessages customer query
+- [x] Build Admin Claims Dashboard tab in AdminPanel with live feed, status badges, search/filter
+- [x] Build customer Claim Status page at /claim-status showing their jobs with timeline
+- [x] Auto-notify owner when new supplement is generated
