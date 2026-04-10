@@ -1,5 +1,5 @@
 import { protectedProcedure, router } from "../_core/trpc";
-import { invokeLLM } from "../_core/llm";
+import { invokeLLM, type Message, type ImageContent, type TextContent } from "../_core/llm";
 import { notifyOwner } from "../_core/notification";
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
@@ -339,6 +339,88 @@ Keep the opening under 3 sentences. No corporate speak. No "I was wondering if..
 
       return { success: true };
     }),
+
+  // AI photo analysis — analyzes a single uploaded photo and returns damage assessment
+  analyzePhoto: protectedProcedure
+    .input(z.object({
+      photoUrl: z.string().url(),
+      checklistItemId: z.string(),
+      jobId: z.number().optional(),
+    }))
+    .mutation(async ({ input }) => {
+      const { PHOTO_CHECKLIST } = await import("../photoChecklist");
+      const checklistItem = PHOTO_CHECKLIST.find((p) => p.id === input.checklistItemId);
+
+      const systemPrompt = `You are an expert roofing insurance claim photo analyst. You help contractors document damage for Xactimate supplement claims. Your job is to analyze photos and provide:
+1. What damage or condition is visible
+2. Whether the photo is strong enough for an adjuster to approve the supplement item
+3. Specific framing and composition improvements to make the photo more compelling
+4. A professional adjuster-ready description of what the photo shows
+5. A quality score from 1-10 (10 = adjuster will approve immediately, 1 = photo is unusable)
+
+Be direct, specific, and practical. Contractors need actionable advice, not generic tips.`;
+
+      const userPrompt = `Analyze this photo for a roofing insurance claim supplement.
+
+Photo type: ${checklistItem?.label || input.checklistItemId}
+What this photo should show: ${checklistItem?.instruction || "Roof damage documentation"}
+Why it matters: ${checklistItem?.whyItMatters || "Required for supplement approval"}
+
+Please provide:
+1. DAMAGE_VISIBLE: What specific damage or condition is visible in this photo
+2. PHOTO_QUALITY_SCORE: Score 1-10 with brief reason
+3. FRAMING_SUGGESTIONS: Specific improvements to make this photo stronger (angle, distance, lighting, what to include/exclude)
+4. ADJUSTER_DESCRIPTION: A professional 1-2 sentence description an adjuster would accept in a supplement file
+5. MISSING_ELEMENTS: What is NOT in this photo that should be (if anything)
+6. MONEY_IMPACT: Whether this photo is strong enough to get the supplement item approved`;
+
+      const imageContent: ImageContent = { type: "image_url", image_url: { url: input.photoUrl, detail: "high" } };
+      const textContent: TextContent = { type: "text", text: userPrompt };
+      const messages: Message[] = [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: [imageContent, textContent] },
+      ];
+      const response = await invokeLLM({
+        messages,
+        response_format: {
+          type: "json_schema",
+          json_schema: {
+            name: "photo_analysis",
+            strict: true,
+            schema: {
+              type: "object",
+              properties: {
+                damageVisible: { type: "string", description: "What specific damage or condition is visible" },
+                qualityScore: { type: "integer", description: "Photo quality score 1-10" },
+                qualityReason: { type: "string", description: "Brief reason for the score" },
+                framingSuggestions: { type: "string", description: "Specific improvements to make this photo stronger" },
+                adjusterDescription: { type: "string", description: "Professional description for supplement file" },
+                missingElements: { type: "string", description: "What is missing from this photo" },
+                moneyImpact: { type: "string", description: "Whether this photo is strong enough to get the item approved" },
+                isApprovalReady: { type: "boolean", description: "True if this photo is strong enough for adjuster approval" },
+              },
+              required: ["damageVisible", "qualityScore", "qualityReason", "framingSuggestions", "adjusterDescription", "missingElements", "moneyImpact", "isApprovalReady"],
+              additionalProperties: false,
+            },
+          },
+        },
+      });
+
+      const rawContent = response.choices[0]?.message?.content;
+      const content = typeof rawContent === "string" ? rawContent : null;
+      if (!content) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "AI analysis failed" });
+      try {
+        return JSON.parse(content);
+      } catch {
+        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to parse AI response" });
+      }
+    }),
+
+  // Get the photo checklist (public to all logged-in users)
+  getPhotoChecklist: protectedProcedure.query(async () => {
+    const { PHOTO_CHECKLIST, PHOTO_CATEGORIES } = await import("../photoChecklist");
+    return { checklist: PHOTO_CHECKLIST, categories: PHOTO_CATEGORIES };
+  }),
 
   // Get platform-wide stats
   platformStats: adminProcedure.query(async () => {

@@ -26,6 +26,7 @@ import Billing from "./pages/Billing";
 import WaterRestoration from "./pages/WaterRestoration";
 import AdminClaimsDashboard from "./pages/AdminClaimsDashboard";
 import ClaimStatus from "./pages/ClaimStatus";
+import PhotoChecklist from "./pages/PhotoChecklist";
 
 function Router() {
   return (
@@ -52,6 +53,7 @@ function Router() {
       <Route path="/water-restoration" component={WaterRestoration} />
       <Route path="/admin/claims" component={AdminClaimsDashboard} />
       <Route path="/claim-status" component={ClaimStatus} />
+      <Route path="/photo-checklist" component={PhotoChecklist} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

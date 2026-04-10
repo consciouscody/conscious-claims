@@ -21,27 +21,30 @@ import {
 } from "@/components/ui/sidebar";
 import { getLoginUrl } from "@/const";
 import { useIsMobile } from "@/hooks/useMobile";
-import { LayoutDashboard, LogOut, PanelLeft, Plus, Building2, BookOpen, Link2, Linkedin, Shield, Phone, CreditCard, CheckCircle2, Activity } from "lucide-react";
+import { LayoutDashboard, LogOut, PanelLeft, Plus, Building2, BookOpen, Link2, Linkedin, Shield, Phone, CreditCard, CheckCircle2, Activity, Camera } from "lucide-react";
 import OnboardingWizard from "./OnboardingWizard";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { DashboardLayoutSkeleton } from "./DashboardLayoutSkeleton";
 import { Button } from "./ui/button";
 
-const menuItems = [
+// Items every logged-in user sees
+const contractorMenuItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
   { icon: Plus, label: "New Job", path: "/jobs/new" },
+  { icon: Camera, label: "Photo Checklist", path: "/photo-checklist" },
   { icon: CheckCircle2, label: "My Claims", path: "/claim-status" },
-  { icon: BookOpen, label: "Code Reference", path: "/reference" },
-  { icon: Link2, label: "CRM Integrations", path: "/integrations" },
-  { icon: Linkedin, label: "LinkedIn Posts", path: "/linkedin-posts" },
   { icon: CreditCard, label: "Billing", path: "/billing" },
 ];
 
+// Extra items only admins see
 const adminMenuItems = [
   { icon: Shield, label: "Admin Panel", path: "/admin" },
   { icon: Activity, label: "Live Claims Feed", path: "/admin/claims" },
   { icon: Phone, label: "Call Scripts", path: "/call-script" },
+  { icon: Link2, label: "CRM Integrations", path: "/integrations" },
+  { icon: Linkedin, label: "LinkedIn Posts", path: "/linkedin-posts" },
+  { icon: BookOpen, label: "Code Reference", path: "/reference" },
 ];
 
 const SIDEBAR_WIDTH_KEY = "sidebar-width";
@@ -132,7 +135,7 @@ function DashboardLayoutContent({
   const isCollapsed = state === "collapsed";
   const [isResizing, setIsResizing] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const activeMenuItem = [...menuItems, ...(user?.role === "admin" ? adminMenuItems : [])].find((item) => item.path === location);
+  const activeMenuItem = [...contractorMenuItems, ...(user?.role === "admin" ? adminMenuItems : [])].find((item) => item.path === location);
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -200,7 +203,7 @@ function DashboardLayoutContent({
 
           <SidebarContent className="gap-0">
             <SidebarMenu className="px-2 py-1">
-              {[...menuItems, ...(user?.role === "admin" ? adminMenuItems : [])].map((item) => {
+              {[...contractorMenuItems, ...(user?.role === "admin" ? adminMenuItems : [])].map((item) => {
                 const isActive = location === item.path || (item.path !== "/dashboard" && location.startsWith(item.path));
                 return (
                   <SidebarMenuItem key={item.path}>
