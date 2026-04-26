@@ -168,7 +168,7 @@ export default function Home() {
                 </div>
               ))}
               <div className="col-span-2 rounded-2xl overflow-hidden relative" style={{height:'200px'}}>
-                <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/ad_contractor_tablet_b5e381c3.png" alt="Roofing contractor showing supplement report to adjuster" className="w-full h-full object-cover" />
+                <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/ad_contractor_tablet_b5e381c3.png" alt="Roofing contractor showing supplement report to adjuster" className="w-full h-full object-cover" style={{objectPosition:'center 30%'}} />
                 <div className="absolute inset-0" style={{background:'linear-gradient(to top, rgba(10,14,26,0.85) 0%, transparent 60%)'}} />
                 <div className="absolute bottom-4 left-4 right-4">
                   <div className="text-white font-bold text-sm">"This is revolutionary. A game changer."</div>
