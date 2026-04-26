@@ -239,16 +239,18 @@ export default function Demo() {
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Watch the Demo — <span className="text-[#c9a84c]">$4,832 Found in 30 Seconds</span></h2>
             <p className="text-gray-400 text-sm">Real estimate. Real photos. Watch the AI find every missed line item and write the adjuster email automatically.</p>
           </div>
-          <div className="relative w-full rounded-2xl overflow-hidden border border-[#c9a84c]/30 shadow-2xl" style={{paddingBottom: '56.25%'}}>
-            <iframe
+          <div className="relative w-full rounded-2xl overflow-hidden border border-[#c9a84c]/30 shadow-2xl">
+            <video
               id="demo-video"
-              className="absolute top-0 left-0 w-full h-full"
-              src="https://www.youtube.com/embed/YOUR_VIDEO_ID?rel=0&modestbranding=1"
-              title="Conscious Claims Demo — $4,832 Found in 30 Seconds"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+              className="w-full h-auto block"
+              controls
+              playsInline
+              preload="metadata"
+              poster="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/hero_roof_bg-She6uHfiWBu6q3JNUfzwPa.png"
+            >
+              <source src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/260a9a71ec654358b8a0973799f5a9a3_a0b8a704.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
           </div>
         </div>
       </div>
