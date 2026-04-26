@@ -121,8 +121,11 @@ export default function Home() {
 
       {/* HERO */}
       <section className="relative overflow-hidden" style={{background:'linear-gradient(135deg, #0a0e1a 0%, #0f1629 40%, #141e3a 100%)'}}>
-        <div className="absolute inset-0 opacity-20">
-          <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/hero_roof_bg-She6uHfiWBu6q3JNUfzwPa.png" alt="" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 opacity-25">
+          <video autoPlay muted loop playsInline className="w-full h-full object-cover">
+            <source src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/higgsfield_hero_066bdd98.mp4" type="video/mp4" />
+            <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/ad_adjuster_roof_dffcf998.png" alt="" className="w-full h-full object-cover" />
+          </video>
         </div>
         <div className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-15" style={{background:'radial-gradient(circle, #f5c842 0%, transparent 70%)', transform:'translate(30%, -30%)'}} />
         <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full opacity-10" style={{background:'radial-gradient(circle, #f5c842 0%, transparent 70%)', transform:'translate(-30%, 30%)'}} />
@@ -165,7 +168,7 @@ export default function Home() {
                 </div>
               ))}
               <div className="col-span-2 rounded-2xl overflow-hidden relative" style={{height:'200px'}}>
-                <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/contractor_phone_hero-ngAUuDw7fx3JamrF7EsCyT.png" alt="Roofing contractor reviewing supplement on phone" className="w-full h-full object-cover" />
+                <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/ad_contractor_tablet_b5e381c3.png" alt="Roofing contractor showing supplement report to adjuster" className="w-full h-full object-cover" />
                 <div className="absolute inset-0" style={{background:'linear-gradient(to top, rgba(10,14,26,0.85) 0%, transparent 60%)'}} />
                 <div className="absolute bottom-4 left-4 right-4">
                   <div className="text-white font-bold text-sm">"This is revolutionary. A game changer."</div>
@@ -297,7 +300,7 @@ export default function Home() {
       {/* CTA */}
       <section className="py-20 relative overflow-hidden" style={{background:'linear-gradient(135deg, #0a0e1a 0%, #141e3a 100%)'}}>
         <div className="absolute inset-0 opacity-20">
-          <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/hero_roof_bg-She6uHfiWBu6q3JNUfzwPa.png" alt="" className="w-full h-full object-cover" />
+          <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/ad_contractor_vertical_e17467c6.png" alt="" className="w-full h-full object-cover" />
         </div>
         <div className="absolute inset-0" style={{background:'linear-gradient(135deg, rgba(10,14,26,0.85) 0%, rgba(20,30,58,0.85) 100%)'}} />
         <div className="container relative text-center">
