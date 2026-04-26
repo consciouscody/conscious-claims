@@ -122,7 +122,7 @@ export default function Home() {
       {/* HERO */}
       <section className="relative overflow-hidden" style={{background:'linear-gradient(135deg, #0a0e1a 0%, #0f1629 40%, #141e3a 100%)'}}>
         <div className="absolute inset-0 opacity-20">
-          <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/roof_aerial_9ac53fd6.jpg" alt="" className="w-full h-full object-cover" />
+          <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/hero_roof_bg-She6uHfiWBu6q3JNUfzwPa.png" alt="" className="w-full h-full object-cover" />
         </div>
         <div className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-15" style={{background:'radial-gradient(circle, #f5c842 0%, transparent 70%)', transform:'translate(30%, -30%)'}} />
         <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full opacity-10" style={{background:'radial-gradient(circle, #f5c842 0%, transparent 70%)', transform:'translate(-30%, 30%)'}} />
@@ -165,7 +165,7 @@ export default function Home() {
                 </div>
               ))}
               <div className="col-span-2 rounded-2xl overflow-hidden relative" style={{height:'200px'}}>
-                <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/contractor_tablet_b9ba55cb.jpg" alt="Contractor using tablet on roof" className="w-full h-full object-cover" />
+                <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/contractor_phone_hero-ngAUuDw7fx3JamrF7EsCyT.png" alt="Roofing contractor reviewing supplement on phone" className="w-full h-full object-cover" />
                 <div className="absolute inset-0" style={{background:'linear-gradient(to top, rgba(10,14,26,0.85) 0%, transparent 60%)'}} />
                 <div className="absolute bottom-4 left-4 right-4">
                   <div className="text-white font-bold text-sm">"This is revolutionary. A game changer."</div>
@@ -257,7 +257,7 @@ export default function Home() {
             <div className="relative">
               <div className="absolute inset-0 rounded-3xl opacity-30" style={{background:'linear-gradient(135deg, #f5c842 0%, transparent 60%)', transform:'translate(8px, 8px)'}} />
               <img
-                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/generated-image-1(57)_cc50cb7f.png"
+                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/contractor_phone_hero-ngAUuDw7fx3JamrF7EsCyT.png"
                 alt="Cody Tyler McCain — Founder, Conscious Capital"
                 className="w-full rounded-3xl object-cover shadow-2xl aspect-[3/4] object-top relative"
               />
@@ -297,7 +297,7 @@ export default function Home() {
       {/* CTA */}
       <section className="py-20 relative overflow-hidden" style={{background:'linear-gradient(135deg, #0a0e1a 0%, #141e3a 100%)'}}>
         <div className="absolute inset-0 opacity-20">
-          <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/roof_aerial_9ac53fd6.jpg" alt="" className="w-full h-full object-cover" />
+          <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/hero_roof_bg-She6uHfiWBu6q3JNUfzwPa.png" alt="" className="w-full h-full object-cover" />
         </div>
         <div className="absolute inset-0" style={{background:'linear-gradient(135deg, rgba(10,14,26,0.85) 0%, rgba(20,30,58,0.85) 100%)'}} />
         <div className="container relative text-center">
