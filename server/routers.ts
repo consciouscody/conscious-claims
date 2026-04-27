@@ -753,6 +753,96 @@ SUBJECT: [subject line]
       }),
   }),
 
+  // ─── Adjuster Dispute Letter Generator ─────────────────────────────────────
+  dispute: router({
+    generateLetter: protectedProcedure
+      .input(
+        z.object({
+          adjusterScopeText: z.string().optional(),
+          deniedItems: z.array(z.string()).optional(),
+          claimDetails: z.object({
+            claimNumber: z.string().optional(),
+            propertyAddress: z.string().optional(),
+            dateOfLoss: z.string().optional(),
+            insuranceCompany: z.string().optional(),
+            adjusterName: z.string().optional(),
+            contractorName: z.string().optional(),
+          }),
+          disputeType: z.enum(["underpaid", "denied_items", "full_denial", "depreciation"]).default("underpaid"),
+        })
+      )
+      .mutation(async ({ input }) => {
+        const { claimDetails, disputeType, deniedItems, adjusterScopeText } = input;
+        const disputeContext = [
+          claimDetails.claimNumber ? `Claim Number: ${claimDetails.claimNumber}` : "",
+          claimDetails.propertyAddress ? `Property: ${claimDetails.propertyAddress}` : "",
+          claimDetails.dateOfLoss ? `Date of Loss: ${claimDetails.dateOfLoss}` : "",
+          claimDetails.insuranceCompany ? `Insurance Company: ${claimDetails.insuranceCompany}` : "",
+          claimDetails.adjusterName ? `Adjuster: ${claimDetails.adjusterName}` : "",
+          claimDetails.contractorName ? `Contractor: ${claimDetails.contractorName}` : "",
+          deniedItems && deniedItems.length > 0 ? `Denied/Underpaid Items: ${deniedItems.join(", ")}` : "",
+          adjusterScopeText ? `Adjuster Scope Notes: ${adjusterScopeText}` : "",
+        ].filter(Boolean).join("\n");
+        const disputeTypeInstructions: Record<string, string> = {
+          underpaid: "The adjuster has underpaid line items. Write a professional dispute letter citing Xactimate pricing data, local labor rates, and manufacturer installation requirements to justify the correct amounts.",
+          denied_items: "The adjuster has denied specific line items required by code or manufacturer warranty. Cite relevant building codes (IRC), HAAG Engineering standards, and Owens Corning installation requirements for each denied item.",
+          full_denial: "The adjuster has denied the entire claim. Write a strong dispute letter citing storm damage evidence, code upgrade requirements, and industry standards demanding a full re-inspection.",
+          depreciation: "The adjuster is withholding recoverable depreciation. Write a letter demanding release of withheld depreciation with supporting documentation requirements.",
+        };
+        const systemPrompt = `You are an expert roofing insurance supplement specialist with 20+ years of experience writing dispute letters that get claims approved. You cite:
+- International Residential Code (IRC) requirements
+- HAAG Engineering standards for storm damage
+- Xactimate pricing methodology and line item codes
+- Owens Corning manufacturer installation requirements
+- State insurance regulations
+- NRCA (National Roofing Contractors Association) industry standards
+Your letters are firm, professional, and factual. They present evidence-based arguments that adjusters and insurance companies respect. Always include specific code citations.`;
+        const userPrompt = `Write a professional insurance dispute letter for the following claim:\n\n${disputeContext}\n\nDispute Type: ${disputeTypeInstructions[disputeType]}\n\nThe letter must:\n1. Open with a professional header (Date, To: Insurance Company, Re: Claim Details)
+2. State the purpose clearly in the opening paragraph
+3. For each disputed item list: item name, why it is required (specific code or OC requirement), Xactimate line item code, and amount justification
+4. Reference specific standards: IRC codes, HAAG standards, Owens Corning installation requirements
+5. Request a written response within 10 business days
+6. Close professionally with contractor signature block\n\nFormat as a complete, ready-to-send professional business letter.`;
+        const response = await invokeLLM({
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: userPrompt },
+          ],
+        });
+        const letterContent = (response as any)?.choices?.[0]?.message?.content || "";
+        const summaryResponse = await invokeLLM({
+          messages: [
+            { role: "system", content: "Extract structured data from dispute letters. Return only valid JSON." },
+            { role: "user", content: `From this dispute letter extract JSON: { "keyPoints": ["point1"], "citedStandards": ["standard1"], "estimatedRecovery": "amount or N/A", "urgency": "high|medium|low" }\n\nLetter:\n${letterContent.substring(0, 2000)}` },
+          ],
+          response_format: {
+            type: "json_schema",
+            json_schema: {
+              name: "dispute_summary",
+              strict: true,
+              schema: {
+                type: "object",
+                properties: {
+                  keyPoints: { type: "array", items: { type: "string" } },
+                  citedStandards: { type: "array", items: { type: "string" } },
+                  estimatedRecovery: { type: "string" },
+                  urgency: { type: "string" },
+                },
+                required: ["keyPoints", "citedStandards", "estimatedRecovery", "urgency"],
+                additionalProperties: false,
+              },
+            },
+          },
+        });
+        let summary = { keyPoints: [] as string[], citedStandards: [] as string[], estimatedRecovery: "N/A", urgency: "medium" };
+        try {
+          const raw = (summaryResponse as any)?.choices?.[0]?.message?.content || "{}";
+          summary = JSON.parse(raw);
+        } catch {}
+        return { letter: letterContent, summary };
+      }),
+  }),
+
   // ─── Payment Calculator ──────────────────────────────────────────────────────
   calculator: router({
     calculate: publicProcedure

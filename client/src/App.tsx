@@ -28,6 +28,7 @@ import AdminClaimsDashboard from "./pages/AdminClaimsDashboard";
 import ClaimStatus from "./pages/ClaimStatus";
 import PhotoChecklist from "./pages/PhotoChecklist";
 import ShingleIdentifier from "./pages/ShingleIdentifier";
+import AdjusterDispute from "./pages/AdjusterDispute";
 
 function Router() {
   return (
@@ -56,6 +57,7 @@ function Router() {
       <Route path="/claim-status" component={ClaimStatus} />
       <Route path="/photo-checklist" component={PhotoChecklist} />
       <Route path="/shingle-identifier" component={ShingleIdentifier} />
+      <Route path="/adjuster-dispute" component={AdjusterDispute} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
