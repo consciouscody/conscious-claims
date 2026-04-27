@@ -259,7 +259,8 @@ export default function Home() {
           <div className="text-center mb-10">
             <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold mb-4 border" style={{background:'rgba(245,200,66,0.08)', borderColor:'rgba(245,200,66,0.2)', color:'#f5c842'}}>REAL RESULTS</div>
             <h2 className="text-4xl lg:text-5xl font-black text-white mb-3" style={{fontFamily:"'Barlow Condensed', sans-serif"}}>SEE IT IN ACTION</h2>
-            <p className="text-gray-400 max-w-xl mx-auto">This is what your first job looks like. 30 seconds. $4,832 found. 18+ missed items identified.</p>
+            <p className="text-gray-400 max-w-xl mx-auto mb-2">Watch: <span className="text-white font-semibold">$4,832 found on a real job in under 5 minutes.</span> Upload the estimate, AI finds every missed line item, generates the adjuster email — done.</p>
+            <p className="text-sm max-w-lg mx-auto" style={{color:'rgba(245,200,66,0.7)'}}>No specialist. No 30–50% cut. You keep everything.</p>
           </div>
           <div className="flex justify-center">
             <div className="w-full max-w-3xl rounded-2xl overflow-hidden shadow-2xl" style={{border:'1px solid rgba(245,200,66,0.2)'}}>
@@ -272,7 +273,7 @@ export default function Home() {
                 className="w-full"
                 poster="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/ad_adjuster_roof_dffcf998.png"
               >
-                <source src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/supplement_ai_demo_v1_d739a924.mp4" type="video/mp4" />
+                <source src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/260a9a71ec654358b8a0973799f5a9a3_1c81814d.mp4" type="video/mp4" />
               </video>
             </div>
           </div>
