@@ -286,12 +286,12 @@ export default function Home() {
               <div className="absolute inset-0 rounded-3xl opacity-30" style={{background:'linear-gradient(135deg, #f5c842 0%, transparent 60%)', transform:'translate(8px, 8px)'}} />
               <img
                 src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/IMG_9007_ef47cd59.PNG"
-                alt="Alvin — Founder, Conscious Claims"
+                alt="Cody Tyler McCain — Founder, Conscious Claims"
                 className="w-full rounded-3xl object-cover shadow-2xl aspect-[3/4] relative"
                 style={{objectPosition:'center 15%'}}
               />
               <div className="absolute bottom-4 left-4 right-4 rounded-2xl p-4" style={{background:'rgba(10,14,26,0.9)', backdropFilter:'blur(10px)', border:'1px solid rgba(245,200,66,0.2)'}}>
-                <div className="font-bold text-white text-lg" style={{fontFamily:"'Barlow Condensed', sans-serif"}}>ALVIN</div>
+                <div className="font-bold text-white text-lg" style={{fontFamily:"'Barlow Condensed', sans-serif"}}>CODY TYLER McCAIN</div>
                 <div className="text-sm" style={{color:'#f5c842'}}>Founder & CEO, Conscious Claims</div>
                 <div className="text-xs text-gray-500 mt-0.5">Roofing Contractor Turned SaaS Founder</div>
               </div>
