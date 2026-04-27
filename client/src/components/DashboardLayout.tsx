@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/sidebar";
 import { getLoginUrl } from "@/const";
 import { useIsMobile } from "@/hooks/useMobile";
-import { LayoutDashboard, LogOut, PanelLeft, Plus, Building2, BookOpen, Link2, Linkedin, Shield, Phone, CreditCard, CheckCircle2, Activity, Camera } from "lucide-react";
+import { LayoutDashboard, LogOut, PanelLeft, Plus, Building2, BookOpen, Link2, Linkedin, Shield, Phone, CreditCard, CheckCircle2, Activity, Camera, Search } from "lucide-react";
 import OnboardingWizard from "./OnboardingWizard";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
@@ -33,6 +33,7 @@ const contractorMenuItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
   { icon: Plus, label: "New Job", path: "/jobs/new" },
   { icon: Camera, label: "Photo Checklist", path: "/photo-checklist" },
+  { icon: Search, label: "Shingle Identifier", path: "/shingle-identifier" },
   { icon: CheckCircle2, label: "My Claims", path: "/claim-status" },
   { icon: CreditCard, label: "Billing", path: "/billing" },
 ];

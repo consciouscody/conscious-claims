@@ -711,6 +711,48 @@ SUBJECT: [subject line]
     }),
   }),
 
+  // ─── Shingle Identifier ─────────────────────────────────────────────────────
+  shingle: router({
+    identify: protectedProcedure
+      .input(z.object({ photoUrl: z.string().url() }))
+      .mutation(async ({ input }) => {
+        const { SHINGLE_DATABASE, SHINGLE_IDENTIFICATION_PROMPT } = await import("./shingleDatabase");
+        const allShingles = [
+          ...SHINGLE_DATABASE.current_shingles,
+          ...SHINGLE_DATABASE.discontinued_shingles,
+        ];
+        const dbSummary = allShingles.map((s) => ({
+          manufacturer: s.manufacturer,
+          series_name: s.series_name,
+          type: s.type,
+          colors: s.colors,
+          production_status: s.production_status,
+          visual_identifiers: s.visual_identifiers,
+          insurance_note: s.insurance_note,
+          discontinued_year: s.discontinued_year,
+        }));
+        const prompt = SHINGLE_IDENTIFICATION_PROMPT.replace("{{DATABASE}}", JSON.stringify(dbSummary, null, 0));
+        const response = await invokeLLM({
+          messages: [
+            { role: "system", content: prompt },
+            {
+              role: "user",
+              content: [
+                { type: "image_url", image_url: { url: input.photoUrl, detail: "high" } } as any,
+                { type: "text", text: "Please analyze this roofing shingle photo and identify the manufacturer, series, color, and production status. Cross-reference with the shingle database provided." },
+              ],
+            },
+          ],
+        });
+        const content = (response as any)?.choices?.[0]?.message?.content || "";
+        try {
+          const match = content.match(/\{[\s\S]*\}/);
+          if (match) return JSON.parse(match[0]);
+        } catch {}
+        return { identified: false, reasoning: content };
+      }),
+  }),
+
   // ─── Payment Calculator ──────────────────────────────────────────────────────
   calculator: router({
     calculate: publicProcedure
