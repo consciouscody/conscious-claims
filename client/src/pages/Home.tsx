@@ -253,6 +253,31 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Social Proof Ad Graphic */}
+      <section className="py-16" style={{background:'#070a12'}}>
+        <div className="container">
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold mb-4 border" style={{background:'rgba(245,200,66,0.08)', borderColor:'rgba(245,200,66,0.2)', color:'#f5c842'}}>REAL RESULTS</div>
+            <h2 className="text-4xl lg:text-5xl font-black text-white mb-3" style={{fontFamily:"'Barlow Condensed', sans-serif"}}>SEE IT IN ACTION</h2>
+            <p className="text-gray-400 max-w-xl mx-auto">This is what your first job looks like. 30 seconds. $4,832 found. 18+ missed items identified.</p>
+          </div>
+          <div className="flex justify-center">
+            <img
+              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/post2_conscious_claims_67647f19_9a4f5518.webp"
+              alt="$4,832 Found in 30 Seconds — Conscious Claims AI Supplement Analysis"
+              className="rounded-2xl shadow-2xl w-full max-w-lg object-contain"
+              style={{border:'1px solid rgba(245,200,66,0.2)'}}
+            />
+          </div>
+          <div className="text-center mt-8">
+            <Button size="lg" className="btn-gold text-base px-8 py-5" onClick={handleCTA}>
+              Find My Missing Items
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* Founder Section */}
       <section className="py-20" style={{background:'linear-gradient(135deg, #0a0e1a 0%, #0f1a2e 100%)'}}>
         <div className="container">
@@ -260,14 +285,15 @@ export default function Home() {
             <div className="relative">
               <div className="absolute inset-0 rounded-3xl opacity-30" style={{background:'linear-gradient(135deg, #f5c842 0%, transparent 60%)', transform:'translate(8px, 8px)'}} />
               <img
-                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/contractor_phone_hero-ngAUuDw7fx3JamrF7EsCyT.png"
-                alt="Cody Tyler McCain — Founder, Conscious Capital"
-                className="w-full rounded-3xl object-cover shadow-2xl aspect-[3/4] object-top relative"
+                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/IMG_9007_ef47cd59.PNG"
+                alt="Alvin — Founder, Conscious Claims"
+                className="w-full rounded-3xl object-cover shadow-2xl aspect-[3/4] relative"
+                style={{objectPosition:'center 15%'}}
               />
               <div className="absolute bottom-4 left-4 right-4 rounded-2xl p-4" style={{background:'rgba(10,14,26,0.9)', backdropFilter:'blur(10px)', border:'1px solid rgba(245,200,66,0.2)'}}>
-                <div className="font-bold text-white text-lg" style={{fontFamily:"'Barlow Condensed', sans-serif"}}>CODY TYLER McCAIN</div>
-                <div className="text-sm" style={{color:'#f5c842'}}>Founder & CEO, Conscious Capital</div>
-                <div className="text-xs text-gray-500 mt-0.5">Atlanta, Georgia</div>
+                <div className="font-bold text-white text-lg" style={{fontFamily:"'Barlow Condensed', sans-serif"}}>ALVIN</div>
+                <div className="text-sm" style={{color:'#f5c842'}}>Founder & CEO, Conscious Claims</div>
+                <div className="text-xs text-gray-500 mt-0.5">Roofing Contractor Turned SaaS Founder</div>
               </div>
             </div>
             <div>
