@@ -262,12 +262,19 @@ export default function Home() {
             <p className="text-gray-400 max-w-xl mx-auto">This is what your first job looks like. 30 seconds. $4,832 found. 18+ missed items identified.</p>
           </div>
           <div className="flex justify-center">
-            <img
-              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/post2_conscious_claims_67647f19_9a4f5518.webp"
-              alt="$4,832 Found in 30 Seconds — Conscious Claims AI Supplement Analysis"
-              className="rounded-2xl shadow-2xl w-full max-w-lg object-contain"
-              style={{border:'1px solid rgba(245,200,66,0.2)'}}
-            />
+            <div className="w-full max-w-3xl rounded-2xl overflow-hidden shadow-2xl" style={{border:'1px solid rgba(245,200,66,0.2)'}}>
+              <video
+                controls
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full"
+                poster="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/ad_adjuster_roof_dffcf998.png"
+              >
+                <source src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/supplement_ai_demo_v1_d739a924.mp4" type="video/mp4" />
+              </video>
+            </div>
           </div>
           <div className="text-center mt-8">
             <Button size="lg" className="btn-gold text-base px-8 py-5" onClick={handleCTA}>
