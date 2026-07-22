@@ -147,7 +147,7 @@ export default function Home() {
               </p>
               <div className="flex flex-col sm:flex-row gap-3 mb-6">
                 <Button size="lg" className="btn-gold text-base px-8 py-6 text-lg" onClick={handleCTA}>
-                  Start Your First Supplement
+                  Upload Your First Job
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
                 <Button size="lg" variant="outline" className="border-white/20 text-white bg-white/5 hover:bg-white/10 text-base px-8 py-6" onClick={() => navigate("/demo")}>
