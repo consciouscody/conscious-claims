@@ -121,9 +121,9 @@ export default function Home() {
 
       {/* HERO */}
       <section className="relative overflow-hidden" style={{background:'linear-gradient(135deg, #0a0e1a 0%, #0f1629 40%, #141e3a 100%)'}}>
-        <div className="absolute inset-0 opacity-25">
+        <div className="absolute inset-0 opacity-30">
           <video autoPlay muted loop playsInline className="w-full h-full object-cover">
-            <source src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/higgsfield_hero_066bdd98.mp4" type="video/mp4" />
+            <source src="/manus-storage/hf_20260428_133505_70ea8c27-4dd8-4d32-8571-09d7d35adbb4_fd068f3f.mp4" type="video/mp4" />
             <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/ad_adjuster_roof_dffcf998.png" alt="" className="w-full h-full object-cover" />
           </video>
         </div>

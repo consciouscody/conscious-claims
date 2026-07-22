@@ -81,9 +81,9 @@ export default function DashboardLayout({
             <Building2 className="w-6 h-6 text-primary-foreground" />
           </div>
           <div className="flex flex-col items-center gap-3">
-            <h1 className="text-2xl font-bold tracking-tight text-center">Sign in to SupplementAI</h1>
+            <h1 className="text-2xl font-bold tracking-tight text-center">Sign in to Conscious Claims</h1>
             <p className="text-sm text-muted-foreground text-center max-w-sm">
-              Access your supplement dashboard and start recovering money on every claim.
+              Access your claims dashboard and get approvals on the first submission.
             </p>
           </div>
           <Button
@@ -196,7 +196,7 @@ function DashboardLayoutContent({
                     className="w-6 h-6 rounded object-cover shrink-0"
                   />
                   <span className="font-bold text-sidebar-foreground truncate text-sm">
-                    SupplementAI
+                    Conscious Claims
                   </span>
                 </div>
               )}
@@ -272,7 +272,7 @@ function DashboardLayoutContent({
             <div className="flex items-center gap-2">
               <SidebarTrigger className="h-9 w-9 rounded-lg bg-background" />
               <span className="font-medium text-sm text-foreground">
-                {activeMenuItem?.label ?? "SupplementAI"}
+                {activeMenuItem?.label ?? "Conscious Claims"}
               </span>
             </div>
           </div>

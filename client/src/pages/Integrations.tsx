@@ -111,7 +111,7 @@ export default function Integrations() {
           <div>
             <h1 className="text-2xl font-bold text-foreground">CRM Integrations</h1>
             <p className="text-muted-foreground mt-1">
-              Connect your roofing CRM to automatically import jobs into SupplementAI.
+              Connect your roofing CRM to automatically import jobs into Conscious Claims.
             </p>
           </div>
           <Button onClick={() => setConnectOpen(true)} className="gap-2">
@@ -141,7 +141,7 @@ export default function Integrations() {
                 <div className="w-6 h-6 rounded-full bg-orange-500 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">2</div>
                 <div>
                   <p className="font-medium text-foreground">Jobs sync automatically</p>
-                  <p className="text-muted-foreground">New jobs in your CRM appear in SupplementAI instantly — no manual entry.</p>
+                  <p className="text-muted-foreground">New jobs in your CRM appear in Conscious Claims instantly — no manual entry.</p>
                 </div>
               </div>
               <div className="flex gap-3">
@@ -388,7 +388,7 @@ export default function Integrations() {
                 <ol className="mt-2 space-y-1 list-decimal list-inside text-xs">
                   <li>Trigger: New Job in {selectedCrmOption?.label}</li>
                   <li>Action: Webhooks by Zapier → POST</li>
-                  <li>URL: your SupplementAI webhook URL</li>
+                  <li>URL: your Conscious Claims webhook URL</li>
                 </ol>
               </div>
             )}
@@ -419,7 +419,7 @@ export default function Integrations() {
           <DialogHeader>
             <DialogTitle>Zapier Setup Guide</DialogTitle>
             <DialogDescription>
-              Follow these steps to automatically send jobs from {zapierCrmOption?.label || "your CRM"} to SupplementAI.
+              Follow these steps to automatically send jobs from {zapierCrmOption?.label || "your CRM"} to Conscious Claims.
             </DialogDescription>
           </DialogHeader>
 
@@ -471,7 +471,7 @@ export default function Integrations() {
                   </li>
                   <li className="flex gap-3">
                     <span className="w-5 h-5 rounded-full bg-orange-500 text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5 font-bold">6</span>
-                    <span>Turn on the Zap. Every new job in {zapierCrmOption?.label} will automatically appear in SupplementAI.</span>
+                    <span>Turn on the Zap. Every new job in {zapierCrmOption?.label} will automatically appear in Conscious Claims.</span>
                   </li>
                 </ol>
               </div>

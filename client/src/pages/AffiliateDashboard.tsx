@@ -132,7 +132,7 @@ export default function AffiliateDashboard() {
       <nav className="border-b border-gray-800 px-6 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link href="/">
-            <span className="text-xl font-bold text-orange-400 cursor-pointer">SupplementAI</span>
+            <span className="text-xl font-bold text-orange-400 cursor-pointer">Conscious Claims</span>
           </Link>
           <div className="flex items-center gap-3">
             <span className="text-gray-400 text-sm">{user.name || user.email}</span>
@@ -251,7 +251,7 @@ export default function AffiliateDashboard() {
               <span className="text-gray-500 text-xs">Share to:</span>
               {[
                 { label: "Facebook", url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(referralLink)}` },
-                { label: "Twitter/X", url: `https://twitter.com/intent/tweet?text=Check+out+SupplementAI+for+roofing+contractors&url=${encodeURIComponent(referralLink)}` },
+                { label: "Twitter/X", url: `https://twitter.com/intent/tweet?text=Check+out+Conscious Claims+for+roofing+contractors&url=${encodeURIComponent(referralLink)}` },
                 { label: "LinkedIn", url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(referralLink)}` },
               ].map((s) => (
                 <a
@@ -272,8 +272,8 @@ export default function AffiliateDashboard() {
         <div className="grid md:grid-cols-3 gap-4 mb-8">
           {[
             { product: "Storm the Door Book", price: "$27", earn: "$10.80", type: "One-time" },
-            { product: "SupplementAI Pro Monthly", price: "$97/mo", earn: "$38.80/mo", type: "Recurring" },
-            { product: "SupplementAI Pro Annual", price: "$970/yr", earn: "$388/yr", type: "Recurring" },
+            { product: "Conscious Claims Pro Monthly", price: "$97/mo", earn: "$38.80/mo", type: "Recurring" },
+            { product: "Conscious Claims Pro Annual", price: "$970/yr", earn: "$388/yr", type: "Recurring" },
           ].map((item) => (
             <Card key={item.product} className="bg-gray-900 border-gray-800">
               <CardContent className="p-4">
@@ -355,14 +355,14 @@ export default function AffiliateDashboard() {
                   desc: "4 ready-to-post captions for Facebook and Instagram",
                   action: "Copy Templates",
                   content:
-                    "🔨 Roofing contractors — stop leaving money on the table!\n\nSupplementAI scans your Xactimate estimates and finds every missing line item in seconds. Upload your estimate, get a complete supplement list, and send a professional email to the adjuster — all in one tool.\n\nTry it free: " + referralLink,
+                    "🔨 Roofing contractors — stop leaving money on the table!\n\nConscious Claims scans your Xactimate estimates and finds every missing line item in seconds. Upload your estimate, get a complete supplement list, and send a professional email to the adjuster — all in one tool.\n\nTry it free: " + referralLink,
                 },
                 {
                   title: "Email Swipe",
                   desc: "Email template to send to your roofing contacts",
                   action: "Copy Email",
                   content:
-                    `Subject: Tool that recovers thousands on every roof claim\n\nHey [Name],\n\nI wanted to share something that's been a game-changer for roofing contractors doing insurance work.\n\nSupplementAI analyzes your Xactimate estimates and automatically finds missing line items — things like O&P, code upgrades, and materials adjusters routinely leave out. It then generates a professional email to send to the adjuster.\n\nContractors are recovering $2,000-$8,000 more per claim.\n\nCheck it out: ${referralLink}\n\n[Your Name]`,
+                    `Subject: Tool that recovers thousands on every roof claim\n\nHey [Name],\n\nI wanted to share something that's been a game-changer for roofing contractors doing insurance work.\n\nConscious Claims analyzes your Xactimate estimates and automatically finds missing line items — things like O&P, code upgrades, and materials adjusters routinely leave out. It then generates a professional email to send to the adjuster.\n\nContractors are recovering $2,000-$8,000 more per claim.\n\nCheck it out: ${referralLink}\n\n[Your Name]`,
                 },
                 {
                   title: "SMS/Text Script",

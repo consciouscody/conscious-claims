@@ -181,7 +181,7 @@ export default function Pricing() {
               alt="Conscious Capital"
               className="w-8 h-8 rounded-lg object-cover"
             />
-            <span className="font-bold text-lg text-foreground">SupplementAI</span>
+            <span className="font-bold text-lg text-foreground">Conscious Claims</span>
             <span className="hidden sm:inline text-xs text-muted-foreground font-normal">by Conscious Capital</span>
           </button>
           <div className="flex items-center gap-3">
@@ -217,7 +217,7 @@ export default function Pricing() {
             <span className="block text-accent">Keep Every Dollar.</span>
           </h1>
           <p className="text-white/80 max-w-xl mx-auto text-lg mb-8">
-            One supplement recovered pays for months of SupplementAI. No commissions. No splits. Just your tool, your results.
+            One supplement recovered pays for months of Conscious Claims. No commissions. No splits. Just your tool, your results.
           </p>
 
           {/* Billing Toggle */}
@@ -346,13 +346,13 @@ export default function Pricing() {
         <div className="container max-w-3xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-foreground mb-4">The Math Is Simple</h2>
           <p className="text-muted-foreground mb-10">
-            One supplement recovered pays for SupplementAI many times over. Here is what the numbers look like.
+            One supplement recovered pays for Conscious Claims many times over. Here is what the numbers look like.
           </p>
           <div className="grid grid-cols-3 gap-6">
             {[
               { label: "Average supplement recovered", value: "$6,500" },
               { label: "Your 12% fee", value: "$780" },
-              { label: "SupplementAI Pro cost", value: "$197/mo" },
+              { label: "Conscious Claims Pro cost", value: "$197/mo" },
             ].map((item) => (
               <div key={item.label} className="bg-background rounded-xl border border-border p-6">
                 <div className="text-3xl font-extrabold text-primary mb-2">{item.value}</div>
@@ -373,10 +373,10 @@ export default function Pricing() {
             <div className="w-6 h-6 rounded bg-primary flex items-center justify-center">
               <Building2 className="w-3 h-3 text-primary-foreground" />
             </div>
-            <span className="font-semibold text-foreground">SupplementAI</span>
+            <span className="font-semibold text-foreground">Conscious Claims</span>
           </div>
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} SupplementAI. Built for roofing professionals.
+            © {new Date().getFullYear()} Conscious Claims. Built for roofing professionals.
           </p>
           <button onClick={() => navigate("/")} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             ← Back to Home

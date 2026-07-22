@@ -47,7 +47,7 @@ export default function StormTheDoor() {
         </Link>
         <Link href="/">
           <Button variant="ghost" className="text-white/70 hover:text-white text-sm">
-            ← Back to SupplementAI
+            ← Back to Conscious Claims
           </Button>
         </Link>
       </nav>
@@ -179,18 +179,18 @@ export default function StormTheDoor() {
         </div>
       </section>
 
-      {/* Supplement AI Cross-sell */}
+      {/* Conscious Claims Cross-sell */}
       <section className="max-w-4xl mx-auto px-6 py-16 text-center">
         <div className="bg-gradient-to-br from-[#FF6B00]/20 to-[#FF6B00]/5 border border-[#FF6B00]/30 rounded-2xl p-10">
           <h2 className="text-2xl font-black mb-3">
             Already have the sales system?
           </h2>
           <p className="text-white/60 mb-6 max-w-xl mx-auto">
-            SupplementAI handles the other half — analyzing your Xactimate estimate, finding every missing line item, and generating a professional adjuster email in under 5 minutes.
+            Conscious Claims handles the other half — analyzing your Xactimate estimate, finding every missing line item, and generating a professional adjuster email in under 5 minutes.
           </p>
           <Link href="/">
             <Button className="bg-white text-[#0d1b2a] hover:bg-white/90 font-bold px-8 py-3">
-              Try SupplementAI Free →
+              Try Conscious Claims Free →
             </Button>
           </Link>
         </div>
