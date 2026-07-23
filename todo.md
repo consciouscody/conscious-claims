@@ -209,3 +209,36 @@
 - [x] Verify all links work correctly (all routes working)
 - [x] Test authentication flow (manus.im redirect working)
 - [x] Check brand consistency across all pages (all updated to Conscious Claims)
+
+
+## Phase 17 - Contact Info & Business Separation
+- [ ] Update all contact info across app: Cell 470-550-7822, Assistant 470-740-5774
+- [ ] Separate Conscious Optimization (voice agents + AI OS) from Conscious Claims (roofing insurance)
+- [ ] Update homepage copy to reflect two separate businesses
+- [ ] Update footer with both business names and contact info
+- [ ] Update admin panel with contact info management
+- [ ] Update email templates with new phone numbers
+
+## Phase 18 - Audit System & Repeatable Sales Tool
+- [x] Document RoofUS audit template (18 sections, exact data points)
+- [x] Create Conscious Audit Generator skill (repeatable system)
+- [ ] Build audit generation backend (API endpoint for audit data)
+- [ ] Build audit generation frontend (form to input prospect data)
+- [ ] Create audit PDF export functionality
+- [ ] Test audit generation with sample prospects
+- [ ] Create audit outreach email templates
+
+## Phase 19 - Video Assembly & Matt Jackson Outreach
+- [ ] Assemble Higgsfield video clips for RoofUS demo
+- [ ] Fix corrupted word/audio issue in video
+- [ ] Create final "Wolf of Wall Street" style video
+- [ ] Send video + audit + app link to Matt Jackson
+- [ ] Follow up with Roof Hustler (status update)
+- [ ] Onboard roof man (Conscious Claims demo)
+
+## Phase 20 - Hermes Integration & Automation
+- [ ] Wire Hermes + Manus for task management and focus enforcement
+- [ ] Set up cron jobs for outreach automation
+- [ ] Set up Clay + Apollo integration for broken website detection
+- [ ] Build automated cold outreach workflow
+- [ ] Test automation end-to-end

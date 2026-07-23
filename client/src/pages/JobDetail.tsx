@@ -112,15 +112,19 @@ function JobDetailContent() {
       </div>
 
       {/* Tabs */}
-      <Tabs defaultValue="estimate">
-        <TabsList className="grid grid-cols-5 w-full">
-          <TabsTrigger value="estimate" className="text-xs">
+      <Tabs defaultValue="dossier">
+        <TabsList className="grid grid-cols-6 w-full">
+          <TabsTrigger value="dossier" className="text-xs">
             <FileText className="w-3.5 h-3.5 mr-1.5" />
-            Estimate
+            Dossier
           </TabsTrigger>
           <TabsTrigger value="photos" className="text-xs">
             <Camera className="w-3.5 h-3.5 mr-1.5" />
             Photos
+          </TabsTrigger>
+          <TabsTrigger value="estimate" className="text-xs">
+            <FileText className="w-3.5 h-3.5 mr-1.5" />
+            Estimate
           </TabsTrigger>
           <TabsTrigger value="supplement" className="text-xs">
             <Sparkles className="w-3.5 h-3.5 mr-1.5" />
@@ -136,11 +140,14 @@ function JobDetailContent() {
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="estimate" className="mt-4">
-          <EstimateTab job={job} jobId={jobId} />
+        <TabsContent value="dossier" className="mt-4">
+          <DossierTab job={job} jobId={jobId} />
         </TabsContent>
         <TabsContent value="photos" className="mt-4">
           <PhotosTab jobId={jobId} />
+        </TabsContent>
+        <TabsContent value="estimate" className="mt-4">
+          <EstimateTab job={job} jobId={jobId} />
         </TabsContent>
         <TabsContent value="supplement" className="mt-4">
           <SupplementTab job={job} jobId={jobId} />
@@ -1220,6 +1227,103 @@ function PaymentTab({ job, jobId }: { job: any; jobId: number }) {
           <CardContent className="p-4 text-center text-sm text-muted-foreground">
             <DollarSign className="w-8 h-8 mx-auto mb-2 opacity-30" />
             Enter the recovered amount above and click <strong>Save Payment Info</strong> to unlock payment collection.
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  );
+}
+
+
+// ─── Forensic Dossier Tab ────────────────────────────────────────────────────────────
+
+function DossierTab({ job, jobId }: { job: any; jobId: number }) {
+  const { data: dossier, isLoading } = trpc.forensicDossier.getByJob.useQuery({ jobId });
+  const generateDossier = trpc.forensicDossier.generate.useMutation({
+    onSuccess: () => {
+      toast.success("Forensic dossier generated successfully");
+    },
+    onError: (err) => toast.error(err.message),
+  });
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      {!dossier ? (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Generate Forensic Dossier</CardTitle>
+            <CardDescription>
+              Create a comprehensive forensic analysis with building codes, waste factors, and adjuster-ready documentation
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm text-blue-900">
+              <strong>Requirements:</strong> Upload photos and an estimate to generate the dossier.
+            </div>
+            <Button
+              onClick={() => generateDossier.mutate({ jobId })}
+              disabled={generateDossier.isPending || !job.propertyAddress}
+              className="w-full gap-2"
+            >
+              {generateDossier.isPending ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <Sparkles className="w-4 h-4" />
+              )}
+              Generate Forensic Dossier
+            </Button>
+          </CardContent>
+        </Card>
+      ) : (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Forensic Dossier</CardTitle>
+            <CardDescription>AI-powered claim documentation ready for adjuster review</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+              <div className="flex items-center gap-2 text-green-900 font-semibold mb-2">
+                <CheckCircle className="w-5 h-5" />
+                Dossier Generated
+              </div>
+              <p className="text-sm text-green-800">Your forensic analysis is complete and ready to submit.</p>
+            </div>
+            
+            <div className="space-y-3">
+              <div>
+                <h4 className="font-semibold text-sm mb-2">Building Codes Referenced</h4>
+                <div className="text-sm text-muted-foreground bg-gray-50 p-3 rounded max-h-40 overflow-y-auto">
+                  {dossier.buildingCodes?.join(", ") || "No codes referenced"}
+                </div>
+              </div>
+              
+              <div>
+                <h4 className="font-semibold text-sm mb-2">Waste Factors Applied</h4>
+                <div className="text-sm text-muted-foreground bg-gray-50 p-3 rounded max-h-40 overflow-y-auto">
+                  {dossier.wasteFactors?.join(", ") || "No waste factors"}
+                </div>
+              </div>
+              
+              <div>
+                <h4 className="font-semibold text-sm mb-2">Analysis Summary</h4>
+                <div className="text-sm text-muted-foreground bg-gray-50 p-3 rounded max-h-40 overflow-y-auto">
+                  <Streamdown>{dossier.summary || "No summary available"}</Streamdown>
+                </div>
+              </div>
+            </div>
+
+            <Button variant="outline" className="w-full gap-2">
+              <FileText className="w-4 h-4" />
+              Export Dossier as PDF
+            </Button>
           </CardContent>
         </Card>
       )}

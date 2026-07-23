@@ -53,8 +53,8 @@ function DashboardContent() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Supplement Dashboard</h1>
-          <p className="text-muted-foreground text-sm mt-1">Manage all your roofing insurance supplement claims</p>
+          <h1 className="text-2xl font-bold text-foreground">Claims Dashboard</h1>
+          <p className="text-muted-foreground text-sm mt-1">Get your claims approved on first submission with AI-powered forensic documentation</p>
         </div>
         <Button onClick={() => navigate("/jobs/new")} className="gap-2">
           <Plus className="w-4 h-4" />
@@ -152,7 +152,7 @@ function DashboardContent() {
               <Building2 className="w-12 h-12 text-muted-foreground/30 mx-auto mb-4" />
               <h3 className="font-semibold text-foreground mb-2">No jobs yet</h3>
               <p className="text-sm text-muted-foreground mb-6 max-w-xs mx-auto">
-                Create your first supplement job to start recovering money for your clients.
+                Create your first job and generate a forensic dossier to get your claim approved on first submission.
               </p>
               <Button onClick={() => navigate("/jobs/new")} className="gap-2">
                 <Plus className="w-4 h-4" />
