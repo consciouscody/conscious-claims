@@ -123,8 +123,7 @@ export default function Home() {
       <section className="relative overflow-hidden" style={{background:'linear-gradient(135deg, #0a0e1a 0%, #0f1629 40%, #141e3a 100%)'}}>
         <div className="absolute inset-0 opacity-25">
           <video autoPlay muted loop playsInline className="w-full h-full object-cover">
-            <source src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/higgsfield_hero_066bdd98.mp4" type="video/mp4" />
-            <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/ad_adjuster_roof_dffcf998.png" alt="" className="w-full h-full object-cover" />
+            <source src="/manus-storage/hf_20260428_133505_70ea8c27-4dd8-4d32-8571-09d7d35adbb4_80ba3562.mp4" type="video/mp4" />
           </video>
         </div>
         <div className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-15" style={{background:'radial-gradient(circle, #f5c842 0%, transparent 70%)', transform:'translate(30%, -30%)'}} />
@@ -147,7 +146,7 @@ export default function Home() {
               </p>
               <div className="flex flex-col sm:flex-row gap-3 mb-6">
                 <Button size="lg" className="btn-gold text-base px-8 py-6 text-lg" onClick={handleCTA}>
-                  Start Your First Supplement
+                  Upload Your First Job
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
                 <Button size="lg" variant="outline" className="border-white/20 text-white bg-white/5 hover:bg-white/10 text-base px-8 py-6" onClick={() => navigate("/demo")}>
