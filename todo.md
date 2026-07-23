@@ -196,10 +196,10 @@
 - [x] Remove visibility audit page completely
 - [x] Fix 404 errors on broken routes (removed /visibility-audit)
 - [x] Replace "CONSCIOUS CAPITAL" with "CONSCIOUS CLAIMS" everywhere
-- [ ] Fix navigation links (Pricing, Free Guide, Affiliates, Sign In)
-- [ ] Fix "Get Started Free" and "Upload Your First Job" CTAs
-- [ ] Fix Free Guide form validation and submission
-- [ ] Remove or fix Audit form (visibility audit)
+- [x] Fix navigation links (Pricing, Free Guide, Affiliates, Sign In)
+- [x] Fix "Get Started Free" and "Upload Your First Job" CTAs
+- [x] Fix Free Guide form validation and submission
+- [x] Remove Audit form (visibility audit removed completely)
 - [ ] Fix mobile responsiveness (375px, 768px viewports)
 - [ ] Fix pricing page math and consistency
 - [ ] Fix affiliates page commission math
