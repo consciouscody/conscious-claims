@@ -83,7 +83,7 @@ export default function Home() {
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="sm" onClick={() => navigate("/pricing")} className="hidden sm:flex text-muted-foreground hover:text-foreground">Pricing</Button>
             <Button variant="ghost" size="sm" onClick={() => navigate("/free-guide")} className="hidden sm:flex" style={{color:'#f5c842'}}>Free Guide</Button>
-            <Button variant="ghost" size="sm" onClick={() => navigate("/visibility-audit")} className="hidden sm:flex text-blue-400 font-semibold">Free AI Audit</Button>
+
             <Button variant="ghost" size="sm" onClick={() => navigate("/affiliates")} className="hidden sm:flex text-muted-foreground hover:text-foreground">Affiliates</Button>
             {!loading && (
               isAuthenticated ? (
@@ -121,9 +121,9 @@ export default function Home() {
 
       {/* HERO */}
       <section className="relative overflow-hidden" style={{background:'linear-gradient(135deg, #0a0e1a 0%, #0f1629 40%, #141e3a 100%)'}}>
-        <div className="absolute inset-0 opacity-30">
+        <div className="absolute inset-0 opacity-25">
           <video autoPlay muted loop playsInline className="w-full h-full object-cover">
-            <source src="/manus-storage/hf_20260428_133505_70ea8c27-4dd8-4d32-8571-09d7d35adbb4_fd068f3f.mp4" type="video/mp4" />
+            <source src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/higgsfield_hero_066bdd98.mp4" type="video/mp4" />
             <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/ad_adjuster_roof_dffcf998.png" alt="" className="w-full h-full object-cover" />
           </video>
         </div>
@@ -147,7 +147,7 @@ export default function Home() {
               </p>
               <div className="flex flex-col sm:flex-row gap-3 mb-6">
                 <Button size="lg" className="btn-gold text-base px-8 py-6 text-lg" onClick={handleCTA}>
-                  Upload Your First Job
+                  Start Your First Supplement
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
                 <Button size="lg" variant="outline" className="border-white/20 text-white bg-white/5 hover:bg-white/10 text-base px-8 py-6" onClick={() => navigate("/demo")}>
@@ -366,7 +366,7 @@ export default function Home() {
             <button onClick={() => navigate("/affiliates")} className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Affiliates</button>
             <button onClick={() => window.location.href = getLoginUrl()} className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Sign In</button>
           </div>
-          <p className="text-sm text-gray-600">© {new Date().getFullYear()} Conscious Claims by Conscious Capital.</p>
+          <p className="text-sm text-gray-600">© {new Date().getFullYear()} Conscious Claims by Conscious Claims.</p>
         </div>
       </footer>
     </div>

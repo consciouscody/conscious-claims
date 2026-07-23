@@ -68,15 +68,15 @@ export default function StormTheDoorSuccess() {
           </div>
         )}
 
-        {/* Conscious Claims upsell */}
+        {/* SupplementAI upsell */}
         <div className="bg-gradient-to-br from-[#FF6B00]/10 to-transparent border border-[#FF6B00]/20 rounded-xl p-6 mb-6">
           <h3 className="font-bold text-white mb-2">Now automate the supplement side</h3>
           <p className="text-white/50 text-sm mb-4">
-            You have the sales system. Let Conscious Claims handle finding missing line items and writing adjuster emails — in under 5 minutes per job.
+            You have the sales system. Let SupplementAI handle finding missing line items and writing adjuster emails — in under 5 minutes per job.
           </p>
           <Link href="/">
             <Button variant="outline" className="border-[#FF6B00]/50 text-[#FF6B00] hover:bg-[#FF6B00]/10 w-full">
-              Try Conscious Claims Free →
+              Try SupplementAI Free →
             </Button>
           </Link>
         </div>

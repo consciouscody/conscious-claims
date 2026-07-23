@@ -69,7 +69,7 @@ export default function WaterRestoration() {
             <div className="flex flex-wrap gap-3">
               <Link href={user ? "/jobs/new" : getLoginUrl()}>
                 <Button className="bg-[#c9a84c] hover:bg-[#b8963e] text-black font-bold text-base px-6 py-3">
-                  Upload Your First Job <ArrowRight className="w-4 h-4 ml-2" />
+                  Start Your First Supplement <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
               <Link href="/demo">

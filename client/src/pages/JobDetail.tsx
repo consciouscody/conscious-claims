@@ -532,8 +532,8 @@ function SupplementTab({ job, jobId }: { job: any; jobId: number }) {
     </style></head><body>
     <div class="brand-header">
       <div>
-        <div class="brand-name"><span class="brand-accent">⚡</span> Conscious Claims</div>
-        <div class="brand-sub">by Conscious Capital</div>
+        <div class="brand-name"><span class="brand-accent">⚡</span> SupplementAI</div>
+        <div class="brand-sub">by Conscious Claims</div>
       </div>
       <div class="brand-right">
         consconscioussupplements.com<br/>
@@ -548,7 +548,7 @@ function SupplementTab({ job, jobId }: { job: any; jobId: number }) {
       </div>
       <div class="doc-date">
         <strong>${new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' })}</strong>
-        Prepared by Cody · Conscious Capital
+        Prepared by Cody · Conscious Claims
       </div>
     </div>
     <table style="width:100%;border-collapse:collapse;margin-bottom:8px">
@@ -567,7 +567,7 @@ function SupplementTab({ job, jobId }: { job: any; jobId: number }) {
     </div>
     <div class="brand-footer">
       <div class="footer-left">
-        <div class="footer-brand">⚡ Conscious Claims by Conscious Capital</div>
+        <div class="footer-brand">⚡ SupplementAI by Conscious Claims</div>
         <div>consconscioussupplements.com &nbsp;·&nbsp; AI-Powered Supplement Generation</div>
       </div>
       <div class="footer-right">

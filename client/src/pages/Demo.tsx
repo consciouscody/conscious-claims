@@ -210,7 +210,7 @@ Please review and respond within 10 business days. I am available to discuss any
 
 Respectfully,
 Cody Tyler McCain
-Conscious Capital | Conscious Claims
+Conscious Claims | SupplementAI
 cody@conscioussupplements.com`;
 
 export default function Demo() {
@@ -263,12 +263,12 @@ export default function Demo() {
           >
             <img
               src="https://d2xsxph8kpxj0f.cloudfront.net/310519663360996271/3ZX44EBEWux9xrkumJtpAc/cc_logo_transparent_0cf366e7.png"
-              alt="Conscious Capital"
+              alt="Conscious Claims"
               className="w-8 h-8 rounded-lg object-cover"
             />
-            <span className="font-bold text-lg text-foreground">Conscious Claims</span>
+            <span className="font-bold text-lg text-foreground">SupplementAI</span>
             <span className="hidden sm:inline text-xs text-muted-foreground font-normal">
-              by Conscious Capital
+              by Conscious Claims
             </span>
           </button>
           <div className="flex items-center gap-3">
@@ -497,7 +497,7 @@ export default function Demo() {
         <div className="mt-10 bg-gradient-to-br from-primary via-primary/90 to-[oklch(0.22_0.08_250)] rounded-2xl p-8 text-white text-center">
           <h2 className="text-2xl font-bold mb-3">Ready to Run This on Your Own Jobs?</h2>
           <p className="text-white/80 mb-6 max-w-lg mx-auto">
-            Sign up free and upload your first Xactimate estimate. Conscious Claims will find every missing line item in under 5 minutes.
+            Sign up free and upload your first Xactimate estimate. SupplementAI will find every missing line item in under 5 minutes.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button
@@ -528,10 +528,10 @@ export default function Demo() {
             <div className="w-6 h-6 rounded bg-primary flex items-center justify-center">
               <Building2 className="w-3 h-3 text-primary-foreground" />
             </div>
-            <span className="font-semibold text-foreground">Conscious Claims</span>
+            <span className="font-semibold text-foreground">SupplementAI</span>
           </div>
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Conscious Claims by Conscious Capital.
+            © {new Date().getFullYear()} SupplementAI by Conscious Claims.
           </p>
         </div>
       </footer>

@@ -42,12 +42,12 @@ export default function StormTheDoor() {
       <nav className="border-b border-white/10 px-6 py-4 flex items-center justify-between max-w-6xl mx-auto">
         <Link href="/">
           <span className="font-bold text-xl tracking-tight cursor-pointer">
-            <span className="text-[#FF6B00]">CC</span> Conscious Capital
+            <span className="text-[#FF6B00]">CC</span> Conscious Claims
           </span>
         </Link>
         <Link href="/">
           <Button variant="ghost" className="text-white/70 hover:text-white text-sm">
-            ← Back to Conscious Claims
+            ← Back to SupplementAI
           </Button>
         </Link>
       </nav>
@@ -67,7 +67,7 @@ export default function StormTheDoor() {
         {/* Copy */}
         <div>
           <Badge className="bg-[#FF6B00]/20 text-[#FF6B00] border-[#FF6B00]/30 mb-4">
-            Conscious Capital Playbook Series
+            Conscious Claims Playbook Series
           </Badge>
           <h1 className="text-4xl md:text-5xl font-black leading-tight mb-4">
             Storm the Door
@@ -179,18 +179,18 @@ export default function StormTheDoor() {
         </div>
       </section>
 
-      {/* Conscious Claims Cross-sell */}
+      {/* Supplement AI Cross-sell */}
       <section className="max-w-4xl mx-auto px-6 py-16 text-center">
         <div className="bg-gradient-to-br from-[#FF6B00]/20 to-[#FF6B00]/5 border border-[#FF6B00]/30 rounded-2xl p-10">
           <h2 className="text-2xl font-black mb-3">
             Already have the sales system?
           </h2>
           <p className="text-white/60 mb-6 max-w-xl mx-auto">
-            Conscious Claims handles the other half — analyzing your Xactimate estimate, finding every missing line item, and generating a professional adjuster email in under 5 minutes.
+            SupplementAI handles the other half — analyzing your Xactimate estimate, finding every missing line item, and generating a professional adjuster email in under 5 minutes.
           </p>
           <Link href="/">
             <Button className="bg-white text-[#0d1b2a] hover:bg-white/90 font-bold px-8 py-3">
-              Try Conscious Claims Free →
+              Try SupplementAI Free →
             </Button>
           </Link>
         </div>
@@ -198,7 +198,7 @@ export default function StormTheDoor() {
 
       {/* Footer */}
       <footer className="border-t border-white/10 py-8 text-center text-white/30 text-sm">
-        © {new Date().getFullYear()} Conscious Capital. All rights reserved.
+        © {new Date().getFullYear()} Conscious Claims. All rights reserved.
       </footer>
     </div>
   );

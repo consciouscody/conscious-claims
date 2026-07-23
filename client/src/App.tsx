@@ -21,7 +21,7 @@ import LinkedInPosts from "./pages/LinkedInPosts";
 import Waitlist from "./pages/Waitlist";
 import AdminPanel from "./pages/AdminPanel";
 import CallScript from "./pages/CallScript";
-import VisibilityAudit from "./pages/VisibilityAudit";
+
 import Billing from "./pages/Billing";
 import WaterRestoration from "./pages/WaterRestoration";
 import AdminClaimsDashboard from "./pages/AdminClaimsDashboard";
@@ -29,7 +29,6 @@ import ClaimStatus from "./pages/ClaimStatus";
 import PhotoChecklist from "./pages/PhotoChecklist";
 import ShingleIdentifier from "./pages/ShingleIdentifier";
 import AdjusterDispute from "./pages/AdjusterDispute";
-import { ForensicDossier } from "./pages/ForensicDossier";
 
 function Router() {
   return (
@@ -51,7 +50,7 @@ function Router() {
       <Route path="/waitlist" component={Waitlist} />
       <Route path="/admin" component={AdminPanel} />
       <Route path="/call-script" component={CallScript} />
-      <Route path="/visibility-audit" component={VisibilityAudit} />
+
       <Route path="/billing" component={Billing} />
       <Route path="/water-restoration" component={WaterRestoration} />
       <Route path="/admin/claims" component={AdminClaimsDashboard} />
@@ -59,7 +58,6 @@ function Router() {
       <Route path="/photo-checklist" component={PhotoChecklist} />
       <Route path="/shingle-identifier" component={ShingleIdentifier} />
       <Route path="/adjuster-dispute" component={AdjusterDispute} />
-      <Route path="/jobs/:id/forensic-dossier" component={ForensicDossier} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

@@ -190,3 +190,22 @@
 - [x] Build Admin Claims Dashboard tab in AdminPanel with live feed, status badges, search/filter
 - [x] Build customer Claim Status page at /claim-status showing their jobs with timeline
 - [x] Auto-notify owner when new supplement is generated
+
+
+## Audit Fixes (Phase 16 - CRITICAL)
+- [ ] Remove visibility audit page completely
+- [ ] Fix 404 errors on broken routes
+- [ ] Replace "CONSCIOUS CAPITAL" with "CONSCIOUS CLAIMS" everywhere
+- [ ] Fix navigation links (Pricing, Free Guide, Affiliates, Sign In)
+- [ ] Fix "Get Started Free" and "Upload Your First Job" CTAs
+- [ ] Fix Free Guide form validation and submission
+- [ ] Remove or fix Audit form (visibility audit)
+- [ ] Fix mobile responsiveness (375px, 768px viewports)
+- [ ] Fix pricing page math and consistency
+- [ ] Fix affiliates page commission math
+- [ ] Add/fix SEO meta tags on all pages
+- [ ] Fix console errors and performance issues
+- [ ] Test all forms end-to-end
+- [ ] Verify all links work correctly
+- [ ] Test authentication flow (manus.im redirect)
+- [ ] Check brand consistency across all pages

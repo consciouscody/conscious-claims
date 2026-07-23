@@ -73,14 +73,14 @@ export default function Affiliates() {
       color: "text-orange-400",
     },
     {
-      product: "Conscious Claims Pro Monthly",
+      product: "SupplementAI Pro Monthly",
       price: "$97/mo",
       commission: "$38.80/mo",
       type: "Recurring",
       color: "text-green-400",
     },
     {
-      product: "Conscious Claims Pro Annual",
+      product: "SupplementAI Pro Annual",
       price: "$970/yr",
       commission: "$388/yr",
       type: "Recurring",
@@ -117,7 +117,7 @@ export default function Affiliates() {
 
   const perks = [
     "40% commission on every sale — one of the highest in the industry",
-    "Recurring monthly commissions on Conscious Claims subscriptions",
+    "Recurring monthly commissions on SupplementAI subscriptions",
     "Real-time dashboard to track clicks, conversions, and earnings",
     "Marketing materials: email swipes, social posts, and video clips",
     "Monthly PayPal payouts with no minimum threshold",
@@ -169,7 +169,7 @@ export default function Affiliates() {
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link href="/">
             <span className="text-xl font-bold text-orange-400 cursor-pointer">
-              Conscious Claims
+              SupplementAI
             </span>
           </Link>
           <div className="flex items-center gap-4">
@@ -201,7 +201,7 @@ export default function Affiliates() {
             on Every Sale
           </h1>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-8">
-            Promote Conscious Claims to roofing contractors and earn recurring monthly commissions.
+            Promote SupplementAI to roofing contractors and earn recurring monthly commissions.
             The more they use it, the more you earn — every single month.
           </p>
           <div className="flex flex-wrap gap-4 justify-center mb-12">
@@ -252,7 +252,7 @@ export default function Affiliates() {
         </div>
         <div className="mt-6 bg-orange-500/10 border border-orange-500/20 rounded-xl p-5 text-center">
           <p className="text-orange-300 font-semibold">
-            💡 Refer just 10 contractors to Conscious Claims Pro and earn{" "}
+            💡 Refer just 10 contractors to SupplementAI Pro and earn{" "}
             <span className="text-orange-400 text-xl font-black">$388/month</span> in passive income.
           </p>
         </div>
@@ -282,7 +282,7 @@ export default function Affiliates() {
       <section className="max-w-6xl mx-auto px-6 py-16">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-3xl font-bold mb-6">Why Promote Conscious Claims?</h2>
+            <h2 className="text-3xl font-bold mb-6">Why Promote SupplementAI?</h2>
             <div className="space-y-4">
               {perks.map((perk, i) => (
                 <div key={i} className="flex items-start gap-3">
@@ -301,7 +301,7 @@ export default function Affiliates() {
                 </div>
                 <p className="text-gray-400 text-sm">
                   Roofing contractors are actively looking for tools to recover more money from
-                  insurance claims. Conscious Claims solves a real, painful problem.
+                  insurance claims. SupplementAI solves a real, painful problem.
                 </p>
               </CardContent>
             </Card>
@@ -411,7 +411,7 @@ export default function Affiliates() {
 
                 <div>
                   <Label className="text-gray-300 mb-2 block">
-                    How will you promote Conscious Claims? (optional)
+                    How will you promote SupplementAI? (optional)
                   </Label>
                   <Textarea
                     placeholder="e.g. I have a roofing Facebook group with 2,000 contractors, I run YouTube ads, I'm a roofing coach..."
@@ -466,7 +466,7 @@ export default function Affiliates() {
             },
             {
               q: "Do I earn on renewals?",
-              a: "Yes. For Conscious Claims Pro subscriptions, you earn 40% every month for as long as the customer stays subscribed. This is true recurring commission.",
+              a: "Yes. For SupplementAI Pro subscriptions, you earn 40% every month for as long as the customer stays subscribed. This is true recurring commission.",
             },
             {
               q: "Can I promote on social media?",
@@ -489,7 +489,7 @@ export default function Affiliates() {
       <section className="bg-orange-500/10 border-t border-orange-500/20 py-12 text-center px-6">
         <h2 className="text-2xl font-bold mb-3">Ready to Start Earning?</h2>
         <p className="text-gray-400 mb-6">
-          Join roofing professionals already earning recurring commissions with Conscious Claims.
+          Join roofing professionals already earning recurring commissions with SupplementAI.
         </p>
         <a href="#apply">
           <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white px-10 py-6 text-lg rounded-xl">

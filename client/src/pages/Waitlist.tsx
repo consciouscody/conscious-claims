@@ -64,7 +64,7 @@ export default function Waitlist() {
             <div className="w-8 h-8 rounded-lg bg-[#c9a84c] flex items-center justify-center font-bold text-[#0a0f1e] text-sm">
               CC
             </div>
-            <span className="font-bold text-white">Conscious Claims</span>
+            <span className="font-bold text-white">SupplementAI</span>
           </div>
         </Link>
         <Link href="/pricing">
@@ -90,7 +90,7 @@ export default function Waitlist() {
         </h1>
 
         <p className="text-lg text-gray-400 mb-4 leading-relaxed">
-          Conscious Claims finds every Xactimate line item your adjuster skipped — then writes the email to get it approved.
+          SupplementAI finds every Xactimate line item your adjuster skipped — then writes the email to get it approved.
           Built by a roofing contractor, for roofing contractors.
         </p>
 
@@ -168,7 +168,7 @@ export default function Waitlist() {
 
       {/* Footer */}
       <div className="border-t border-gray-800 px-6 py-6 text-center text-xs text-gray-600">
-        © {new Date().getFullYear()} Conscious Capital · conscioussupplements.com
+        © {new Date().getFullYear()} Conscious Claims · conscioussupplements.com
       </div>
     </div>
   );
