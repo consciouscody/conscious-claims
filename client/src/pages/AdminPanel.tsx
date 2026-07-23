@@ -34,15 +34,7 @@ function AuditLeadsSection() {
             <Eye className="w-4 h-4 text-primary" />
             AI Visibility Audit Leads
           </CardTitle>
-          <a
-            href="/visibility-audit"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1 text-xs text-primary hover:underline"
-          >
-            <ExternalLink className="w-3 h-3" />
-            View public audit page
-          </a>
+
         </div>
       </CardHeader>
       <CardContent className="p-0">

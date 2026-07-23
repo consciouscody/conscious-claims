@@ -239,7 +239,7 @@ export default function FreeGuide() {
                   </p>
                   <Link href="/">
                     <Button variant="outline" className="border-orange-500/50 text-orange-400 hover:bg-orange-500/10">
-                      Try SupplementAI Free →
+                      Try Conscious Claims Free →
                     </Button>
                   </Link>
                 </div>
@@ -283,11 +283,11 @@ export default function FreeGuide() {
         <div className="max-w-3xl mx-auto px-6 text-center">
           <p className="text-white/40 text-sm font-semibold uppercase tracking-widest mb-4">About the Author</p>
           <h3 className="text-2xl font-black text-white mb-2">Cody Tyler McCain</h3>
-          <p className="text-orange-500 text-sm mb-6">Founder, Conscious Claims &amp; SupplementAI — Atlanta, Georgia</p>
+          <p className="text-orange-500 text-sm mb-6">Founder, Conscious Claims &amp; Conscious Claims — Atlanta, Georgia</p>
           <p className="text-white/60 leading-relaxed">
             Cody spent years in roofing insurance sales across the Southeast before building the tool he wished he'd
             had in the field. After watching contractor after contractor leave $3,000–$15,000 per job on the table,
-            he built SupplementAI to change that.
+            he built Conscious Claims to change that.
           </p>
           <blockquote className="mt-8 text-xl font-bold text-white/80 italic border-l-4 border-orange-500 pl-5 text-left">
             "Stop splitting your supplements. Own every outcome."
@@ -303,12 +303,12 @@ export default function FreeGuide() {
             <span className="text-orange-500">Now Let AI Handle the Supplements.</span>
           </h2>
           <p className="text-white/60 mb-8 leading-relaxed">
-            SupplementAI uploads your Xactimate PDF, identifies every missing line item, generates the supplement
+            Conscious Claims uploads your Xactimate PDF, identifies every missing line item, generates the supplement
             request, and drafts the adjuster email — in under 5 minutes.
           </p>
           <Link href="/">
             <Button className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-10 py-6 text-lg rounded-xl">
-              Try SupplementAI Free →
+              Try Conscious Claims Free →
             </Button>
           </Link>
         </div>

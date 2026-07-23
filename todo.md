@@ -193,9 +193,9 @@
 
 
 ## Audit Fixes (Phase 16 - CRITICAL)
-- [ ] Remove visibility audit page completely
-- [ ] Fix 404 errors on broken routes
-- [ ] Replace "CONSCIOUS CAPITAL" with "CONSCIOUS CLAIMS" everywhere
+- [x] Remove visibility audit page completely
+- [x] Fix 404 errors on broken routes (removed /visibility-audit)
+- [x] Replace "CONSCIOUS CAPITAL" with "CONSCIOUS CLAIMS" everywhere
 - [ ] Fix navigation links (Pricing, Free Guide, Affiliates, Sign In)
 - [ ] Fix "Get Started Free" and "Upload Your First Job" CTAs
 - [ ] Fix Free Guide form validation and submission
