@@ -201,8 +201,8 @@
 - [x] Fix Free Guide form validation and submission
 - [x] Remove Audit form (visibility audit removed completely)
 - [ ] Fix mobile responsiveness (375px, 768px viewports)
-- [ ] Fix pricing page math and consistency
-- [ ] Fix affiliates page commission math
+- [x] Fix pricing page math and consistency (verified all correct)
+- [x] Fix affiliates page commission math (verified 40% accurate)
 - [ ] Add/fix SEO meta tags on all pages
 - [ ] Fix console errors and performance issues
 - [ ] Test all forms end-to-end

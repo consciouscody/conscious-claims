@@ -272,8 +272,8 @@ export default function AffiliateDashboard() {
         <div className="grid md:grid-cols-3 gap-4 mb-8">
           {[
             { product: "Storm the Door Book", price: "$27", earn: "$10.80", type: "One-time" },
-            { product: "Conscious Claims Pro Monthly", price: "$97/mo", earn: "$38.80/mo", type: "Recurring" },
-            { product: "Conscious Claims Pro Annual", price: "$970/yr", earn: "$388/yr", type: "Recurring" },
+            { product: "Conscious Claims Pro Monthly", price: "$197/mo", earn: "$78.80/mo", type: "Recurring" },
+            { product: "Conscious Claims Pro Annual", price: "$1,908/yr", earn: "$763.20/yr", type: "Recurring" },
           ].map((item) => (
             <Card key={item.product} className="bg-gray-900 border-gray-800">
               <CardContent className="p-4">
