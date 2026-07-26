@@ -187,7 +187,7 @@ export const appRouter = router({
           status: z.enum([
             "draft",
             "estimate_uploaded",
-            "supplement_generated",
+            "dossier_generated",
             "email_drafted",
             "submitted",
             "approved",

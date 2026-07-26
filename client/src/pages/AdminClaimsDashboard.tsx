@@ -21,7 +21,7 @@ import { useLocation } from "wouter";
 type JobStatus =
   | "draft"
   | "estimate_uploaded"
-  | "supplement_generated"
+  | "dossier_generated"
   | "email_drafted"
   | "submitted"
   | "approved"
@@ -31,7 +31,7 @@ type JobStatus =
 const STATUS_CONFIG: Record<JobStatus, { label: string; color: string; icon: React.ReactNode }> = {
   draft: { label: "Draft", color: "bg-zinc-700 text-zinc-200", icon: <Clock className="w-3 h-3" /> },
   estimate_uploaded: { label: "Estimate Uploaded", color: "bg-blue-900 text-blue-200", icon: <Briefcase className="w-3 h-3" /> },
-  supplement_generated: { label: "Supplement Generated", color: "bg-indigo-900 text-indigo-200", icon: <CheckCircle2 className="w-3 h-3" /> },
+  dossier_generated: { label: "Dossier Generated", color: "bg-indigo-900 text-indigo-200", icon: <CheckCircle2 className="w-3 h-3" /> },
   email_drafted: { label: "Email Drafted", color: "bg-purple-900 text-purple-200", icon: <Mail className="w-3 h-3" /> },
   submitted: { label: "Submitted to Adjuster", color: "bg-amber-900 text-amber-200", icon: <Send className="w-3 h-3" /> },
   approved: { label: "Approved", color: "bg-green-900 text-green-200", icon: <CheckCircle2 className="w-3 h-3" /> },

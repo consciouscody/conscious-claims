@@ -17,7 +17,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 type JobStatus =
   | "draft"
   | "estimate_uploaded"
-  | "supplement_generated"
+  | "dossier_generated"
   | "email_drafted"
   | "submitted"
   | "approved"
@@ -31,9 +31,9 @@ const TIMELINE_STEPS: { status: JobStatus[]; label: string; desc: string }[] = [
     desc: "Your insurance estimate has been received and analyzed.",
   },
   {
-    status: ["supplement_generated"],
-    label: "Supplement Generated",
-    desc: "AI found missed line items and built your supplement report.",
+    status: ["dossier_generated"],
+    label: "Dossier Generated",
+    desc: "AI generated your forensic compliance blueprint and damage assessment.",
   },
   {
     status: ["email_drafted"],

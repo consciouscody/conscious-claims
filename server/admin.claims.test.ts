@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 
 describe("Admin claims feed", () => {
   it("STATUS_CONFIG covers all 8 job statuses", () => {
-    const statuses = ["draft", "estimate_uploaded", "supplement_generated", "email_drafted", "submitted", "approved", "denied", "paid"];
+    const statuses = ["draft", "estimate_uploaded", "dossier_generated", "email_drafted", "submitted", "approved", "denied", "paid"];
     expect(statuses).toHaveLength(8);
     statuses.forEach((s) => expect(typeof s).toBe("string"));
   });

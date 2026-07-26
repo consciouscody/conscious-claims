@@ -317,7 +317,7 @@ Keep the opening under 3 sentences. No corporate speak. No "I was wondering if..
   updateJobStatus: adminProcedure
     .input(z.object({
       jobId: z.number(),
-      status: z.enum(["draft", "estimate_uploaded", "supplement_generated", "email_drafted", "submitted", "approved", "denied", "paid"]),
+      status: z.enum(["draft", "estimate_uploaded", "dossier_generated", "email_drafted", "submitted", "approved", "denied", "paid"]),
       note: z.string().optional(),
     }))
     .mutation(async ({ input }) => {

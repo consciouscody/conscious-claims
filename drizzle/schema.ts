@@ -52,16 +52,27 @@ export const jobs = mysqlTable("jobs", {
   originalEstimateKey: text("originalEstimateKey"),
   originalEstimateAmount: decimal("originalEstimateAmount", { precision: 12, scale: 2 }),
   parsedLineItems: json("parsedLineItems"), // Array of {code, description, quantity, unit, amount}
-  // Supplement data
+  // Forensic Dossier data
+  rcvAmount: decimal("rcvAmount", { precision: 12, scale: 2 }), // Replacement Cost Value
+  depreciationAmount: decimal("depreciationAmount", { precision: 12, scale: 2 }),
+  acvAmount: decimal("acvAmount", { precision: 12, scale: 2 }), // Actual Cash Value
   supplementAmount: decimal("supplementAmount", { precision: 12, scale: 2 }),
   recoveredAmount: decimal("recoveredAmount", { precision: 12, scale: 2 }),
   feePercentage: decimal("feePercentage", { precision: 5, scale: 2 }).default("12.00"),
   feeAmount: decimal("feeAmount", { precision: 12, scale: 2 }),
+  // Dossier metadata
+  typeOfLoss: varchar("typeOfLoss", { length: 128 }), // Wind Damage, Hail, Water, etc.
+  roofArea: decimal("roofArea", { precision: 10, scale: 2 }), // in sq ft
+  roofPitch: varchar("roofPitch", { length: 32 }), // 4/12, 6/12, etc.
+  roofComplexity: varchar("roofComplexity", { length: 64 }), // Simple, Normal, Complex
+  dossierGeneratedAt: timestamp("dossierGeneratedAt"),
+  dossierPdfUrl: text("dossierPdfUrl"), // URL to generated PDF
   // Status
   status: mysqlEnum("status", [
     "draft",
     "estimate_uploaded",
-    "supplement_generated",
+    "dossier_generating",
+    "dossier_generated",
     "email_drafted",
     "submitted",
     "approved",
@@ -99,8 +110,8 @@ export const jobPhotos = mysqlTable("job_photos", {
 export type JobPhoto = typeof jobPhotos.$inferSelect;
 export type InsertJobPhoto = typeof jobPhotos.$inferInsert;
 
-// Supplement line items generated for a job
-export const supplementLineItems = mysqlTable("supplement_line_items", {
+// Forensic Dossier Line Items (cost breakdown by category)
+export const dossierLineItems = mysqlTable("dossier_line_items", {
   id: int("id").autoincrement().primaryKey(),
   jobId: int("jobId").notNull(),
   // Xactimate info
@@ -121,8 +132,13 @@ export const supplementLineItems = mysqlTable("supplement_line_items", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
-export type SupplementLineItem = typeof supplementLineItems.$inferSelect;
-export type InsertSupplementLineItem = typeof supplementLineItems.$inferInsert;
+export type DossierLineItem = typeof dossierLineItems.$inferSelect;
+export type InsertDossierLineItem = typeof dossierLineItems.$inferInsert;
+
+// For backwards compatibility
+export const supplementLineItems = dossierLineItems;
+export type SupplementLineItem = DossierLineItem;
+export type InsertSupplementLineItem = InsertDossierLineItem;
 
 // Adjuster email drafts
 export const adjusterEmails = mysqlTable("adjuster_emails", {
