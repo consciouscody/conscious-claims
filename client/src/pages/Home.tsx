@@ -21,35 +21,35 @@ import {
 } from "lucide-react";
 
 const FEATURES = [
-  { icon: FileText, title: "Xactimate PDF Analysis", desc: "Upload any Xactimate estimate and our engine automatically identifies every missing line item — starter shingles, drip edge, valley metal, pipe boots, and more." },
-  { icon: Camera, title: "AI Photo Analysis", desc: "Upload roof and water damage photos. AI identifies visual evidence and maps every finding to Xactimate codes automatically." },
-  { icon: Droplets, title: "Water Restoration Supplements", desc: "Full IICRC S500 scope analysis for water damage claims. AI finds missed drying equipment, demolition scope, antimicrobial treatments, and structural repairs adjusters leave off." },
-  { icon: Mail, title: "Smart Adjuster Emails", desc: "Generate professional, code-referenced supplement request emails in seconds. Each email cites IRC codes, IICRC standards, manufacturer requirements, and field conditions." },
-  { icon: TrendingUp, title: "Supplement Tracking", desc: "Track every claim from draft to paid. Know exactly which supplements are submitted, approved, denied, and how much has been recovered." },
-  { icon: DollarSign, title: "Fee Calculator", desc: "Automatically calculate your percentage-based fee on every recovered supplement. See your earnings per job and across your entire portfolio." },
-  { icon: Shield, title: "Code & Standards Database", desc: "Built-in reference library of IRC building codes, Xactimate line item codes, IICRC S500 water restoration standards, and manufacturer installation requirements." },
+  { icon: FileText, title: "Forensic Damage Assessment", desc: "AI-powered analysis of roof damage with building codes, waste factors, and compliance requirements. Every finding mapped to IRC standards and manufacturer specs." },
+  { icon: Camera, title: "Photo Analysis & Evidence", desc: "Upload damage photos. AI identifies structural defects, material failures, and compliance issues automatically." },
+  { icon: Droplets, title: "Water Intrusion Analysis", desc: "Full forensic scope analysis for water damage. AI identifies secondary damage, mitigation scope, and collateral failures adjusters miss." },
+  { icon: Mail, title: "Adjuster Dispute Letters", desc: "Generate pre-emptive, code-referenced dispute letters in seconds. Each letter cites IRC codes, manufacturer mandates, and forensic findings." },
+  { icon: TrendingUp, title: "Claim Tracking", desc: "Track every claim from dossier generation to approval. Know exactly which items are submitted, approved, denied, and total recovery." },
+  { icon: DollarSign, title: "Financial Resolution", desc: "Automatic RCV/ACV calculations, depreciation tracking, and net claim value. See your earnings per job and across your entire portfolio." },
+  { icon: Shield, title: "Compliance Database", desc: "Built-in reference library of IRC building codes, manufacturer warranty mandates, IICRC S500 standards, and forensic compliance requirements." },
 ];
 
 const COMMONLY_MISSED = [
-  { code: "RFG STRT", name: "Starter Shingles", trade: "roofing" },
-  { code: "RFG DRIP", name: "Drip Edge (Eaves & Rakes)", trade: "roofing" },
-  { code: "RFG VMTL", name: "Valley Metal", trade: "roofing" },
-  { code: "RFG STPFLSH", name: "Step Flashing", trade: "roofing" },
-  { code: "RFG FLPIPE", name: "Pipe Boot Flashings", trade: "roofing" },
-  { code: "RFG ICEWATER", name: "Ice & Water Shield", trade: "roofing" },
-  { code: "GUT D&R", name: "Gutter Detach & Reset", trade: "roofing" },
-  { code: "PERMIT", name: "Building Permit", trade: "roofing" },
-  { code: "WTR AMTRT", name: "Antimicrobial Treatment", trade: "water" },
-  { code: "WTR DEHU", name: "Dehumidifier Placement", trade: "water" },
-  { code: "WTR DEMO", name: "Drywall Demo & Haul Off", trade: "water" },
-  { code: "WTR SUBFLR", name: "Subfloor Removal", trade: "water" },
+  { code: "STRUCTURAL", name: "Structural Decking Deficiency", trade: "roofing" },
+  { code: "SHEATHING", name: "Sheathing Void & Nail Failure", trade: "roofing" },
+  { code: "UNDERLAYMENT", name: "Synthetic Underlayment", trade: "roofing" },
+  { code: "DRIP", name: "Drip Edge & Gutter Apron", trade: "roofing" },
+  { code: "STARTER", name: "Starter Strips", trade: "roofing" },
+  { code: "SHINGLES", name: "Architectural Field Shingles", trade: "roofing" },
+  { code: "VENTS", name: "Power Attic Vents", trade: "roofing" },
+  { code: "FLASHING", name: "Pipe Boot & Flashing", trade: "roofing" },
+  { code: "WATER_DEMO", name: "Water Damage Drywall Demo", trade: "water" },
+  { code: "WATER_MITIGATION", name: "Emergency Mitigation", trade: "water" },
+  { code: "WATER_DRYING", name: "Drying Equipment Placement", trade: "water" },
+  { code: "COLLATERAL", name: "Collateral Component Failures", trade: "water" },
 ];
 
 const STATS = [
-  { value: "$4,832", label: "Found on first job", highlight: true },
-  { value: "$3K–$15K", label: "Average per claim" },
-  { value: "< 5 min", label: "Upload to email draft" },
-  { value: "18+", label: "Missed items caught" },
+  { value: "$28,870", label: "Average claim recovery", highlight: true },
+  { value: "$3K–$114K", label: "Range per property" },
+  { value: "< 15 min", label: "Dossier generation" },
+  { value: "14", label: "Forensic sections" },
 ];
 
 export default function Home() {
@@ -137,12 +137,11 @@ export default function Home() {
                 YOU'RE SEEING IT EARLY — EARLY ACCESS OPEN
               </div>
               <h1 className="text-5xl lg:text-7xl font-black leading-none mb-4 text-white" style={{fontFamily:"'Barlow Condensed', sans-serif"}}>
-                STOP LEAVING
-                <span className="block" style={{color:'#f5c842'}}>$4,832</span>
-                ON THE TABLE.
+                FORENSIC DOSSIER
+                <span className="block" style={{color:'#f5c842'}}>& CLAIM AUTOMATION</span>
               </h1>
               <p className="text-lg text-gray-300 mb-8 max-w-lg leading-relaxed">
-                Upload your estimate and photos. AI finds every missed Xactimate line item, codes it, and writes the adjuster email — in under 5 minutes. No specialists. No splits. Full control.
+                Upload your estimate and photos. AI generates a complete forensic dossier with building codes, waste factors, and pre-emptive adjuster dispute letters — in under 15 minutes. No specialists. Full control. Get claims approved on first submission.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 mb-6">
                 <Button size="lg" className="btn-gold text-base px-8 py-6 text-lg" onClick={handleCTA}>
@@ -184,15 +183,15 @@ export default function Home() {
         <div className="container">
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold mb-4 border" style={{background:'rgba(245,200,66,0.08)', borderColor:'rgba(245,200,66,0.2)', color:'#f5c842'}}>HOW IT WORKS</div>
-            <h2 className="text-4xl lg:text-5xl font-black text-white mb-3" style={{fontFamily:"'Barlow Condensed', sans-serif"}}>FROM UPLOAD TO APPROVED IN MINUTES</h2>
-            <p className="text-gray-400 max-w-xl mx-auto">No learning curve. No specialist needed. Just upload and let the AI do the work.</p>
+            <h2 className="text-4xl lg:text-5xl font-black text-white mb-3" style={{fontFamily:"'Barlow Condensed', sans-serif"}}>FROM UPLOAD TO FORENSIC DOSSIER IN MINUTES</h2>
+            <p className="text-gray-400 max-w-xl mx-auto">No learning curve. No specialist needed. Upload and let AI generate your complete forensic compliance blueprint.</p>
           </div>
           <div className="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {[
-              { step: "01", title: "Create a Job", desc: "Enter the property address, claim number, and adjuster info.", icon: Building2 },
-              { step: "02", title: "Upload Estimate", desc: "Upload the Xactimate PDF. AI parses every line item automatically.", icon: FileText },
-              { step: "03", title: "Review Supplement", desc: "See every missing item with codes, quantities, and dollar amounts.", icon: CheckCircle },
-              { step: "04", title: "Send the Email", desc: "One-click professional adjuster email. Edit and send in seconds.", icon: Mail },
+              { step: "01", title: "Create a Claim", desc: "Enter property address, claim number, type of loss, and adjuster info.", icon: Building2 },
+              { step: "02", title: "Upload Evidence", desc: "Upload Xactimate PDF and damage photos. AI analyzes all evidence automatically.", icon: FileText },
+              { step: "03", title: "Generate Dossier", desc: "AI creates 14-section forensic dossier with codes, waste factors, and compliance.", icon: CheckCircle },
+              { step: "04", title: "Send Dispute Letter", desc: "One-click pre-emptive adjuster letter with forensic findings. Edit and send in seconds.", icon: Mail },
             ].map((s) => (
               <div key={s.step} className="rounded-2xl p-6" style={{background:'rgba(255,255,255,0.03)', border:'1px solid rgba(255,255,255,0.07)'}}>
                 <div className="text-5xl font-black mb-3" style={{fontFamily:"'Barlow Condensed', sans-serif", color:'rgba(245,200,66,0.2)'}}>{s.step}</div>
@@ -211,8 +210,8 @@ export default function Home() {
       <section className="py-16" style={{background:'#0a0e1a'}}>
         <div className="container">
           <div className="text-center mb-10">
-            <h2 className="text-3xl lg:text-4xl font-black text-white mb-3" style={{fontFamily:"'Barlow Condensed', sans-serif"}}>ITEMS ADJUSTERS ROUTINELY MISS</h2>
-            <p className="text-gray-400 max-w-xl mx-auto text-sm">Each one is real money your clients are owed. We catch all of them automatically.</p>
+            <h2 className="text-3xl lg:text-4xl font-black text-white mb-3" style={{fontFamily:"'Barlow Condensed', sans-serif"}}>FORENSIC COMPLIANCE ISSUES ADJUSTERS MISS</h2>
+            <p className="text-gray-400 max-w-xl mx-auto text-sm">Every structural defect, material failure, and code violation. We document all of them automatically.</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl mx-auto">
             {COMMONLY_MISSED.map((item) => (
@@ -233,7 +232,7 @@ export default function Home() {
         <div className="container">
           <div className="text-center mb-14">
             <h2 className="text-4xl lg:text-5xl font-black text-white mb-3" style={{fontFamily:"'Barlow Condensed', sans-serif"}}>EVERYTHING YOU NEED TO WIN</h2>
-            <p className="text-gray-400 max-w-xl mx-auto">Built by someone who has worked in roofing insurance sales. Every feature is designed around how the supplement process actually works.</p>
+            <p className="text-gray-400 max-w-xl mx-auto">Built by a contractor who fought insurance adjusters. Every feature is designed around forensic compliance and claim approval strategy.</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {FEATURES.map((feature, i) => (

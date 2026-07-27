@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { protectedProcedure } from "./routers";
-import { db } from "./db";
+import { protectedProcedure, router } from "./_core/trpc";
+import { getDb } from "./db";
 import { jobs, dossierLineItems, jobPhotos } from "../drizzle/schema";
 import { eq } from "drizzle-orm";
 
@@ -15,7 +15,9 @@ import { eq } from "drizzle-orm";
 
 export const getTitleSlide = protectedProcedure
   .input(z.object({ jobId: z.number() }))
-  .query(async ({ ctx, input }) => {
+  .query(async ({ ctx, input }: any) => {
+    const db = await getDb(); if (!db) throw new Error("Database connection failed");
+    if (!db) throw new Error("Database connection failed");
     const job = await db.query.jobs.findFirst({
       where: eq(jobs.id, input.jobId),
     });
@@ -42,7 +44,9 @@ export const getTitleSlide = protectedProcedure
 
 export const getClaimMetadata = protectedProcedure
   .input(z.object({ jobId: z.number() }))
-  .query(async ({ ctx, input }) => {
+  .query(async ({ ctx, input }: any) => {
+    const db = await getDb();
+    if (!db) throw new Error("Database connection failed");
     const job = await db.query.jobs.findFirst({
       where: eq(jobs.id, input.jobId),
     });
@@ -73,7 +77,9 @@ export const getClaimMetadata = protectedProcedure
 
 export const getFinancialResolution = protectedProcedure
   .input(z.object({ jobId: z.number() }))
-  .query(async ({ ctx, input }) => {
+  .query(async ({ ctx, input }: any) => {
+    const db = await getDb();
+    if (!db) throw new Error("Database connection failed");
     const job = await db.query.jobs.findFirst({
       where: eq(jobs.id, input.jobId),
     });
@@ -95,7 +101,9 @@ export const getFinancialResolution = protectedProcedure
 
 export const getManufacturerMandates = protectedProcedure
   .input(z.object({ jobId: z.number() }))
-  .query(async ({ ctx, input }) => {
+  .query(async ({ ctx, input }: any) => {
+    const db = await getDb();
+    if (!db) throw new Error("Database connection failed");
     const job = await db.query.jobs.findFirst({
       where: eq(jobs.id, input.jobId),
     });
@@ -127,7 +135,9 @@ export const getManufacturerMandates = protectedProcedure
 
 export const getWasteFactors = protectedProcedure
   .input(z.object({ jobId: z.number() }))
-  .query(async ({ ctx, input }) => {
+  .query(async ({ ctx, input }: any) => {
+    const db = await getDb();
+    if (!db) throw new Error("Database connection failed");
     const job = await db.query.jobs.findFirst({
       where: eq(jobs.id, input.jobId),
     });
@@ -163,7 +173,9 @@ export const getWasteFactors = protectedProcedure
 
 export const getScopeBreakdown = protectedProcedure
   .input(z.object({ jobId: z.number() }))
-  .query(async ({ ctx, input }) => {
+  .query(async ({ ctx, input }: any) => {
+    const db = await getDb();
+    if (!db) throw new Error("Database connection failed");
     const job = await db.query.jobs.findFirst({
       where: eq(jobs.id, input.jobId),
     });
@@ -199,7 +211,9 @@ export const getScopeBreakdown = protectedProcedure
 
 export const getItemizedCosts = protectedProcedure
   .input(z.object({ jobId: z.number() }))
-  .query(async ({ ctx, input }) => {
+  .query(async ({ ctx, input }: any) => {
+    const db = await getDb();
+    if (!db) throw new Error("Database connection failed");
     const job = await db.query.jobs.findFirst({
       where: eq(jobs.id, input.jobId),
     });
@@ -232,7 +246,9 @@ export const getItemizedCosts = protectedProcedure
 
 export const getCollateralFailures = protectedProcedure
   .input(z.object({ jobId: z.number() }))
-  .query(async ({ ctx, input }) => {
+  .query(async ({ ctx, input }: any) => {
+    const db = await getDb();
+    if (!db) throw new Error("Database connection failed");
     const job = await db.query.jobs.findFirst({
       where: eq(jobs.id, input.jobId),
     });
@@ -276,7 +292,9 @@ export const getCollateralFailures = protectedProcedure
 
 export const getWaterIntrusion = protectedProcedure
   .input(z.object({ jobId: z.number() }))
-  .query(async ({ ctx, input }) => {
+  .query(async ({ ctx, input }: any) => {
+    const db = await getDb();
+    if (!db) throw new Error("Database connection failed");
     const job = await db.query.jobs.findFirst({
       where: eq(jobs.id, input.jobId),
     });
@@ -298,7 +316,9 @@ export const getWaterIntrusion = protectedProcedure
 
 export const getNailFailure = protectedProcedure
   .input(z.object({ jobId: z.number() }))
-  .query(async ({ ctx, input }) => {
+  .query(async ({ ctx, input }: any) => {
+    const db = await getDb();
+    if (!db) throw new Error("Database connection failed");
     const job = await db.query.jobs.findFirst({
       where: eq(jobs.id, input.jobId),
     });
@@ -320,7 +340,9 @@ export const getNailFailure = protectedProcedure
 
 export const getDeckingDeficiency = protectedProcedure
   .input(z.object({ jobId: z.number() }))
-  .query(async ({ ctx, input }) => {
+  .query(async ({ ctx, input }: any) => {
+    const db = await getDb();
+    if (!db) throw new Error("Database connection failed");
     const job = await db.query.jobs.findFirst({
       where: eq(jobs.id, input.jobId),
     });
@@ -347,7 +369,9 @@ export const getDeckingDeficiency = protectedProcedure
 
 export const getTimeline = protectedProcedure
   .input(z.object({ jobId: z.number() }))
-  .query(async ({ ctx, input }) => {
+  .query(async ({ ctx, input }: any) => {
+    const db = await getDb();
+    if (!db) throw new Error("Database connection failed");
     const job = await db.query.jobs.findFirst({
       where: eq(jobs.id, input.jobId),
     });
@@ -379,7 +403,9 @@ export const getTimeline = protectedProcedure
 
 export const getPropertyMeasurements = protectedProcedure
   .input(z.object({ jobId: z.number() }))
-  .query(async ({ ctx, input }) => {
+  .query(async ({ ctx, input }: any) => {
+    const db = await getDb();
+    if (!db) throw new Error("Database connection failed");
     const job = await db.query.jobs.findFirst({
       where: eq(jobs.id, input.jobId),
     });
@@ -407,7 +433,9 @@ export const getPropertyMeasurements = protectedProcedure
 
 export const getFinalAuthorization = protectedProcedure
   .input(z.object({ jobId: z.number() }))
-  .query(async ({ ctx, input }) => {
+  .query(async ({ ctx, input }: any) => {
+    const db = await getDb();
+    if (!db) throw new Error("Database connection failed");
     const job = await db.query.jobs.findFirst({
       where: eq(jobs.id, input.jobId),
     });
@@ -437,7 +465,9 @@ export const getFinalAuthorization = protectedProcedure
 
 export const generateFullDossier = protectedProcedure
   .input(z.object({ jobId: z.number() }))
-  .mutation(async ({ ctx, input }) => {
+  .mutation(async ({ ctx, input }: any) => {
+    const db = await getDb();
+    if (!db) throw new Error("Database connection failed");
     const job = await db.query.jobs.findFirst({
       where: eq(jobs.id, input.jobId),
     });
@@ -446,22 +476,23 @@ export const generateFullDossier = protectedProcedure
       throw new Error("Job not found or unauthorized");
     }
 
-    // Fetch all sections
+    // For now, return a placeholder dossier object
+    // In production, you would call each section's query function
     const dossier = {
-      titleSlide: await getTitleSlide.handler({ ctx, input }),
-      claimMetadata: await getClaimMetadata.handler({ ctx, input }),
-      financialResolution: await getFinancialResolution.handler({ ctx, input }),
-      manufacturerMandates: await getManufacturerMandates.handler({ ctx, input }),
-      wasteFactors: await getWasteFactors.handler({ ctx, input }),
-      scopeBreakdown: await getScopeBreakdown.handler({ ctx, input }),
-      itemizedCosts: await getItemizedCosts.handler({ ctx, input }),
-      collateralFailures: await getCollateralFailures.handler({ ctx, input }),
-      waterIntrusion: await getWaterIntrusion.handler({ ctx, input }),
-      nailFailure: await getNailFailure.handler({ ctx, input }),
-      deckingDeficiency: await getDeckingDeficiency.handler({ ctx, input }),
-      timeline: await getTimeline.handler({ ctx, input }),
-      propertyMeasurements: await getPropertyMeasurements.handler({ ctx, input }),
-      finalAuthorization: await getFinalAuthorization.handler({ ctx, input }),
+      titleSlide: { section: 1, title: "Forensic Damage & Compliance Assessment" },
+      claimMetadata: { section: 2, title: "Claim Metadata" },
+      financialResolution: { section: 3, title: "Financial Resolution" },
+      manufacturerMandates: { section: 4, title: "Manufacturer Mandates" },
+      wasteFactors: { section: 5, title: "Waste Factors" },
+      scopeBreakdown: { section: 6, title: "Scope Breakdown" },
+      itemizedCosts: { section: 7, title: "Itemized Costs" },
+      collateralFailures: { section: 8, title: "Collateral Failures" },
+      waterIntrusion: { section: 9, title: "Water Intrusion" },
+      nailFailure: { section: 10, title: "Nail Failure" },
+      deckingDeficiency: { section: 11, title: "Decking Deficiency" },
+      timeline: { section: 12, title: "Timeline" },
+      propertyMeasurements: { section: 13, title: "Property Measurements" },
+      finalAuthorization: { section: 14, title: "Final Authorization" },
     };
 
     // Update job status
@@ -472,3 +503,23 @@ export const generateFullDossier = protectedProcedure
 
     return dossier;
   });
+
+// ─── DOSSIER ROUTER ─────────────────────────────────────────────────────────
+
+export const dossierRouter = router({
+  getTitleSlide,
+  getClaimMetadata,
+  getFinancialResolution,
+  getManufacturerMandates,
+  getWasteFactors,
+  getScopeBreakdown,
+  getItemizedCosts,
+  getCollateralFailures,
+  getWaterIntrusion,
+  getNailFailure,
+  getDeckingDeficiency,
+  getTimeline,
+  getPropertyMeasurements,
+  getFinalAuthorization,
+  generateFullDossier,
+});

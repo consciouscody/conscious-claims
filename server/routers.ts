@@ -37,6 +37,10 @@ import { auditRouter } from "./routers/audit";
 import { linkedinRouter, waitlistRouter } from "./routers/linkedin";
 import { adminRouter } from "./routers/admin";
 import { visibilityRouter } from "./routers/visibility";
+import { smsRouter } from "./routers/sms";
+import { stormAlertsRouter } from "./routers/stormAlerts";
+import { referralsRouter } from "./routers/referrals";
+import { dossierRouter } from "./dossier";
 import { notifyOwner } from "./_core/notification";
 
 export const appRouter = router({
@@ -49,6 +53,10 @@ export const appRouter = router({
   waitlist: waitlistRouter,
   admin: adminRouter,
   visibility: visibilityRouter,
+  sms: smsRouter,
+  stormAlerts: stormAlertsRouter,
+  referrals: referralsRouter,
+  dossier: dossierRouter,
   auth: router({
     me: publicProcedure.query((opts) => opts.ctx.user),
     logout: publicProcedure.mutation(({ ctx }) => {

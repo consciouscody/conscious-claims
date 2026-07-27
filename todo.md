@@ -242,3 +242,72 @@
 - [ ] Set up Clay + Apollo integration for broken website detection
 - [ ] Build automated cold outreach workflow
 - [ ] Test automation end-to-end
+
+## Phase 21 - Apollo Integration & Daily Brief System (IN PROGRESS)
+- [ ] Connect Apollo API (iLgS27_kcOs66__W65otqQ)
+- [ ] Build daily brief system (automated lead list)
+- [ ] Build Apollo people search integration
+- [ ] Build Apollo contacts creation
+- [ ] Build Apollo email sequence tracking
+- [ ] Create daily email with warm leads
+- [ ] Build call tracking system
+- [ ] Build follow-up reminder system
+- [ ] Write Apollo integration tests
+
+## Phase 21 - SEO & Content Polish (PENDING USER INPUT)
+- [ ] Reduce meta keywords from 10 to 3-8 most focused keywords
+- [ ] Rewrite page title to 30-60 characters (currently 64)
+- [ ] Rewrite meta description to 50-160 characters (currently 163)
+- [ ] Add missing alt text to 1 image in hero section (CTA background image)
+- [ ] Define pricing strategy: per-job, monthly, tiered (AWAITING USER)
+- [ ] Update pricing page with new strategy
+- [ ] Final SEO audit and polish before major onboarding session
+
+## Phase 22 - SMS & Referral Automation (IN PROGRESS)
+- [x] Create SMS router with Twilio integration stubs
+- [x] Build SMS follow-up sequence after email
+- [x] Build SMS follow-up sequence after phone call
+- [x] Build SMS follow-up sequence after appointment booked
+- [x] Create SMS template customization in admin panel
+- [x] Build referral automation system
+- [x] Auto-request referral SMS after closed job
+- [x] Auto-request referral email after closed job
+- [ ] Track referral responses in database
+- [ ] Auto-follow-up on referrals (SMS + email)
+- [ ] Build referral analytics dashboard
+- [ ] Write SMS integration tests
+- [ ] Implement actual Twilio API calls
+- [ ] Add SMS logs table to database schema
+
+## Phase 23 - Storm Alert & Lead Generation System (IN PROGRESS)
+- [x] Create storm alerts router with OpenWeatherMap integration stubs
+- [x] Build storm detection system (hail, wind, severe weather)
+- [x] Build geographic targeting (identify affected areas)
+- [x] Auto-generate lead list when storm hits
+- [ ] Build storm alert dashboard (show affected areas, lead count)
+- [ ] Auto-trigger outreach sequences for storm leads
+- [ ] Build storm tracking history page
+- [ ] Create storm alert notification system
+- [ ] Write storm alert system tests
+- [ ] Implement actual OpenWeatherMap API calls
+- [ ] Add storm tracking table to database schema
+
+## Phase 24 - Meta & Google Ads Integration (IN PROGRESS)
+- [ ] Integrate Meta Ads API
+- [ ] Integrate Google Ads API
+- [ ] Build ad tracking system (which ad produced which lead)
+- [ ] Auto-log ad source in CRM
+- [ ] Build ROI calculator per ad
+- [ ] Build ads dashboard (spend, leads, ROI)
+- [ ] Create ad template library
+- [ ] Build ad performance analytics
+- [ ] Write ads integration tests
+
+## Phase 25 - Marketing Agency Partnership Features (IN PROGRESS)
+- [ ] Build white-label dashboard for agencies
+- [ ] Build agency commission tracking
+- [ ] Build agency client management
+- [ ] Build agency reporting dashboard
+- [ ] Create agency onboarding flow
+- [ ] Build agency API for custom integrations
+- [ ] Write agency integration tests

@@ -78,6 +78,13 @@
       "when": 1775262311232,
       "tag": "0010_petite_gorgon",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "5",
+      "when": 1785036501490,
+      "tag": "0011_steep_puff_adder",
+      "breakpoints": true
     }
   ]
 }
