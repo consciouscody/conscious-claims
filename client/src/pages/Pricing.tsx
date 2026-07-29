@@ -12,7 +12,7 @@ const PLANS = {
     {
       id: "starter",
       name: "Starter",
-      price: 97,
+      price: 297,
       period: "month",
       description: "For contractors just getting started with supplements.",
       features: [
@@ -31,7 +31,7 @@ const PLANS = {
     {
       id: "pro",
       name: "Pro",
-      price: 197,
+      price: 597,
       period: "month",
       description: "For active contractors running 10+ jobs a month.",
       features: [
@@ -51,7 +51,7 @@ const PLANS = {
     {
       id: "agency",
       name: "Agency",
-      price: 397,
+      price: 997,
       period: "month",
       description: "For roofing companies managing multiple crews and claims.",
       features: [
@@ -72,9 +72,9 @@ const PLANS = {
     {
       id: "starter",
       name: "Starter",
-      price: 79,
+      price: 239,
       period: "month",
-      billed: "billed annually ($948/yr)",
+      billed: "billed annually ($2,868/yr)",
       description: "For contractors just getting started with supplements.",
       features: [
         "Up to 10 jobs per month",
@@ -87,15 +87,15 @@ const PLANS = {
       ],
       cta: "Start Free Trial",
       highlight: false,
-      savings: "Save $216/yr",
+      savings: "Save $648/yr",
       priceId: "starter_annual",
     },
     {
       id: "pro",
       name: "Pro",
-      price: 159,
+      price: 479,
       period: "month",
-      billed: "billed annually ($1,908/yr)",
+      billed: "billed annually ($5,748/yr)",
       description: "For active contractors running 10+ jobs a month.",
       features: [
         "Unlimited jobs",
@@ -109,15 +109,15 @@ const PLANS = {
       cta: "Start Free Trial",
       highlight: true,
       badge: "Most Popular",
-      savings: "Save $456/yr",
+      savings: "Save $1,428/yr",
       priceId: "pro_annual",
     },
     {
       id: "agency",
       name: "Agency",
-      price: 319,
+      price: 799,
       period: "month",
-      billed: "billed annually ($3,828/yr)",
+      billed: "billed annually ($9,588/yr)",
       description: "For roofing companies managing multiple crews and claims.",
       features: [
         "Everything in Pro",
@@ -130,7 +130,7 @@ const PLANS = {
       ],
       cta: "Contact Us",
       highlight: false,
-      savings: "Save $936/yr",
+      savings: "Save $2,388/yr",
       priceId: "agency_annual",
     },
   ],
