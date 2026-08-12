@@ -1,0 +1,21 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Install dependencies
+COPY seo-agent-package.json package.json
+RUN npm install
+
+# Copy agent code
+COPY seo-agent.ts .
+
+# Compile TypeScript
+RUN npx tsc seo-agent.ts --outDir dist
+
+# Environment variables (set in Railway)
+ENV BUZZ_URL=wss://conscious-command.communities.buzz.xyz
+ENV HERMES_URL=http://hermes:3001
+ENV NODE_ENV=production
+
+# Start agent
+CMD ["node", "dist/seo-agent.js"]
