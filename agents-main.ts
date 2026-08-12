@@ -4,6 +4,9 @@
  * Deploys to Buzz automatically
  */
 
+import dotenv from "dotenv";
+dotenv.config();
+
 import BuzzConnector from "./buzz-connector.js";
 
 // Import agents
