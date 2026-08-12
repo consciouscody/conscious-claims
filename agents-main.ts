@@ -4,14 +4,14 @@
  * Deploys to Buzz automatically
  */
 
-import BuzzConnector from "./buzz-connector";
+import BuzzConnector from "./buzz-connector.js";
 
 // Import agents
-import SEOAgent from "./seo-agent";
-import BlueprintAgent from "./blueprint-agent";
-import WardenAgent from "./warden-agent";
-import CommandAgent from "./command-agent";
-import RelayAgent from "./relay-agent";
+import SEOAgent from "./seo-agent.js";
+import BlueprintAgent from "./blueprint-agent.js";
+import WardenAgent from "./warden-agent.js";
+import CommandAgent from "./command-agent.js";
+import RelayAgent from "./relay-agent.js";
 
 class AgentOrchestrator {
   private agents: any[] = [];

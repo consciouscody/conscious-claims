@@ -230,8 +230,3 @@ class SEOAgent extends EventEmitter {
 // Export for use
 export default SEOAgent;
 
-// Start if running directly
-if (require.main === module) {
-  const agent = new SEOAgent();
-  agent.start();
-}

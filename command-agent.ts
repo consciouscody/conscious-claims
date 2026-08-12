@@ -233,9 +233,3 @@ Cody's request: ${userMessage}`;
 // Export for use
 export default CommandAgent;
 
-// Example usage
-if (require.main === module) {
-  const command = new CommandAgent();
-  console.log(command.getStatusSummary());
-  console.log("\n" + command.getNextAction());
-}

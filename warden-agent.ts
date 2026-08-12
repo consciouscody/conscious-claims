@@ -217,15 +217,3 @@ Ready for John to copy to tracking sheet or team email.`;
 // Export for use
 export default WardenAgent;
 
-// Example usage
-if (require.main === module) {
-  const warden = new WardenAgent();
-
-  // Simulate field logging
-  warden.logLOTOCloseout("BR-001-MTR", "Building A, Row 3", "Building A", "John McCain", "de-energized", true, "Lead Tech");
-  warden.logEnergizationEvent("UPS-A1", "Building A, Room 101", 480, "John McCain");
-  warden.logLOTOCloseout("BR-002-MTR", "Building B, Row 1", "Building B", "Tech Davis", "energized", false);
-
-  console.log(warden.generateDailySummary());
-  console.log(warden.auditReadiness());
-}

@@ -195,8 +195,3 @@ ${this.modules.map((m) => `${m.id}. ${m.name}: ${m.status}`).join("\n")}`;
 // Export for use
 export default BlueprintAgent;
 
-// Run if direct invocation
-if (require.main === module) {
-  const blueprint = new BlueprintAgent();
-  console.log(blueprint.getStatus());
-}
