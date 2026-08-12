@@ -1,0 +1,20 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Install all dependencies
+COPY skool-agents-package.json package.json
+RUN npm install
+
+# Copy all agent code
+COPY blueprint-agent.ts warden-agent.ts command-agent.ts relay-agent.ts seo-agent.ts buzz-connector.ts agents-main.ts ./
+
+# Compile TypeScript
+RUN npx tsc *.ts --outDir dist
+
+# Environment (set in Railway)
+ENV BUZZ_URL=wss://conscious-command.communities.buzz.xyz
+ENV NODE_ENV=production
+
+# Start all agents
+CMD ["node", "dist/agents-main.js"]
