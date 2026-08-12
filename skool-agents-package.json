@@ -1,0 +1,24 @@
+{
+  "name": "skool-agents",
+  "version": "1.0.0",
+  "description": "SKOOL Agent System - Blueprint, Warden, Command, Relay coordination for Data Center Energy Control training",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch *.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test:blueprint": "tsx blueprint-agent.ts",
+    "test:warden": "tsx warden-agent.ts",
+    "test:command": "tsx command-agent.ts",
+    "test:relay": "tsx relay-agent.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.28.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "5.3.3",
+    "tsx": "^4.7.0"
+  }
+}
