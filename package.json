@@ -8,6 +8,8 @@
     "dev": "tsx watch *.ts",
     "build": "tsc",
     "start": "node dist/agents-main.js",
+    "bridge": "python3 claude-hermes-bridge.py",
+    "bridge:install": "pip install -r requirements.txt",
     "test:blueprint": "tsx blueprint-agent.ts",
     "test:warden": "tsx warden-agent.ts",
     "test:command": "tsx command-agent.ts",
