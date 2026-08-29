@@ -1,12 +1,9 @@
 import express from "express";
-import Stripe from "stripe";
+import type Stripe from "stripe";
 import { getDb } from "./db";
 import { jobs } from "../drizzle/schema";
 import { eq } from "drizzle-orm";
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
-  apiVersion: "2026-02-25.clover",
-});
+import { getStripe, isStripeConfigured } from "./stripeClient";
 
 export const stripeWebhookRouter = express.Router();
 
@@ -15,6 +12,10 @@ stripeWebhookRouter.post(
   "/api/stripe/webhook",
   express.raw({ type: "application/json" }),
   async (req, res) => {
+    if (!isStripeConfigured()) {
+      return res.status(503).send("Stripe is not configured");
+    }
+
     const sig = req.headers["stripe-signature"];
     const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
@@ -24,7 +25,7 @@ stripeWebhookRouter.post(
       if (!webhookSecret || !sig) {
         throw new Error("Missing webhook secret or signature");
       }
-      event = stripe.webhooks.constructEvent(req.body, sig, webhookSecret);
+      event = getStripe().webhooks.constructEvent(req.body, sig, webhookSecret);
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Unknown error";
       console.error(`[Webhook] Signature verification failed: ${message}`);

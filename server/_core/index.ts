@@ -14,6 +14,7 @@ import { crmWebhookRouter } from "../crmWebhook";
 import { getUploadDir, isRemoteStorageConfigured } from "../storage";
 import { isLocalAuthEnabled } from "./localAuth";
 import { isLlmConfigured } from "./llm";
+import { isStripeConfigured } from "../stripeClient";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -53,6 +54,7 @@ async function startServer() {
       auth: isLocalAuthEnabled() ? "local" : "oauth",
       llmConfigured: isLlmConfigured(),
       storage: isRemoteStorageConfigured() ? "remote" : "local",
+      stripeConfigured: isStripeConfigured(),
     });
   });
   // CRM webhook endpoint (receives jobs from Zapier / native CRM integrations)

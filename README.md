@@ -12,7 +12,7 @@ Discontinued plus storm damage is a strong full-roof fight. Carriers still want 
 - pnpm (`npm install -g pnpm` if you do not have it)
 - An OpenAI API key (or another key that works with the OpenAI chat API)
 
-Jobs, billing, and the dashboard need a MySQL database. You can skip that if you only want the shingle photo tool.
+Jobs and the dashboard need a MySQL database. Billing needs a Stripe key. You can skip both if you only want the shingle photo tool.
 
 ## Run it
 
