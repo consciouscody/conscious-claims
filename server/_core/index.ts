@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import { createServer } from "http";
 import net from "net";
+import path from "path";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./oauth";
 import { appRouter } from "../routers";
@@ -10,6 +11,9 @@ import { serveStatic, setupVite } from "./vite";
 import { uploadRouter } from "../uploadRouter";
 import { stripeWebhookRouter } from "../stripeWebhook";
 import { crmWebhookRouter } from "../crmWebhook";
+import { getUploadDir, isRemoteStorageConfigured } from "../storage";
+import { isLocalAuthEnabled } from "./localAuth";
+import { isLlmConfigured } from "./llm";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -42,6 +46,15 @@ async function startServer() {
   registerOAuthRoutes(app);
   // File upload endpoint
   app.use(uploadRouter);
+  app.use("/uploads", express.static(getUploadDir()));
+  app.get("/api/health", (_req, res) => {
+    res.json({
+      ok: true,
+      auth: isLocalAuthEnabled() ? "local" : "oauth",
+      llmConfigured: isLlmConfigured(),
+      storage: isRemoteStorageConfigured() ? "remote" : "local",
+    });
+  });
   // CRM webhook endpoint (receives jobs from Zapier / native CRM integrations)
   app.use(crmWebhookRouter);
   // tRPC API

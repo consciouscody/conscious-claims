@@ -15,5 +15,8 @@ export default defineConfig({
   test: {
     environment: "node",
     include: ["server/**/*.test.ts", "server/**/*.spec.ts"],
+    env: {
+      STRIPE_SECRET_KEY: "sk_test_not_configured",
+    },
   },
 });

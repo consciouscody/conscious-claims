@@ -209,14 +209,54 @@ const normalizeToolChoice = (
   return toolChoice;
 };
 
-const resolveApiUrl = () =>
-  ENV.forgeApiUrl && ENV.forgeApiUrl.trim().length > 0
-    ? `${ENV.forgeApiUrl.replace(/\/$/, "")}/v1/chat/completions`
-    : "https://forge.manus.im/v1/chat/completions";
+type LlmConfig = {
+  apiKey: string;
+  completionsUrl: string;
+  model: string;
+  geminiStyle: boolean;
+};
 
-const assertApiKey = () => {
-  if (!ENV.forgeApiKey) {
-    throw new Error("OPENAI_API_KEY is not configured");
+function isGeminiStyleUrl(url: string): boolean {
+  return /manus|forge|gemini|googleapis/i.test(url);
+}
+
+export function resolveLlmConfig(): LlmConfig {
+  const apiKey = ENV.openAiApiKey || ENV.forgeApiKey;
+  const explicitBase = ENV.openAiBaseUrl.replace(/\/$/, "");
+  const forgeBase = ENV.forgeApiUrl.replace(/\/$/, "");
+
+  let baseUrl: string;
+  if (explicitBase) {
+    baseUrl = explicitBase;
+  } else if (ENV.openAiApiKey && !forgeBase) {
+    baseUrl = "https://api.openai.com/v1";
+  } else if (forgeBase) {
+    baseUrl = forgeBase;
+  } else {
+    baseUrl = "https://api.openai.com/v1";
+  }
+
+  const geminiStyle = isGeminiStyleUrl(baseUrl);
+  const model =
+    ENV.openAiModel || (geminiStyle ? "gemini-2.5-flash" : "gpt-4o-mini");
+
+  return {
+    apiKey,
+    completionsUrl: `${baseUrl}/chat/completions`,
+    model,
+    geminiStyle,
+  };
+}
+
+export function isLlmConfigured(): boolean {
+  return Boolean(ENV.openAiApiKey || ENV.forgeApiKey);
+}
+
+const assertApiKey = (config: LlmConfig) => {
+  if (!config.apiKey) {
+    throw new Error(
+      "OPENAI_API_KEY is not set. Add it to your .env file so the app can identify shingles from photos."
+    );
   }
 };
 
@@ -266,7 +306,8 @@ const normalizeResponseFormat = ({
 };
 
 export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
-  assertApiKey();
+  const config = resolveLlmConfig();
+  assertApiKey(config);
 
   const {
     messages,
@@ -280,7 +321,7 @@ export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
   } = params;
 
   const payload: Record<string, unknown> = {
-    model: "gemini-2.5-flash",
+    model: config.model,
     messages: messages.map(normalizeMessage),
   };
 
@@ -296,9 +337,9 @@ export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
     payload.tool_choice = normalizedToolChoice;
   }
 
-  payload.max_tokens = 32768
-  payload.thinking = {
-    "budget_tokens": 128
+  payload.max_tokens = config.geminiStyle ? 32768 : 4096;
+  if (config.geminiStyle) {
+    payload.thinking = { budget_tokens: 128 };
   }
 
   const normalizedResponseFormat = normalizeResponseFormat({
@@ -312,11 +353,11 @@ export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
     payload.response_format = normalizedResponseFormat;
   }
 
-  const response = await fetch(resolveApiUrl(), {
+  const response = await fetch(config.completionsUrl, {
     method: "POST",
     headers: {
       "content-type": "application/json",
-      authorization: `Bearer ${ENV.forgeApiKey}`,
+      authorization: `Bearer ${config.apiKey}`,
     },
     body: JSON.stringify(payload),
   });
@@ -324,7 +365,7 @@ export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
   if (!response.ok) {
     const errorText = await response.text();
     throw new Error(
-      `LLM invoke failed: ${response.status} ${response.statusText} – ${errorText}`
+      `LLM invoke failed: ${response.status} ${response.statusText} - ${errorText}`
     );
   }
 

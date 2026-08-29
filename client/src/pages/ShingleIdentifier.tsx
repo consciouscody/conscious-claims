@@ -86,7 +86,7 @@ export default function ShingleIdentifier() {
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground">Shingle Identifier</h1>
           <p className="text-muted-foreground mt-1">
-            Upload a photo of any shingle — AI cross-references 192 products across 9 manufacturers to identify manufacturer, series, color, and whether it's discontinued (which triggers full replacement claims).
+            Upload a photo of a shingle. The app names the manufacturer, series, and color, and says if that product is discontinued. Discontinued plus storm damage is a strong full-roof fight. Carriers still want proof.
           </p>
         </div>
 
@@ -99,6 +99,7 @@ export default function ShingleIdentifier() {
                   ref={fileInputRef}
                   type="file"
                   accept="image/*"
+                  capture="environment"
                   className="hidden"
                   onChange={handleFileChange}
                 />

@@ -648,7 +648,7 @@ Your job is to analyze a photo of a roofing shingle and identify:
 3. The most likely color name
 4. Whether it is CURRENT or DISCONTINUED
 5. Key visual features that led to your identification
-6. Insurance implications (especially if discontinued — potential full roof replacement)
+6. Insurance implications. If discontinued, say that discontinued plus storm damage is a strong full-roof fight and that carriers still want proof. Do not say a carrier automatically approves a claim because a shingle is discontinued.
 
 CRITICAL VISUAL FINGERPRINTS — USE THESE FIRST BEFORE ANYTHING ELSE:
 
@@ -720,7 +720,7 @@ Respond in this exact JSON format:
   "dimensions": "13.25 x 40 inches",
   "visual_features_matched": ["White StrikeZone nailing lines", "Flared tab edges", "Blended shadow line", "LayerLock crimps visible"],
   "reasoning": "Detailed explanation of identification logic",
-  "insurance_implications": "Current product — standard replacement. Class 4 impact rating qualifies for insurance discounts.",
+  "insurance_implications": "Current product. Standard replacement if the color is still made. Class 4 impact rating can qualify for discounts in some states.",
   "alternative_matches": [
     {"manufacturer": "Owens Corning", "series": "Duration", "confidence": "LOW", "reason": "No SureNail fabric strip visible"}
   ]
