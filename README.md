@@ -37,15 +37,13 @@ If you skip the API key, the site still starts. Photo identify will tell you to 
 
 ## The exploding roof video
 
-The homepage hero is the same markup as before. It plays a muted looping clip at `/manus-storage/hf_20260428_133505_70ea8c27-4dd8-4d32-8571-09d7d35adbb4_80ba3562.mp4`.
+The homepage hero plays `/hero-exploding-house.mp4` (muted, looping, `object-cover` so the 720x1280 clip fills the wide hero).
 
-That file is not in this repo. Manus kept it outside git, and it is not in `.manus` either. Until you put the clip back, the hero still uses the same dark gold layout. The roof just will not play.
+The mp4 is not in this repo yet. Cody has the file. Drop it here, exact name:
 
-Drop the mp4 here, with this exact name:
+`client/public/hero-exploding-house.mp4`
 
-`client/public/manus-storage/hf_20260428_133505_70ea8c27-4dd8-4d32-8571-09d7d35adbb4_80ba3562.mp4`
-
-Then restart `pnpm dev`. Do not rename it.
+Then restart `pnpm dev`. Do not rename it. Do not swap in a different clip.
 
 ## Other commands
 
