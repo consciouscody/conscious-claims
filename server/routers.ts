@@ -30,6 +30,7 @@ import { eq, and, count } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
 import { getDb } from "./db";
 import { invokeLLM } from "./_core/llm";
+import { identifyShingle } from "./shingleIdentify";
 import { stripeRouter } from "./stripeRouter";
 import { crmRouter } from "./routers/crm";
 import { affiliateRouter } from "./routers/affiliate";
@@ -722,43 +723,8 @@ SUBJECT: [subject line]
   // ─── Shingle Identifier ─────────────────────────────────────────────────────
   shingle: router({
     identify: protectedProcedure
-      .input(z.object({ photoUrl: z.string().url() }))
-      .mutation(async ({ input }) => {
-        const { SHINGLE_DATABASE, SHINGLE_IDENTIFICATION_PROMPT } = await import("./shingleDatabase");
-        const allShingles = [
-          ...SHINGLE_DATABASE.current_shingles,
-          ...SHINGLE_DATABASE.discontinued_shingles,
-        ];
-        const dbSummary = allShingles.map((s) => ({
-          manufacturer: s.manufacturer,
-          series_name: s.series_name,
-          type: s.type,
-          colors: s.colors,
-          production_status: s.production_status,
-          visual_identifiers: s.visual_identifiers,
-          insurance_note: s.insurance_note,
-          discontinued_year: s.discontinued_year,
-        }));
-        const prompt = SHINGLE_IDENTIFICATION_PROMPT.replace("{{DATABASE}}", JSON.stringify(dbSummary, null, 0));
-        const response = await invokeLLM({
-          messages: [
-            { role: "system", content: prompt },
-            {
-              role: "user",
-              content: [
-                { type: "image_url", image_url: { url: input.photoUrl, detail: "high" } } as any,
-                { type: "text", text: "Please analyze this roofing shingle photo and identify the manufacturer, series, color, and production status. Cross-reference with the shingle database provided." },
-              ],
-            },
-          ],
-        });
-        const content = (response as any)?.choices?.[0]?.message?.content || "";
-        try {
-          const match = content.match(/\{[\s\S]*\}/);
-          if (match) return JSON.parse(match[0]);
-        } catch {}
-        return { identified: false, reasoning: content };
-      }),
+      .input(z.object({ photoUrl: z.string().min(1) }))
+      .mutation(async ({ input }) => identifyShingle(input.photoUrl)),
   }),
 
   // ─── Adjuster Dispute Letter Generator ─────────────────────────────────────

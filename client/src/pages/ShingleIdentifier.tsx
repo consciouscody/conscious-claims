@@ -35,6 +35,10 @@ export default function ShingleIdentifier() {
     },
     onError: (err) => {
       toast.error("Identification failed: " + err.message);
+      setResult({
+        identified: false,
+        reasoning: err.message,
+      });
     },
   });
 
@@ -86,7 +90,7 @@ export default function ShingleIdentifier() {
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground">Shingle Identifier</h1>
           <p className="text-muted-foreground mt-1">
-            Upload a photo of any shingle — AI cross-references 192 products across 9 manufacturers to identify manufacturer, series, color, and whether it's discontinued (which triggers full replacement claims).
+            Upload a photo of a shingle. The app names the manufacturer, series, and color, and says if that product is discontinued. Discontinued plus storm damage is a strong full-roof fight. Carriers still want proof.
           </p>
         </div>
 
@@ -99,6 +103,7 @@ export default function ShingleIdentifier() {
                   ref={fileInputRef}
                   type="file"
                   accept="image/*"
+                  capture="environment"
                   className="hidden"
                   onChange={handleFileChange}
                 />
@@ -126,6 +131,7 @@ export default function ShingleIdentifier() {
                   </div>
                 ) : (
                   <button
+                    type="button"
                     onClick={() => fileInputRef.current?.click()}
                     className="w-full border-2 border-dashed border-border rounded-lg p-10 flex flex-col items-center gap-3 hover:border-primary/60 hover:bg-primary/5 transition-colors cursor-pointer"
                   >
@@ -136,10 +142,10 @@ export default function ShingleIdentifier() {
                       <p className="font-semibold text-foreground">Upload Shingle Photo</p>
                       <p className="text-sm text-muted-foreground mt-1">JPEG, PNG, WEBP — up to 20MB</p>
                     </div>
-                    <Button size="sm" className="mt-1">
-                      <Upload className="w-4 h-4 mr-2" />
+                    <span className="mt-1 inline-flex items-center justify-center gap-2 h-8 px-3 rounded-md text-sm font-medium bg-primary text-primary-foreground">
+                      <Upload className="w-4 h-4" />
                       Choose Photo
-                    </Button>
+                    </span>
                   </button>
                 )}
 

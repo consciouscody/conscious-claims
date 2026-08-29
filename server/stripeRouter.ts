@@ -1,14 +1,10 @@
-import Stripe from "stripe";
 import { z } from "zod";
 import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import { getDb } from "./db";
 import { jobs, users } from "../drizzle/schema";
 import { eq } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
-  apiVersion: "2026-02-25.clover",
-});
+import { getStripe } from "./stripeClient";
 
 // Helper: get or create Stripe customer for a user
 async function getOrCreateStripeCustomer(userId: number, email: string | null, name: string | null) {
@@ -22,7 +18,7 @@ async function getOrCreateStripeCustomer(userId: number, email: string | null, n
     return user.stripeCustomerId;
   }
 
-  const customer = await stripe.customers.create({
+  const customer = await getStripe().customers.create({
     email: email || undefined,
     name: name || undefined,
     metadata: { userId: userId.toString() },
@@ -59,7 +55,7 @@ export const stripeRouter = router({
 
       const customerId = await getOrCreateStripeCustomer(ctx.user.id, ctx.user.email, ctx.user.name);
 
-      const session = await stripe.checkout.sessions.create({
+      const session = await getStripe().checkout.sessions.create({
         customer: customerId,
         payment_method_types: ["card"],
         line_items: [
@@ -127,11 +123,11 @@ export const stripeRouter = router({
 
       // Create or find a Stripe customer for the contractor
       let contractorCustomer: Stripe.Customer;
-      const existingCustomers = await stripe.customers.list({ email: input.contractorEmail, limit: 1 });
+      const existingCustomers = await getStripe().customers.list({ email: input.contractorEmail, limit: 1 });
       if (existingCustomers.data.length > 0) {
         contractorCustomer = existingCustomers.data[0];
       } else {
-        contractorCustomer = await stripe.customers.create({
+        contractorCustomer = await getStripe().customers.create({
           email: input.contractorEmail,
           name: input.contractorName || undefined,
           metadata: { type: "contractor", job_id: input.jobId.toString() },
@@ -139,7 +135,7 @@ export const stripeRouter = router({
       }
 
       // Create invoice item
-      await stripe.invoiceItems.create({
+      await getStripe().invoiceItems.create({
         customer: contractorCustomer.id,
         amount: feeInCents,
         currency: "usd",
@@ -147,7 +143,7 @@ export const stripeRouter = router({
       });
 
       // Create and finalize the invoice
-      const invoice = await stripe.invoices.create({
+      const invoice = await getStripe().invoices.create({
         customer: contractorCustomer.id,
         collection_method: "send_invoice",
         days_until_due: 7,
@@ -157,8 +153,8 @@ export const stripeRouter = router({
         },
       });
 
-      const finalizedInvoice = await stripe.invoices.finalizeInvoice(invoice.id);
-      await stripe.invoices.sendInvoice(finalizedInvoice.id);
+      const finalizedInvoice = await getStripe().invoices.finalizeInvoice(invoice.id);
+      await getStripe().invoices.sendInvoice(finalizedInvoice.id);
 
       // Save invoice ID and update payment status
       await db
@@ -196,7 +192,7 @@ export const stripeRouter = router({
       const plan = PLAN_PRICES[input.priceId];
       if (!plan) throw new TRPCError({ code: "BAD_REQUEST", message: "Invalid plan selected" });
 
-      const session = await stripe.checkout.sessions.create({
+      const session = await getStripe().checkout.sessions.create({
         customer: customerId,
         payment_method_types: ["card"],
         line_items: [
@@ -255,7 +251,7 @@ export const stripeRouter = router({
         customerOptions = { customer: customerId };
       }
 
-      const session = await stripe.checkout.sessions.create({
+      const session = await getStripe().checkout.sessions.create({
         ...customerOptions,
         payment_method_types: ["card"],
         line_items: [
@@ -295,7 +291,7 @@ export const stripeRouter = router({
     .query(async ({ ctx, input }) => {
       // Check Stripe for completed payments with this ebook_id in metadata
       try {
-        const sessions = await stripe.checkout.sessions.list({
+        const sessions = await getStripe().checkout.sessions.list({
           limit: 100,
         });
         const purchased = sessions.data.some(
@@ -314,7 +310,7 @@ export const stripeRouter = router({
   getEbookDownload: publicProcedure
     .input(z.object({ sessionId: z.string() }))
     .mutation(async ({ input }) => {
-      const session = await stripe.checkout.sessions.retrieve(input.sessionId);
+      const session = await getStripe().checkout.sessions.retrieve(input.sessionId);
       if (session.payment_status !== "paid") {
         throw new TRPCError({ code: "FORBIDDEN", message: "Payment not completed" });
       }

@@ -123,7 +123,8 @@ export default function Home() {
       <section className="relative overflow-hidden" style={{background:'linear-gradient(135deg, #0a0e1a 0%, #0f1629 40%, #141e3a 100%)'}}>
         <div className="absolute inset-0 opacity-25">
           <video autoPlay muted loop playsInline className="w-full h-full object-cover">
-            <source src="/manus-storage/hf_20260428_133505_70ea8c27-4dd8-4d32-8571-09d7d35adbb4_80ba3562.mp4" type="video/mp4" />
+            {/* Binary at client/public/hero-exploding-house.mp4 will be committed next. */}
+            <source src="/hero-exploding-house.mp4" type="video/mp4" />
           </video>
         </div>
         <div className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-15" style={{background:'radial-gradient(circle, #f5c842 0%, transparent 70%)', transform:'translate(30%, -30%)'}} />

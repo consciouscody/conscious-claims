@@ -19,7 +19,7 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { getLoginUrl } from "@/const";
+import { getLoginUrl, isOAuthConfigured } from "@/const";
 import { useIsMobile } from "@/hooks/useMobile";
 import { LayoutDashboard, LogOut, PanelLeft, Plus, Building2, BookOpen, Link2, Linkedin, Shield, Phone, CreditCard, CheckCircle2, Activity, Camera, Search, FileText } from "lucide-react";
 import OnboardingWizard from "./OnboardingWizard";
@@ -86,15 +86,21 @@ export default function DashboardLayout({
               Access your supplement dashboard and start recovering money on every claim.
             </p>
           </div>
-          <Button
-            onClick={() => {
-              window.location.href = getLoginUrl();
-            }}
-            size="lg"
-            className="w-full"
-          >
-            Sign in
-          </Button>
+          {isOAuthConfigured() ? (
+            <Button
+              onClick={() => {
+                window.location.href = getLoginUrl();
+              }}
+              size="lg"
+              className="w-full"
+            >
+              Sign in
+            </Button>
+          ) : (
+            <p className="text-sm text-muted-foreground text-center">
+              Local sign-in did not start. Restart with <code>pnpm dev</code> and leave OAUTH_SERVER_URL empty.
+            </p>
+          )}
         </div>
       </div>
     );

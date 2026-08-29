@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 import multer from "multer";
 import { storagePut } from "./storage";
 import { nanoid } from "nanoid";
-import { sdk } from "./_core/sdk";
+import { resolveRequestUser } from "./_core/localAuth";
 
 const upload = multer({
   storage: multer.memoryStorage(),
@@ -23,7 +23,7 @@ export const uploadRouter = Router();
 uploadRouter.post("/api/upload", upload.single("file"), async (req: Request, res: Response) => {
   try {
     // Verify auth
-    const user = await sdk.authenticateRequest(req).catch(() => null);
+    const user = await resolveRequestUser(req);
     if (!user) {
       res.status(401).json({ error: "Unauthorized" });
       return;
