@@ -35,6 +35,18 @@ Open [http://localhost:3000](http://localhost:3000). You are signed in as a loca
 
 If you skip the API key, the site still starts. Photo identify will tell you to add the key.
 
+## The exploding roof video
+
+The homepage hero is the same markup as before. It plays a muted looping clip at `/manus-storage/hf_20260428_133505_70ea8c27-4dd8-4d32-8571-09d7d35adbb4_80ba3562.mp4`.
+
+That file is not in this repo. Manus kept it outside git, and it is not in `.manus` either. Until you put the clip back, the hero still uses the same dark gold layout. The roof just will not play.
+
+Drop the mp4 here, with this exact name:
+
+`client/public/manus-storage/hf_20260428_133505_70ea8c27-4dd8-4d32-8571-09d7d35adbb4_80ba3562.mp4`
+
+Then restart `pnpm dev`. Do not rename it.
+
 ## Other commands
 
 ```bash
